@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./assets/styles.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <!DOCTYPE html>
+    <html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Comprehensive HTML Form</title>
+
+    </head>
+
+    <body>
+        <section id="formContainer">
+
+            <h1>CeviMed Call Registry</h1>
+
+            <form action="#" method="post">
+
+                <section id="flags">
+                    <select class="input" id="priority" name="priority">
+                        <option value="">Priority</option>
+                        <option value="high">High</option>
+                        <option value="medium">Medium</option>
+                        <option value="low">Low</option>
+                    </select>
+
+                    <select class="input" id="Type" name="Type">
+                        <option value="">Type of Call</option>
+                        <option value="Delivery">Delivery Follow Up</option>
+                        <option value="Warranty">Warranty Follow Up</option>
+                        <option value="onlinePurchase">Online Purchase</option>
+                        <option value="quoteRequest">Quote Request</option>
+                        <option value="grievance">Grievance</option>
+                        <option value="generalQuestions">General Question</option>
+                        <option value="error">Error</option>
+                    </select>
+                </section>
+
+                <section id="fields">
+
+                    <input type="text" name="cName" class="input" placeholder="Enter Customers Name">
+                    <aside>
+                        <div>
+                            <label for="text">Customer Name </label>
+                            <input class="input" type="text" name="cName" placeholder="Enter Customers Name">
+                            <label for="text">Order # </label>
+                            <input class="input" type="text" name="order" placeholder="Order # ">
+                            <label for="text">Invoice # </label>
+                            <input class="input" type="text" name="invoice" placeholder="Invoice # ">
+                        </div>
+                        <div>
+                            <label for="issue">Issue : </label>
+                            <textarea class="input" name="issue" rows="4"></textarea>
+                        </div>
+                    </aside>
+                    <aside>
+                        <div>
+                            <label for="notes">Call Notes : </label>
+                            <textarea class="input" name="notes" rows="4"></textarea>
+                        </div>
+                        <div>
+                            <label for="issue">Resolution or Verbal Agreement</label>
+                            <textarea class="input" name="issue" rows="4"></textarea>
+                        </div>
+
+                    </aside>
+
+                </section>
+
+                <hr>
+
+                <div>
+                    <label for="range">Customer Mood :</label>
+                    <input type="range" id="range" name="range" min="0" max="100">
+                </div>
+
+                <!-- Radio Buttons -->
+                <div>
+                    <label>Is issue Resolved ?</label>
+                    <label><input type="radio" name="resolved" value="yes">Yes</label>
+                    <label><input type="radio" name="resolved" value="no"> No</label>
+                    <label><input type="radio" name="resolved" value="option3"> Partially</label>
+                </div>
+                <hr>
+
+                <aside>
+
+                    <div>
+                        <label><input required type="checkbox" name="checkbox1" value="check1"> Issue was
+                            understood</label> <br>
+                        <label><input required type="checkbox" name="checkbox2" value="check2"> Solution was
+                            offered</label><br>
+                        <label><input required type="checkbox" name="checkbox3" value="check3"> Issue and solution have
+                            been documented</label>
+                    </div>
+                </aside>
+
+                <hr>
+                <!-- Multi-Select Dropdown -->
+                <aside>
+
+                    <div>
+                        <label for="status"> Order Status </label>
+                        <br>
+                        <select id="status" name="status" multiple>
+                            <option value="awaitingFulfilment">Awaiting fulfilment</option>
+                            <option value="awaitingShipment">Awaiting Shipment</option>
+                            <option value="shipped">Shipped</option>
+                            <option value="openWarranty ">Open Warranty </option>
+                            <option value="finished">Finished</option>
+                        </select>
+                    </div>
+
+                </aside>
+                <!-- File Input -->
+                <div>
+                    <label for="file">File Input:</label>
+                    <input type="file" id="file" name="file">
+                </div>
+
+                <!-- Submit Button -->
+                <div>
+                    <button type="submit">Submit</button>
+                </div>
+
+            </form>
+
+
+        </section>
+
+    </body>
+
+    </html>
+
+    <script src="./assets/script.js"></script>
+</body>
+
+</html>
