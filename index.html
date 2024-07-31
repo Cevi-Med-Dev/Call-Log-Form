@@ -8,124 +8,136 @@
     <title>Document</title>
 </head>
 
-    <body>
-        <section id="formContainer">
+<body>
+    <section id="formContainer">
 
-            <h1>CeviMed Call Registry</h1>
+        <h1>CeviMed Call Registry</h1>
 
-            <form action="#" method="post">
+        <form action="https://hooks.airtable.com/workflows/v1/genericWebhook/appi0FYLXUm0K6RqJ/wflJeWOC1frY12aRs/wtrw525FyOiBa1ZBZ" method="post" >
 
-                <section id="flags">
-                    <select class="input" id="priority" name="priority">
-                        <option value="">Priority</option>
-                        <option value="high">High</option>
-                        <option value="medium">Medium</option>
-                        <option value="low">Low</option>
-                    </select>
-
-                    <select class="input" id="Type" name="Type">
-                        <option value="">Type of Call</option>
-                        <option value="Delivery">Delivery Follow Up</option>
-                        <option value="Warranty">Warranty Follow Up</option>
-                        <option value="onlinePurchase">Online Purchase</option>
-                        <option value="quoteRequest">Quote Request</option>
-                        <option value="grievance">Grievance</option>
-                        <option value="generalQuestions">General Question</option>
-                        <option value="error">Error</option>
-                    </select>
-                </section>
-
-                <section id="fields">
-
-                    <input type="text" name="cName" class="input" placeholder="Enter Customers Name">
-                    <aside>
-                        <div>
-                            <label for="text">Customer Name </label>
-                            <input class="input" type="text" name="cName" placeholder="Enter Customers Name">
-                            <label for="text">Order # </label>
-                            <input class="input" type="text" name="order" placeholder="Order # ">
-                            <label for="text">Invoice # </label>
-                            <input class="input" type="text" name="invoice" placeholder="Invoice # ">
-                        </div>
-                        <div>
-                            <label for="issue">Issue : </label>
-                            <textarea class="input" name="issue" rows="4"></textarea>
-                        </div>
-                    </aside>
-                    <aside>
-                        <div>
-                            <label for="notes">Call Notes : </label>
-                            <textarea class="input" name="notes" rows="4"></textarea>
-                        </div>
-                        <div>
-                            <label for="issue">Resolution or Verbal Agreement</label>
-                            <textarea class="input" name="issue" rows="4"></textarea>
-                        </div>
-
-                    </aside>
-
-                </section>
-
-                <hr>
-
-                <div>
-                    <label for="range">Customer Mood :</label>
-                    <input type="range" id="range" name="range" min="0" max="100">
-                </div>
-
-                <!-- Radio Buttons -->
-                <div>
-                    <label>Is issue Resolved ?</label>
-                    <label><input type="radio" name="resolved" value="yes">Yes</label>
-                    <label><input type="radio" name="resolved" value="no"> No</label>
-                    <label><input type="radio" name="resolved" value="option3"> Partially</label>
-                </div>
-                <hr>
-
+            <section id="flags">
+                <select class="input" id="priority" name="priority">
+                    <option value="">Priority</option>
+                    <option value="high">High</option>
+                    <option value="medium">Medium</option>
+                    <option value="low">Low</option>
+                </select>
+                <!-- //depending on the type of the call the other options may guide to a diffrent resolution  -->
+                <select class="input" id="Type" name="Type">
+                    <option value="">Type of Call</option>
+                    <option value="suspicious">Suspicious Order Verification Call</option>
+                    <option value="delivery">Delivery</option>
+                    <option value="salesPurchase">Sales / Purchases</option>
+                    <option value="warranty">Warranty</option>
+                    <option value="onlinePurchase">Online Purchase</option>
+                    <option value="quoteRequest">Quote Request</option>
+                    <option value="grievance">Grievance</option>
+                    <option value="orderUpdate">Order Update</option>
+                    <option value="error">Error </option>
+                    <option value="generalQuestions">General Question</option>
+                </select>
+                <select class="input" id="status" name="status">
+                    <option value="">Order Status</option>
+                    <option value="awaitingFulfilment">Awaiting fulfilment</option>
+                    <option value="awaitingShipment">Awaiting Shipment</option>
+                    <option value="shipped">Shipped</option>
+                    <option value="openWarranty ">Open Warranty </option>
+                    <option value="outsideOfWarranty">Outside Of Warranty</option>
+                    <option value="cancelled">Cancelled</option>
+                    <option value="finished">Finished</option>
+                </select>
+            </section>
+<hr>
+            <section id="fields">
+                <label for="notes">Reason : </label>
+                <input type="text" name="reason" class="input" placeholder="Enter Reason for Call">
                 <aside>
-
                     <div>
-                        <label><input required type="checkbox" name="checkbox1" value="check1"> Issue was
-                            understood</label> <br>
-                        <label><input required type="checkbox" name="checkbox2" value="check2"> Solution was
-                            offered</label><br>
-                        <label><input required type="checkbox" name="checkbox3" value="check3"> Issue and solution have
-                            been documented</label>
+                        <label for="text">Caller Name </label>
+                        <input class="input" type="text" name="cName" placeholder="Enter Caller's Name">
+                        <label for="text">Order # </label>
+                        <input class="input" type="text" name="order" placeholder="Order # ">
+                        <label for="text">Invoice # </label>
+                        <input class="input" type="text" name="invoice" placeholder="Invoice # ">
+                    </div>
+                    <div>
+                        <label for="issue">Issue : </label>
+                        <textarea class="input" name="issue" rows="4"></textarea>
                     </div>
                 </aside>
-
-                <hr>
-                <!-- Multi-Select Dropdown -->
                 <aside>
-
                     <div>
-                        <label for="status"> Order Status </label>
-                        <br>
-                        <select id="status" name="status" multiple>
-                            <option value="awaitingFulfilment">Awaiting fulfilment</option>
-                            <option value="awaitingShipment">Awaiting Shipment</option>
-                            <option value="shipped">Shipped</option>
-                            <option value="openWarranty ">Open Warranty </option>
-                            <option value="finished">Finished</option>
-                        </select>
+                        <label for="notes">Call Notes : </label>
+                        <textarea class="input" name="notes" rows="4"></textarea>
+                    </div>
+                    <div>
+                        <label for="resolution">Resolution or Verbal Agreement</label>
+                        <textarea class="input" name="resolution" rows="4"></textarea>
                     </div>
 
                 </aside>
-                <!-- File Input -->
+            </section>
+            <hr>
+            <aside class="evidence">
                 <div>
-                    <label for="file">File Input:</label>
+                    <label class="evidenceBtn" for="file">Upload and Evidence</label>
                     <input type="file" id="file" name="file">
                 </div>
+                <!-- <div> -->
+<!-- 
+                    <label for="evidenceType"> Order evidenceType </label>
+                    <br>
+                    <select id="evidenceType" name="evidenceType">
+                        <option value="Video">Video</option>
+                        <option value="Images">Images </option>
+                        <option value="Audio">Audio</option>
+                        <option value="Screenshot">Screenshot</option>
+                    </select> -->
+                <!-- </div> -->
+            </aside>
 
-                <!-- Submit Button -->
+            <hr>
+
+            <div>
+                <label>Was issue Resolved ?</label>
+                <label><input type="radio" name="resolved" value="yes">Yes</label>
+                <label><input type="radio" name="resolved" value="no">Not Yet</label>
+                <label><input type="radio" name="resolved" value="option3"> Partially</label>
+            </div>
+       
+
+            <aside>
+
                 <div>
-                    <button type="submit">Submit</button>
+                    <label><input type="checkbox" name="requirement 1" value="understood"> Issue was
+                        understood</label> <br>
+                    <label><input type="checkbox" name="requirement 2" value="mitigated"> Solution was
+                        offered</label><br>
+                    <label><input type="checkbox" name="requirement 3" value="documented"> Issue and solution have been documented</label>
                 </div>
+            </aside>
 
-            </form>
+            <hr>
+
+            <div class="btnContainer">
+            
+               
+                    <Select class="input" name="issue" type="text" >
+                            <option value=""> Customer Service Agent</option>
+                            <option value="Natally">Natally</option>
+                            <option value="Gio">Gio</option>
+                            <option value="Albert">Albert</option>
+                            <option value="Stephany">Stephany</option>
+                            <option value="Simon">Simon</option>
+                            <option value="Robert">Robert</option>
+                    </Select>
+        
+                <button class="btn" type="submit"> Wrap Up Call </button>
+            </div>
+        </form>
 
 
-        </section>
+    </section>
 
     <script src="./assets/script.js"></script>
 </body>
