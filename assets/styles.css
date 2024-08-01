@@ -85,3 +85,6 @@ input[type="file"] {
     align-items: center;
     flex-direction: column;
 }
+::placeholder{
+    font-size: 10px;
+}

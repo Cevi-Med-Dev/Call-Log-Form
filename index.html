@@ -36,7 +36,7 @@
                     <option value="error">Error </option>
                     <option value="generalQuestions">General Question</option>
                 </select>
-                <select class="input" id="status" name="status">
+                <!-- <select class="input" id="status" name="status">
                     <option value="">Order Status</option>
                     <option value="awaitingFulfilment">Awaiting fulfilment</option>
                     <option value="awaitingShipment">Awaiting Shipment</option>
@@ -45,7 +45,7 @@
                     <option value="outsideOfWarranty">Outside Of Warranty</option>
                     <option value="cancelled">Cancelled</option>
                     <option value="finished">Finished</option>
-                </select>
+                </select> -->
             </section>
 <hr>
             <section id="fields">
@@ -53,16 +53,18 @@
                 <input type="text" name="reason" class="input" placeholder="Enter Reason for Call">
                 <aside>
                     <div>
-                        <label for="text">Caller Name </label>
-                        <input class="input" type="text" name="cName" placeholder="Enter Caller's Name">
-                        <label for="text">Phone # </label>
-                        <input class="input" type="text" name="phone" placeholder="Phone # ">
+                        <label for="text">Contact # </label>
+                        <input class="input" type="text" name="cPhone" placeholder="Phone # ">
+                        <label for="text">Contact @ </label>
+                        <input class="input" type="text" name="cEmail" placeholder="Enter Caller's Name">
                         <label for="text">Invoice # </label>
                         <input class="input" type="text" name="invoice" placeholder="Invoice # ">
                         <label for="text">Order # </label>
                         <input class="input" type="text" name="order" placeholder="Order # ">
                     </div>
                     <div>
+                        <label for="text">Caller Name </label>
+                        <input class="input" type="text" name="cName" placeholder="Enter Caller's Name">
                         <label for="issue">Issue : </label>
                         <textarea class="input" name="issue" rows="4"></textarea>
                     </div>
