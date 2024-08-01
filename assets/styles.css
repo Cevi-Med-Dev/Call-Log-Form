@@ -25,7 +25,20 @@ body{
     border: 2px solid #D9D9D9;
     margin-right: 10px;
 }
-
+select{
+    cursor: pointer;
+}
+input{
+    outline: none;
+    cursor: pointer;
+}
+textarea{
+    outline: none;
+}
+.input:focus{
+    border: 1px solid #07b30aa9;
+    
+}
 #fields {
     display: flex;
     flex-direction: column;
@@ -75,8 +88,11 @@ input[type="file"] {
     color: white;
 }
 .btn:hover{
-    background-color: #d61920ef;
+    background-color: white;
+    border: 2px solid #C40C11;
+    color: #C40C11;
     font-weight: bolder;
+    animation: bounce;
 }
 
 .btnContainer{
@@ -86,5 +102,5 @@ input[type="file"] {
     flex-direction: column;
 }
 ::placeholder{
-    font-size: 10px;
+    font-size: 12px;
 }
