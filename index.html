@@ -15,11 +15,11 @@
 <body>
     <section id="formContainer">
 
-        <h1>CeviMed Call Registry</h1>
+        <h1 class="animate__animated animate__bounceInDown">CeviMed Call Registry</h1>
 
         <form action="https://hooks.airtable.com/workflows/v1/genericWebhook/appi0FYLXUm0K6RqJ/wflJeWOC1frY12aRs/wtrw525FyOiBa1ZBZ" method="post" >
 
-            <section id="flags">
+            <section id="flags" class="animate__animated animate__bounceInLeft">
                 <select class="input" id="priority" name="priority">
                     <option value="">Priority</option>
                     <option value="high">High</option>
@@ -54,23 +54,23 @@
 <hr>
             <section id="fields">
                 <label for="notes">Reason : </label>
-                <input type="text" name="reason" class="input" placeholder="Enter Reason for Call">
+                <input  class="animate__animated animate__bounceInLeft input" type="text" name="reason"placeholder="Enter Reason for Call">
                 <aside>
                     <div>
                         <label for="text">Contact # </label>
-                        <input class="input" type="text" name="cPhone" placeholder="Phone # ">
+                        <input  class="animate__animated animate__bounceInLeft input" type="text" name="cPhone" placeholder="Phone # ">
                         <label for="text">Contact @ </label>
-                        <input class="input" type="text" name="cEmail" placeholder="Enter Caller's Name">
+                        <input  class="animate__animated animate__bounceInLeft input" type="text" name="cEmail" placeholder="Enter Caller's Name">
                         <label for="text">Invoice # </label>
-                        <input class="input" type="text" name="invoice" placeholder="Invoice # ">
+                        <input  class="animate__animated animate__bounceInLeft input" type="text" name="invoice" placeholder="Invoice # ">
                         <label for="text">Order # </label>
-                        <input class="input" type="text" name="order" placeholder="Order # ">
+                        <input  class="animate__animated animate__bounceInLeft input" type="text" name="order" placeholder="Order # ">
                     </div>
                     <div>
                         <label for="text">Caller Name </label>
-                        <input class="input" type="text" name="cName" placeholder="Enter Caller's Name">
+                        <input class="input animate__animated animate__bounceInRight" type="text" name="cName" placeholder="Enter Caller's Name">
                         <label for="issue">Issue : </label>
-                        <textarea class="input" name="issue" rows="4"></textarea>
+                        <textarea class="input animate__animated animate__bounceInRight" name="issue" rows="4"></textarea>
                     </div>
                 </aside>
                 <aside>
@@ -140,7 +140,7 @@
                             <option value="Robert">Robert</option>
                     </Select>
         
-                <button class="btn" type="submit"> Wrap Up Call </button>
+                <button class="btn animate__animated animate__bounce animate__delay-2s" type="submit"> Wrap Up Call </button>
             </div>
         </form>
 
