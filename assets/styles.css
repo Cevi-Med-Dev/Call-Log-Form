@@ -89,11 +89,16 @@ input[type="file"] {
 }
 .btn:hover{
     background-color: white;
-    border: 2px solid #C40C11;
+    border: 1px solid #C40C11;
     color: #C40C11;
     font-weight: bolder;
-    animation: bounce;
+    animation: alternate;
 }
+select:hover{
+    border: 1px solid #07b30aa9;
+
+}
+
 
 .btnContainer{
     display: flex;
