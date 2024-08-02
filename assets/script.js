@@ -1,6 +1,8 @@
-var dataObject = {}
-let form = document.querySelector('#formContainer form')
-let postDataa = async (url, data) => {
+var call_form_ = document.querySelector('#formContainer form');
+var call_formData = new FormData(call_form_);
+var call_params = '';
+
+let call_trigger = async (url, data) => {
     const response = await fetch(url, {
       method: "POST",
       cache: "no-cache",
@@ -13,19 +15,17 @@ let postDataa = async (url, data) => {
 
     return response; // parses JSON response into native JavaScript objects
 }
-
-
-form.addEventListener('submit',(e)=>{
+call_form_.addEventListener('submit', (e) => {
     e.preventDefault()
-    const dataObject = new FormData(form);
+    //send data to Airtable
+        for (var [key, value] of call_formData.entries()) { 
+          call_params += `${key}=${document.querySelector('*[name=' + key + '] ').value}&`;
+}
+
     // dataObject = Object.fromEntries(fn)
-    console.log("this is the data retreived", dataObject)
-    postDataa("https://hooks.airtable.com/workflows/v1/genericWebhook/appi0FYLXUm0K6RqJ/wflJeWOC1frY12aRs/wtrw525FyOiBa1ZBZ",  dataObject).then((dataa) => {
-        console.log(dataa)
+    console.log("this is the data retreived", call_params)
+    call_trigger("https://hooks.airtable.com/workflows/v1/genericWebhook/appi0FYLXUm0K6RqJ/wflJeWOC1frY12aRs/wtrw525FyOiBa1ZBZ",  call_params).then(data => {
+        console.log(data)
     });
- 
+ window.location.reload()
 })
-
-
-//send data to Airtable
-
