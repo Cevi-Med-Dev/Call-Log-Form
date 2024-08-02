@@ -27,5 +27,5 @@ call_form_.addEventListener('submit', (e) => {
     call_trigger("https://hooks.airtable.com/workflows/v1/genericWebhook/appi0FYLXUm0K6RqJ/wflJeWOC1frY12aRs/wtrw525FyOiBa1ZBZ",  call_params).then(data => {
         console.log(data)
     });
- window.location.reload()
+    call_form_.reset();
 })
