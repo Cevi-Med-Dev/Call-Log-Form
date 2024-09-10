@@ -3,6 +3,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
 h1 {
@@ -32,7 +33,9 @@ h1 {
     margin-right: 10px;
     border: 2px solid white;
 }
-div.input, aside.input{
+
+div.input,
+aside.input {
     border: 2px solid white;
     background-color: rgba(255, 255, 255, 0.664);
 }
@@ -95,6 +98,9 @@ input[type="file"] {
 
 #formContainer hr {
     margin: 15px 0;
+    z-index: 2;
+    color: white;
+    width: 100%;
 }
 
 #formContainer label {
@@ -104,9 +110,11 @@ input[type="file"] {
     color: white;
     font-weight: bold;
 }
-label.blackTxt{
-   color: black !important;
+
+label.blackTxt {
+    color: black !important;
 }
+
 #assigneeContainer select {
     width: 100%;
     text-align: center;
@@ -138,9 +146,9 @@ aside div {
     height: 125px;
 }
 
-img#logo{
+img#logo {
     position: fixed;
-    width: 100px;
+    width: 157px;
     top: 0;
     left: 0;
     height: auto;
@@ -182,7 +190,9 @@ select:hover {
 ::placeholder {
     font-size: 12px;
 }
-footer{
+
+footer {
     z-index: 1;
     color: white;
+
 }
