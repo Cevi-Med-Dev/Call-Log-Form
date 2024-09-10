@@ -14,8 +14,12 @@ h1 {
     align-items: center;
 }
 #titleLogo{
-    width: 50px;
+    position: absolute;
+    z-index: 1;
+    width: 200px;
     height: auto;
+    right: 0;
+    top: 0;
  }
 #formContainer {
     height: 100%;
