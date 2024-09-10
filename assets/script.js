@@ -22,16 +22,19 @@ document.querySelectorAll("input[type=checkbox]").forEach((checkBox) => {
     call_formData.append(`${checkBox.name}`, `${checkBox.value}`);
 });
 
+document.querySelector(".assigneeChkBx").addEventListener("click",({target})=>{
+  document.getElementById("assigneeContainer").classList.toggle("hide")
+  
+})
 call_form_.addEventListener("submit", (e) => {
   e.preventDefault();
-  //send data to Airtable
   for (var [key, value] of call_formData.entries()) {
-    call_params += `${key}=${
-      document.querySelector("*[name=" + key + "] ").value
-    }&`;
+    if(key === "assignee"){
+      console.log("new value",document.querySelector("#assigneeContainer select").value)
+      call_params += `${key}=${document.querySelector("#assigneeContainer select").value}&`
+    }
+    call_params += `${key}=${document.querySelector("*[name=" + key + "] ").value}&`;
   }
-
-  // dataObject = Object.fromEntries(fn)
   console.log("this is the data retreived", call_params);
   call_trigger(
     "https://hooks.airtable.com/workflows/v1/genericWebhook/appi0FYLXUm0K6RqJ/wflJeWOC1frY12aRs/wtrw525FyOiBa1ZBZ",

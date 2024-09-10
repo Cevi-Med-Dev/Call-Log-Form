@@ -49,11 +49,12 @@
                     <option value="finished">Finished</option>
                 </select> -->
             </section>
-            <hr>
+      
             <section id="fields">
                 <label for="notes">Reason : </label>
                 <input class="animate__animated animate__bounceInLeft input" type="text" name="reason"
                     placeholder="Enter Reason for Call">
+                    <hr>
                 <aside>
                     <div>
                         <label for="text">Contact # </label>
@@ -109,33 +110,36 @@
                 <label><input type="radio" name="resolved" value="no">Not Yet</label>
                 <label><input type="radio" name="resolved" value="option3"> Partially</label>
             </div>
-<br>
-
+            <br>
+            
             <aside class="input animate__animated animate__bounceInLeft">
-                <div>
-                    <label><input type="checkbox" name="requirement 1" value="understood"> Issue was
-                        understood</label> <br>
-                    <label><input type="checkbox" name="requirement 2" value="mitigated"> Solution was
-                        offered</label><br>
-                    <label><input type="checkbox" name="requirement 3" value="documented"> Issue and solution have been
-                        documented</label>
+                <label><input class="assigneeChkBx" type="checkbox" name="assignee" value=""> This call is being assigned to a different agent </label><br>
+                <div class="hide splitH" id="assigneeContainer" >
+                    <Select class="input  animate__animated animate__bounceInRight" name="assignee" type="text">
+                        <option value="">Agent Assigned to This Issue</option>
+                        <option value="Stephany">Stephany</option>
+                        <option value="Robert">Robert</option>
+                        <option value="Albert">Albert</option>
+                        <option value="Gio">Gio</option>
+                        <option value="Natally">Natally</option>
+                        <option value="Simon">Simon</option>
+                    </Select>
                 </div>
             </aside>
-
             <hr>
-
             <div class="btnContainer">
                 <Select required class="input animate__animated animate__bounceInLeft" name="CSA" type="text">
                     <option value=""> Customer Service Agent</option>
-                    <option value="Natally">Natally</option>
                     <option value="Gio">Gio</option>
                     <option value="Albert">Albert</option>
-                    <option value="Stephany">Stephany</option>
+                    <option value="Stephany">Stephanie</option>
                     <option value="Simon">Simon</option>
-                    <option value="Robert">Robert</option>
+                    <option value="Robert">Robert</option>  
+                    <option value="Natally">Natally</option>
                 </Select>
                 <hr>
-                <button id="wrapUpCall" class="btn animate__animated animate__bounce animate" type="submit"> Wrap Up Call </button>
+                <button id="wrapUpCall" class="btn animate__animated animate__bounce animate" type="submit"> Wrap Up
+                    Call </button>
             </div>
 
         </form>
