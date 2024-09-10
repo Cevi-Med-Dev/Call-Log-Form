@@ -1,11 +1,16 @@
-body{
+body {
     box-sizing: border-box;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-#formContainer{
+h1 {
+    color: white;
+    font-size: 3vw;
+}
+
+#formContainer {
     height: 100%;
     display: flex;
     justify-content: center;
@@ -13,84 +18,120 @@ body{
     flex-direction: column;
     width: 80%;
 }
-#flags{
+
+#flags {
     display: flex;
     justify-content: center;
     margin: 10px;
 }
-.input{
+
+.input {
     padding: 5px 10px;
     border-radius: 5px;
     border: 1px solid #D9D9D9;
     margin-right: 10px;
 }
-.hide{
+
+.hide {
     display: none;
 }
-select{
+
+select {
     cursor: pointer;
 }
-input{
+
+input {
     outline: none;
     cursor: pointer;
 }
-textarea{
+
+textarea {
     outline: none;
 }
-.input:focus{
+
+.input:focus {
     border: 1px solid #07b30aa9;
-    
+
 }
+
 #fields {
     display: flex;
     flex-direction: column;
 }
-#fields aside{
+
+#fields aside {
     display: flex !important;
     justify-content: space-evenly;
-    
+
 }
-.evidence{
+
+.evidence {
     display: flex;
     justify-content: center;
     align-items: center;
 }
+
 input[type="file"] {
     display: none;
-  }
-  
-  .evidenceBtn{
+}
+
+.evidenceBtn {
     border-radius: 5px;
     border: 1px solid #ccc;
     padding: 6px 12px;
     cursor: pointer;
-  }
-#fields aside div{
+}
+
+#fields aside div {
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
-#formContainer hr{
+
+#formContainer hr {
     margin: 15px 0;
 }
-#formContainer label{
+
+#formContainer label {
     font-size: 16px;
     margin: 5px;
+    z-index: 1;
+    color: white;
+    font-weight: bold;
 }
 
-#assigneeContainer select{
+#assigneeContainer select {
     width: 100%;
     text-align: center;
 }
-aside div{
+
+aside div {
     margin: 5px 0;
     padding: 5px 0;
 }
 
-#formContainer textarea{
-   height: 125px;
+.leftColumn {
+    position: absolute;
+    top: 0;
+    background-color: #ad5d5f;
+    width: 60%;
+    height: max-content;
 }
-.btn{
+
+.leftColumn img {
+    background-repeat: repeat-y;
+    z-index: 0;
+    opacity: .6;
+    object-fit: fill;
+    inset: 0;
+    width: 100%;
+}
+
+#formContainer textarea {
+    height: 125px;
+}
+
+.btn {
     width: 80%;
     margin: 10px;
     border-radius: 15px;
@@ -100,25 +141,28 @@ aside div{
     background-color: #C40C11;
     color: white;
 }
-.btn:hover{
+
+.btn:hover {
     background-color: white;
     border: 1px solid #C40C11;
     color: #C40C11;
     font-weight: bolder;
     animation: alternate;
 }
-select:hover{
+
+select:hover {
     border: 1px solid #07b30aa9;
 
 }
 
 
-.btnContainer{
+.btnContainer {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
 }
-::placeholder{
+
+::placeholder {
     font-size: 12px;
 }
