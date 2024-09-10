@@ -15,8 +15,8 @@ h1 {
 }
 #titleLogo{
     position: absolute;
-    z-index: 1;
-    width: 200px;
+    width: 170px;
+    z-index: -1;
     height: auto;
     right: 0;
     top: 0;

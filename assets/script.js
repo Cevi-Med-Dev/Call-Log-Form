@@ -1,6 +1,14 @@
 var call_form_ = document.querySelector("#formContainer form");
 var call_formData = new FormData(call_form_);
 var call_params = "";
+emailObject = {
+  albert : "solutiona",
+  "Assigned to Stephanie" : "care",
+  "Assigned to Gio" : "gio",
+  "Assigned to Robert": "robert",
+  "Assigned to Natally": "natalia",
+  "Assigned to Simon": "sales"
+}
 
 let call_trigger = async (url, data) => {
   const response = await fetch(url, {
@@ -30,8 +38,8 @@ call_form_.addEventListener("submit", (e) => {
   e.preventDefault();
   for (var [key, value] of call_formData.entries()) {
     if(key === "assignee"){
-      console.log("new value",document.querySelector("#assigneeContainer select").value)
-      call_params += `${key}=${document.querySelector("#assigneeContainer select").value}&`
+      call_params += `assigneeEmail=${emailObject[document.querySelector("#assigneeContainer select").value]}&`
+      call_params += `${key}=${document.querySelector("#assigneeContainer select").value.split("to"[1])}&`
     }
     call_params += `${key}=${document.querySelector("*[name=" + key + "] ").value}&`;
   }
