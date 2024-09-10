@@ -30,6 +30,11 @@ h1 {
     border-radius: 5px;
     border: 1px solid #D9D9D9;
     margin-right: 10px;
+    border: 2px solid white;
+}
+div.input, aside.input{
+    border: 2px solid white;
+    background-color: rgba(255, 255, 255, 0.664);
 }
 
 .hide {
@@ -99,7 +104,9 @@ input[type="file"] {
     color: white;
     font-weight: bold;
 }
-
+label.blackTxt{
+   color: black !important;
+}
 #assigneeContainer select {
     width: 100%;
     text-align: center;
@@ -129,6 +136,15 @@ aside div {
 
 #formContainer textarea {
     height: 125px;
+}
+
+img#logo{
+    position: fixed;
+    width: 100px;
+    top: 0;
+    left: 0;
+    height: auto;
+    z-index: 1;
 }
 
 .btn {
@@ -165,4 +181,8 @@ select:hover {
 
 ::placeholder {
     font-size: 12px;
+}
+footer{
+    z-index: 1;
+    color: white;
 }

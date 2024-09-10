@@ -15,8 +15,11 @@
         <img src="./assets/img/column.jpg" alt="">
     </section>
     <section id="formContainer">
+        <img id="logo" src="./assets/img/logo.png" alt="" >
+        <h1 class="animate__animated animate__backInLeft">
+            Call Registry Form
+        </h1>
 
-        <h1 class="animate__animated animate__backInLeft">CeviMed Call Registry</h1>
         <form target="_blank"
             action="https://hooks.airtable.com/workflows/v1/genericWebhook/appi0FYLXUm0K6RqJ/wflJeWOC1frY12aRs/wtrw525FyOiBa1ZBZ"
             method="post">
@@ -109,15 +112,15 @@
             <hr>
 
             <div class="input animate__animated animate__bounceInRight">
-                <label>Was issue Resolved ? </label>
-                <label><input type="radio" name="resolved" value="yes">Yes</label>
-                <label><input type="radio" name="resolved" value="no">Not Yet</label>
-                <label><input type="radio" name="resolved" value="option3"> Partially</label>
+                <label class="blackTxt">Was issue Resolved ? </label>
+                <label class="blackTxt"><input type="radio" name="resolved" value="yes">Yes</label>
+                <label class="blackTxt"><input type="radio" name="resolved" value="no">Not Yet</label>
+                <label class="blackTxt"><input type="radio" name="resolved" value="option3"> Partially</label>
             </div>
             <br>
             
-            <aside class="input animate__animated animate__bounceInLeft">
-                <label><input class="assigneeChkBx" type="checkbox" name="assignee" value=""> This call is being assigned to a different agent </label><br>
+            <aside class="input bottom animate__animated animate__bounceInLeft">
+                <label class="blackTxt" ><input class="assigneeChkBx" type="checkbox" name="assignee" value=""> This call is being assigned to a different agent </label><br>
                 <div class="hide splitH" id="assigneeContainer" >
                     <Select class="input  animate__animated animate__bounceInRight" name="assignee" type="text">
                         <option value="">Agent Assigned to This Issue</option>
@@ -132,7 +135,7 @@
             </aside>
             <hr>
             <div class="btnContainer">
-                <Select required class="input animate__animated animate__bounceInLeft" name="CSA" type="text">
+                <Select required class="input blackTxt animate__animated animate__bounceInLeft" name="CSA" type="text">
                     <option value=""> Customer Service Agent</option>
                     <option value="Gio">Gio</option>
                     <option value="Albert">Albert</option>
@@ -147,7 +150,9 @@
             </div>
 
         </form>
-
+        <footer>
+            <small id="footnote" > Please provide Feedback @ Tech@cevimed.com </small>
+        </footer>
 
     </section>
     <script src="./assets/script.js"></script>
