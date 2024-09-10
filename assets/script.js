@@ -42,3 +42,10 @@ call_form_.addEventListener("submit", (e) => {
   });
   call_form_.reset();
 });
+document.getElementById("wrapUpCall").addEventListener("click", ()=>{
+  setTimeout(() => {
+    call_form_.reset();
+    location.reload()
+  }, 5000);
+ 
+  })
