@@ -38,6 +38,7 @@ call_form_.addEventListener("submit", (e) => {
   e.preventDefault();
   for (var [key, value] of call_formData.entries()) {
     if(key === "assignee"){
+      console.log(key,emailObject[document.querySelector("#assigneeContainer select").value])
       call_params += `assigneeEmail=${emailObject[document.querySelector("#assigneeContainer select").value]}&`
       call_params += `${key}=${document.querySelector("#assigneeContainer select").value.split("to"[1])}&`
     }
