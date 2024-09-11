@@ -13,14 +13,6 @@ h1 {
     justify-content: center;
     align-items: center;
 }
-#titleLogo{
-    position: absolute;
-    width: 170px;
-    z-index: -1;
-    height: auto;
-    right: 0;
-    top: 0;
- }
 #formContainer {
     height: 100%;
     display: flex;
@@ -139,16 +131,16 @@ aside div {
     position: absolute;
     top: 0;
     background-color: #ad5d5f;
-    width: 60%;
-    height: max-content;
+    height: 110vh;
 }
 
 .leftColumn img {
     background-repeat: repeat-y;
     z-index: 0;
     opacity: .6;
-    object-fit: fill;
+    object-fit: cover;
     inset: 0;
+    height: 110vh;
     width: 100%;
 }
 

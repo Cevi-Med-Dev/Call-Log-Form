@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./assets/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
-    <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="./assets/img/icon.svg
+    ">
     <title>CeviMed Customer Service Form</title>
 
 </head>
@@ -17,7 +18,7 @@
     </section>
     <section id="formContainer">
         <img id="logo" src="./assets/img/logo.png" alt="" >
-        <img id="titleLogo" src="./assets/img/phone.png" alt="">
+        
         <h1 class="animate__animated animate__backInLeft">
            Call Registry Form 📞
         </h1>
@@ -47,16 +48,10 @@
                     <option value="error">Error </option>
                     <option value="generalQuestions">General Question</option>
                 </select>
-                <!-- <select class="input" id="status" name="status">
-                    <option value="">Order Status</option>
-                    <option value="awaitingFulfilment">Awaiting fulfilment</option>
-                    <option value="awaitingShipment">Awaiting Shipment</option>
-                    <option value="shipped">Shipped</option>
-                    <option value="openWarranty ">Open Warranty </option>
-                    <option value="outsideOfWarranty">Outside Of Warranty</option>
-                    <option value="cancelled">Cancelled</option>
-                    <option value="finished">Finished</option>
-                </select> -->
+                <select class="input" id="direction" name="direction" value="inbound">
+                    <option value="inbound">inbound</option>
+                    <option value="outbound">Outbound</option>
+                </select>
             </section>
       
             <section id="fields">
