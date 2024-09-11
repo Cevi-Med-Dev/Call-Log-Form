@@ -2,12 +2,17 @@ var call_form_ = document.querySelector("#formContainer form");
 var call_formData = new FormData(call_form_);
 var call_params = "";
 emailObject = {
-  albert : "solutiona",
-  "Assigned to Stephanie" : "care",
-  "Assigned to Gio" : "gio",
-  "Assigned to Robert": "robert",
-  "Assigned to Natally": "natalia",
-  "Assigned to Simon": "sales"
+  "Assigned to Albert" : "solutions@cevimed.com",
+  "Assigned to Stephanie" : "care@cevimed.com",
+  "Assigned to Gio" : "gio@cevimed.com",
+  "Assigned to Robert": "robert@cevimed.com",
+  "Assigned to Natally": "natalia@cevimed.com",
+  "Assigned to Simon": "sales@cevimed.com",
+  "Assigned to James": "tech@cevimed.com",
+  "Assigned to Lina": "purchasing@cevimed.com",
+  "Assigned to Angela": "angela@cevimed.com",
+  "Assigned to Angelita": "orders@cevimed.com",
+  "Assigned to Natally": "natalia@cevimed.com",
 }
 
 let call_trigger = async (url, data) => {
@@ -26,21 +31,21 @@ let call_trigger = async (url, data) => {
 
 document.querySelectorAll("input[type=checkbox]").forEach((checkBox) => {
   console.log(checkBox, checkBox.value, checkBox.name);
-  checkBox.checked &&
-    call_formData.append(`${checkBox.name}`, `${checkBox.value}`);
+  checkBox.checked && call_formData.append(`${checkBox.name}`, `${checkBox.value}`);
 });
 
 document.querySelector(".assigneeChkBx").addEventListener("click",({target})=>{
   document.getElementById("assigneeContainer").classList.toggle("hide")
-  
+  document.querySelector("#assigneeContainer select").addEventListener("change",()=>{
+      call_params += `assigneeEmail=${emailObject[document.querySelector("#assigneeContainer select").value]}&`
+  })
 })
 call_form_.addEventListener("submit", (e) => {
   e.preventDefault();
   for (var [key, value] of call_formData.entries()) {
+    console.log(key, " = ", value)
     if(key === "assignee"){
-      console.log(key,emailObject[document.querySelector("#assigneeContainer select").value])
-      call_params += `assigneeEmail=${emailObject[document.querySelector("#assigneeContainer select").value]}&`
-      call_params += `${key}=${document.querySelector("#assigneeContainer select").value.split("to"[1])}&`
+      call_params += `${key}=${document.querySelector("#assigneeContainer select").value}&`
     }
     call_params += `${key}=${document.querySelector("*[name=" + key + "] ").value}&`;
   }
