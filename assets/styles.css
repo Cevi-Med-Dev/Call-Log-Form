@@ -129,6 +129,10 @@ aside div {
     margin: 5px 0;
     padding: 5px 0;
 }
+section#flags div{
+    width: max-content;
+display: flex !important;
+}
 
 .leftColumn {
     position: absolute;
@@ -209,8 +213,9 @@ footer {
 }
 
 @media only screen and (max-width: 850px) {
-    #flags div{
-    display: flex;
+    section#flags div{
+        width: max-content;
+    display: flex !important;
     }
     .leftColumn {
         position: absolute;
