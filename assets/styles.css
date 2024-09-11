@@ -139,7 +139,7 @@ section#flags div {
     position: absolute;
     top: 0;
     background-color: #ad5d5f;
-    height: 150vh;
+    height: 170vh;
     width: 70%;
 }
 
@@ -149,7 +149,7 @@ section#flags div {
     opacity: .6;
     object-fit: cover;
     inset: 0;
-    height: 150vh;
+    height: 170vh;
     width: 100%;
 }
 
