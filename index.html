@@ -17,10 +17,9 @@
         <img src="./assets/img/column.jpg" alt="">
     </section>
     <section id="formContainer">
-        <img id="logo" src="./assets/img/logo.png" alt="" >
-        
-        <h1 class="animate__animated animate__backInLeft">
-           Call Registry Form 📞
+        <img id="logo" src="./assets/img/logo.png" alt="">
+
+        <h1 class="animate__animated animate__backInLeft">Call Registry Form 📞
         </h1>
 
         <form target="_blank"
@@ -28,12 +27,20 @@
             method="post">
 
             <section id="flags" class="animate__animated animate__bounceInLeft">
-                <select class="input" id="priority" name="priority">
-                    <option value="">Priority</option>
-                    <option value="high">High</option>
-                    <option value="medium">Medium</option>
-                    <option value="low">Low</option>
-                </select>
+                <div>
+
+                    <select class="input" id="direction" name="direction" value="inbound">
+                        <option value="inbound">inbound</option>
+                        <option value="outbound">Outbound</option>
+                    </select>
+                    <select class="input" id="priority" name="priority">
+                        <option value="">Priority</option>
+                        <option value="Urgent ⚠️❗">Urgent ⚠️❗</option>
+                        <option value="High❗">High ❗</option>
+                        <option value="medium 🤙">Medium 🤙</option>
+                        <option value="low 💁‍♂️">Low 💁‍♂️</option>
+                    </select>
+                </div>
                 <!-- //depending on the type of the call the other options may guide to a diffrent resolution  -->
                 <select class="input" id="Type" name="Type">
                     <option value="">Type of Call</option>
@@ -48,17 +55,13 @@
                     <option value="error">Error </option>
                     <option value="generalQuestions">General Question</option>
                 </select>
-                <select class="input" id="direction" name="direction" value="inbound">
-                    <option value="inbound">inbound</option>
-                    <option value="outbound">Outbound</option>
-                </select>
             </section>
-      
+
             <section id="fields">
                 <label for="notes">Reason : </label>
                 <input class="animate__animated animate__bounceInLeft input" type="text" name="reason"
                     placeholder="Enter Reason for Call">
-                    <hr>
+                <hr>
                 <aside>
                     <div>
                         <label for="text">Contact # </label>
@@ -115,10 +118,11 @@
                 <label class="blackTxt"><input type="radio" name="resolved" value="option3"> Partially</label>
             </div>
             <br>
-            
+
             <aside class="input bottom animate__animated animate__bounceInLeft">
-                <label class="blackTxt" ><input class="assigneeChkBx" type="checkbox" name="assignee" value=""> This call is being assigned to a different agent </label><br>
-                <div class="hide splitH" id="assigneeContainer" >
+                <label class="blackTxt"><input class="assigneeChkBx" type="checkbox" name="assignee" value=""> This call
+                    is being assigned to a different agent </label><br>
+                <div class="hide splitH" id="assigneeContainer">
                     <Select class="input  animate__animated animate__bounceInRight" name="assignee" type="text">
                         <option value="">Agent Assigned to This Issue</option>
                         <option value="Stephany">Assigned to Stephanie</option>
@@ -138,7 +142,7 @@
                     <option value="Albert">Albert</option>
                     <option value="Stephany">Stephanie</option>
                     <option value="Simon">Simon</option>
-                    <option value="Robert">Robert</option>  
+                    <option value="Robert">Robert</option>
                     <option value="Natally">Natally</option>
                 </Select>
                 <hr>
