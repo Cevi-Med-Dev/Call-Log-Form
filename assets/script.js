@@ -3,7 +3,7 @@ var call_formData = new FormData(call_form_);
 var call_params = "";
 emailObject = {
   "Assigned to Solutions" : "solutions@cevimed.com",
-  "Assigned to Stephanie" : "care@cevimed.com",
+  "Assigned to Stephanie" : "customercare@cevimed.com",
   "Assigned to Gio" : "gio@cevimed.com",
   "Assigned to Robert": "robert@cevimed.com",
   "Assigned to Natally": "natalia@cevimed.com",
@@ -11,8 +11,7 @@ emailObject = {
   "Assigned to James": "tech@cevimed.com",
   "Assigned to Lina": "purchasing@cevimed.com",
   "Assigned to Angela F.": "angela@cevimed.com",
-  "Assigned to Ángela P.": "orders@cevimed.com",
-  "Assigned to Natally": "natalia@cevimed.com",
+  "Assigned to Ángela P.": "order@cevimed.com",
 }
 
 let call_trigger = async (url, data) => {
