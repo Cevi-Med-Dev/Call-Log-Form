@@ -50,7 +50,7 @@ call_form_.addEventListener("submit", (e) => {
   }
   console.log("this is the data retreived", call_params);
   call_trigger(
-    "https://hooks.airtable.com/workflows/v1/genericWebhook/appi0FYLXUm0K6RqJ/wflJeWOC1frY12aRs/wtrw525FyOiBa1ZBZ",
+    "https://hooks.airtable.com/workflows/v1/genericWebhook/app7xwRPHHOaWI4pJ/wflyLNHGL2T8dEnQs/wtrlCTYJiBKLmDcAZ",
     call_params
   ).then((data) => {
     alert("You have successfully registered this call")
