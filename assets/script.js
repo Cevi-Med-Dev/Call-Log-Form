@@ -10,8 +10,8 @@ emailObject = {
   "Assigned to Simon": "sales@cevimed.com",
   "Assigned to James": "tech@cevimed.com",
   "Assigned to Lina": "purchasing@cevimed.com",
-  "Assigned to Angela F.": "angela@cevimed.com",
-  "Assigned to Ángela P.": "order@cevimed.com",
+  "Assigned to Adriana": "order@cevimed.com",
+  "Assigned to Angela": "angela@cevimed.com",
 }
 
 let call_trigger = async (url, data) => {
