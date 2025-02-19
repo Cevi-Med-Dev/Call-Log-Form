@@ -11,6 +11,7 @@ emailObject = {
   "Assigned to Lina": "purchasing@cevimed.com",
   "Assigned to Adriana": "order@cevimed.com",
   "Assigned to Angela": "angela@cevimed.com",
+  "Assigned to Carina": "accounting@cevimed.com",
 };
 
 let call_trigger = async (url, data) => {
