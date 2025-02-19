@@ -19,13 +19,88 @@
     <section id="formContainer">
         <img id="logo" src="./assets/img/logo.png" alt="">
 
-        <h1 class="animate__animated animate__backInLeft">Call Registry Form ☎️
-        </h1>
+        <h1 class="animate__animated animate__backInLeft">Call Registry Form☎️</h1>
+
+
+        <h3 class="prompts">
+            <label for="Suggestion">Suggestions :</label>
+            <span class="suggestion">
+                
+                "Thank you for calling CeviMed this is <b id="nameSpot"> ________ </b> , May I Please have your name"
+            </span>
+        </h3>
 
         <form target="_blank"
             action="https://hooks.airtable.com/workflows/v1/genericWebhook/app7xwRPHHOaWI4pJ/wflyLNHGL2T8dEnQs/wtrlCTYJiBKLmDcAZ"
-            method="post">
+            method="post"
+            onkeydown="(event.keyCode === 13) && false"
+            >
 
+           
+
+            <section id="fields">
+                <aside>
+                    <div>
+                        <label for="text">Agent 🎧</label>
+                        <Select id="CSA" required class="input blackTxt animate__animated animate__bounceInLeft" name="CSA" type="text">
+                            <option value=""> Customer Service Agent</option>
+                            <option value="Simon">Simon</option>
+                            <option value="Robert">Robert</option>
+                            <option value="Stephanie">Stephanie</option>
+                            <option value="James">James</option>
+                            <option value="Natally">Natally</option>
+                            <option value="Adriana">Adriana</option>
+                            <option value="Lina">Lina</option>
+                            <option value="Angela">Angela</option>
+                            <option value="Angela">Carina</option>
+                        </Select>
+                            <label for="notes">Reason 💭 </label>
+                            <input class="animate__animated animate__bounceInLeft input" type="text" name="reason"
+                                placeholder="Enter Reason for Call">
+                            <label for="text">Phone 📞</label>
+                            <input class=" animate__animated animate__bounceInLeft input" type="text" name="cPhone"
+                                placeholder="Phone # ">
+                            <label for="text">Email 📧 </label>
+                            <input class="animate__animated animate__bounceInLeft input" type="text" name="cEmail"
+                                placeholder="Email Address">
+                            <label for="text">Invoice 📇</label>
+                            <input class="animate__animated animate__bounceInLeft input" type="text" name="invoice"
+                                placeholder="Invoice # ">
+                            
+                        </div>
+                        <div>
+                            <label for="text">Name ✍️</label>
+                            <input id="cName" class="input animate__animated animate__bounceInRight" type="text" name="cName"
+                                placeholder="Enter Caller's Name">
+                            <label for="issue">Issue ❌</label>
+                            <textarea class="input animate__animated animate__bounceInRight" name="issue"
+                                rows="3"></textarea>
+                     
+                            <label for="resolution">Resolution or Verbal Agreement 🤝</label>
+                            <textarea class="input animate__animated animate__bounceInRight" name="resolution"
+                                rows="3"></textarea>
+                        </div>
+    
+                    </aside>
+                <hr>
+         
+                <aside>
+                    <!-- <div>
+                        <label for="notes">Call Notes 📋</label>
+                        <textarea class="input animate__animated animate__bounceInLeft" name="notes"
+                            rows="3"></textarea>
+                    </div> -->
+               
+                </aside>
+            </section>
+            <!-- <hr>
+            <aside class="evidence animate__animated animate__bounceInLeft">
+                <div>
+                    <label class="evidenceBtn" for="file">Upload and
+                        Evidence</label>
+                    <input type="file" id="file" name="file">
+                </div>
+            </aside> -->
             <section id="flags" class="animate__animated animate__bounceInLeft">
                 <div>
 
@@ -33,12 +108,11 @@
                         <option value="↘ inbound"> ↘ inbound</option>
                         <option value="outbound ↗">Outbound ↗ </option>
                     </select>
-                    <select class="input" id="priority" name="priority">
-                        <option value="">Priority</option>
-                        <option value="Urgent ⚠️❗">Urgent ⚠️❗</option>
-                        <option value="High❗">High ❗</option>
-                        <option value="medium 🤙">Medium 🤙</option>
+                    <select class="input" id="priority" name="priority" value="low 💁‍♂️">
                         <option value="low 💁‍♂️">Low 💁‍♂️</option>
+                        <option value="medium 🤙">Medium 🤙</option>
+                        <option value="High❗">High ❗</option>
+                        <option value="Urgent ⚠️❗">Urgent ⚠️❗</option>
                     </select>
                 </div>
                 <!-- //depending on the type of the call the other options may guide to a diffrent resolution  -->
@@ -54,66 +128,16 @@
                     <option value="🔄 Order Update">Order Update 🔄</option>
                     <option value="❌error">Error ❌</option>
                     <option value="❓ General Questions">General Question ❓</option>
+                    <option value="🏦 Bank Call">Bank Call - Carina 🏦 </option>
                 </select>
             </section>
-
-            <section id="fields">
-                <label for="notes">Reason : </label>
-                <input class="animate__animated animate__bounceInLeft input" type="text" name="reason"
-                    placeholder="Enter Reason for Call">
-                <hr>
-                <aside>
-                    <div>
-                        <label for="text">Phone 📞</label>
-                        <input class="animate__animated animate__bounceInLeft input" type="text" name="cPhone"
-                            placeholder="Phone # ">
-                        <label for="text">Email 📧 </label>
-                        <input class="animate__animated animate__bounceInLeft input" type="text" name="cEmail"
-                            placeholder="Email Address">
-                        <label for="text">Invoice 📇</label>
-                        <input class="animate__animated animate__bounceInLeft input" type="text" name="invoice"
-                            placeholder="Invoice # ">
-                        <label for="text">Order 🏷️</label>
-                        <input class="animate__animated animate__bounceInLeft input" type="text" name="order"
-                            placeholder="Order # ">
-                    </div>
-                    <div>
-                        <label for="text">Name ✍️</label>
-                        <input class="input animate__animated animate__bounceInRight" type="text" name="cName"
-                            placeholder="Enter Caller's Name">
-                        <label for="issue">Issue ❌</label>
-                        <textarea class="input animate__animated animate__bounceInRight" name="issue"
-                            rows="3"></textarea>
-                    </div>
-                </aside>
-                <aside>
-                    <div>
-                        <label for="notes">Call Notes 📋</label>
-                        <textarea class="input animate__animated animate__bounceInLeft" name="notes"
-                            rows="3"></textarea>
-                    </div>
-                    <div>
-                        <label for="resolution">Resolution or Verbal Agreement 🤝</label>
-                        <textarea class="input animate__animated animate__bounceInRight" name="resolution"
-                            rows="3"></textarea>
-                    </div>
-
-                </aside>
-            </section>
-            <!-- <hr>
-            <aside class="evidence animate__animated animate__bounceInLeft">
-                <div>
-                    <label class="evidenceBtn" for="file">Upload and
-                        Evidence</label>
-                    <input type="file" id="file" name="file">
-                </div>
-            </aside> -->
-
             <hr>
+
+
             <aside class="input bottom animate__animated animate__bounceInLeft">
-                <label class="blackTxt"><input class="assigneeChkBx" type="checkbox" name="assignee" value=""> This call
-                    is being assigned to a different agent </label><br>
+                <label class="blackTxt"><input class="assigneeChkBx" type="checkbox" name="assignee" value=""> This call is being assigned to a different agent </label><br>
                 <div class="hide splitH" id="assigneeContainer">
+
                     <Select class="input  animate__animated animate__bounceInRight" name="assignee" type="text">
                         <option value="">Agent Assigned to This Issue</option>
                         <option value="Assigned to Robert">Assigned to Robert</option>
@@ -124,25 +148,31 @@
                         <option value="Assigned to Adriana">Assigned to Adriana</option>
                         <option value="Assigned to Lina">Assigned to Lina</option>
                         <option value="Assigned to Angela">Assigned to Angela</option>
+                        <option value="Assigned to Angela">Assigned to Carina</option>
                     </Select>
+
+
                 </div>
             </aside>
-            <hr>
+
+            <br>
+            <!-- <aside class="input bottom animate__animated animate__bounceInLeft">
+                <label class="blackTxt"><input class="emailTempChkBx" type="checkbox" name="emailTemplate" value=""> Send Email to Customer </label><br>
+                <div class="hide splitH" id="emailTemplateContainer">
+
+                    <Select class="input  animate__animated animate__bounceInRight" name="assignee" type="text">
+                        <option value="">Email Templates</option>
+                        <option value="1st Warranty Contact">1st Contact : Re Images for Warranty Purposes</option>
+                    </Select>
+
+
+                </div>
+            </aside> -->
+
             <div class="btnContainer">
-                <Select required class="input blackTxt animate__animated animate__bounceInLeft" name="CSA" type="text">
-                    <option value=""> Customer Service Agent</option>
-                    <option value="Simon">Simon</option>
-                    <option value="Robert">Robert</option>
-                    <option value="Stephany">Stephanie</option>
-                    <option value="Jamess">James</option>
-                    <option value="Natally">Natally</option>
-                    <option value="Adriana">Adriana</option>
-                    <option value="Lina">Lina</option>
-                    <option value="Angela">Angela</option>
-                </Select>
+               
                 <hr>
-                <button id="wrapUpCall" class="btn" type="submit"> Wrap Up
-                    Call </button>
+                <button id="wrapUpCall" class="btn" type="submit"> Wrap Up Call </button>
             </div>
 
         </form>

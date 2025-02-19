@@ -53,17 +53,13 @@ select {
     cursor: pointer;
 }
 
-input {
-    outline: none;
+input, textarea {
     cursor: pointer;
+    outline: 1px solid lightgreen ;
 }
 
-textarea {
-    outline: none;
-}
-
-.input:focus {
-    border: 1px solid #07b30aa9;
+.input:focus, textarea:focus {
+    border: 2px solid lightgreen;
 
 }
 
@@ -114,9 +110,34 @@ input[type="file"] {
     z-index: 1;
     color: white;
     font-weight: bold;
-}
+    font-style: italic;
+    width: max-content;
+    padding: 1px;
 
+}
+h3.prompts{
+    width: 80vw;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+span.suggestion{
+    padding: 5px 10px;
+    text-align: center !important;
+    font-size: 13px;
+    color: rgb(51, 191, 51);
+    background-color: rgb(255, 255, 255);
+    border: 3px solid lightgreen;
+    border-radius: 10px;
+
+}
+.highlightField{
+    border: 3px solid lightgreen;
+}
 label.blackTxt {
+    text-align: center;
     color: black !important;
 }
 
@@ -125,7 +146,8 @@ label.blackTxt {
     text-align: center;
 }
 
-aside div {
+aside  {
+    text-align: center;
     margin: 5px 0;
     padding: 5px 0;
 }
@@ -142,7 +164,14 @@ section#flags div {
     height: 170vh;
     width: 70%;
 }
-
+img#thumb{
+    width: 80%;
+    height: auto;
+}
+img#logo2{
+    height: 200px;
+    width: auto;
+}
 .leftColumn img {
     background-repeat: repeat-y;
     z-index: 0;
@@ -154,7 +183,7 @@ section#flags div {
 }
 
 #formContainer textarea {
-    height: 125px;
+    height: 60px;
 }
 
 img#logo {
