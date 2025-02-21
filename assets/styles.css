@@ -1,38 +1,40 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 body {
+    position: absolute;
+    left: 0;
+    width: 100%;
     box-sizing: border-box;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    align-items: baseline;
+    justify-content: flex-start;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
-h1 {
-    color: white;
-    font-size: 3vw;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 20px;
-}
-
 #formContainer {
-    height: 90%;
+
+    margin: 15px 0 0 15px;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    width: 60%;
+    width: max-content;
     z-index: 1;
 }
 
 #flags {
     display: flex;
     justify-content: center;
+    flex-direction: column;
+    align-items: center;
     margin: 10px;
 }
 
 .input {
-    padding: 5px 10px;
+    padding: 2px 5px;
     border-radius: 5px;
     border: 1px solid #D9D9D9;
     margin-right: 10px;
@@ -71,24 +73,10 @@ input, textarea {
 #fields aside {
     display: flex !important;
     justify-content: space-evenly;
-
-}
-
-.evidence {
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 input[type="file"] {
     display: none;
-}
-
-.evidenceBtn {
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    padding: 6px 12px;
-    cursor: pointer;
 }
 
 #fields aside div {
@@ -158,20 +146,13 @@ section#flags div {
 }
 
 .leftColumn {
-    position: absolute;
+    position: fixed;
     top: 0;
     background-color: #ad5d5f;
     height: 170vh;
-    width: 70%;
+    width: 507px;
 }
-img#thumb{
-    width: 80%;
-    height: auto;
-}
-img#logo2{
-    height: 200px;
-    width: auto;
-}
+
 .leftColumn img {
     background-repeat: repeat-y;
     z-index: 0;
@@ -190,7 +171,7 @@ img#logo {
     position: fixed;
     width: 140px;
     top: 0;
-    left: 0;
+    right: 0;
     height: auto;
     z-index: 1;
 }
@@ -242,67 +223,25 @@ footer {
 
 }
 
-@media only screen and (max-width: 850px) {
-    section#flags div {
-        width: max-content;
-        display: flex !important;
-    }
 
-    .leftColumn {
-        position: absolute;
-        top: 0;
-        background-color: #ad5d5f;
-        height: 170vh;
-        width: 100%;
-    }
 
-    .leftColumn img {
-        height: 170vh;
-        width: 100%;
-    }
-
-    img#logo {
-        position: absolute;
-        width: 100px;
-    }
+@media (max-width: 600px) {
+   body{
+    overflow-y: scroll;
+   }
+   #fields aside{
+    width: max-content;
+   }
+   input, textarea ,select,label{
+    max-width: 150px !important;
 }
-
-@media only screen and (max-width: 500px) {
-    #flags {
-        height: max-content;
-        flex-direction: column;
-        justify-content: space-evenly;
-        align-items: center;
+   section.leftColumn, hr{
+    width: 100%;
+   }
+    img#logo{
+        display: none !important;
     }
-
-    .leftColumn {
-        height: 200vh;
+    #formContainer{
+        
     }
-
-    .leftColumn img {
-        height: 200vh;
-    }
-
-    #flags select {
-        margin: 5px;
-    }
-
-    #formContainer form {
-
-        width: 300px;
-        text-align: center;
-    }
-
-    #formContainer form aside div input {
-        width: 100px;
-    }
-
-    #formContainer form textarea {
-        max-width: 110px !important;
-    }
-
-    img#logo {
-        position: absolute;
-        width: 80px;
-    }
-}
+  }

@@ -8,6 +8,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <link rel="icon" type="image/x-icon" href="./assets/img/icon.svg
     ">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
+
+
+
     <title>CeviMed Customer Service Form</title>
 
 </head>
@@ -18,80 +22,49 @@
     </section>
     <section id="formContainer">
         <img id="logo" src="./assets/img/logo.png" alt="">
-
-        <h1 class="animate__animated animate__backInLeft">Call Registry Form☎️</h1>
-
-
-        <h3 class="prompts">
-            <label for="Suggestion">Suggestions :</label>
-            <span class="suggestion">
-                
-                "Thank you for calling CeviMed this is <b id="nameSpot"> ________ </b> , May I Please have your name"
-            </span>
-        </h3>
-
         <form target="_blank"
             action="https://hooks.airtable.com/workflows/v1/genericWebhook/app7xwRPHHOaWI4pJ/wflyLNHGL2T8dEnQs/wtrlCTYJiBKLmDcAZ"
-            method="post"
-            onkeydown="(event.keyCode === 13) && false"
-            >
+            method="post" onkeydown="(event.keyCode === 13) && false">
 
-           
+
 
             <section id="fields">
                 <aside>
                     <div>
-                        <label for="text">Agent 🎧</label>
-                        <Select id="CSA" required class="input blackTxt animate__animated animate__bounceInLeft" name="CSA" type="text">
-                            <option value=""> Customer Service Agent</option>
-                            <option value="Simon">Simon</option>
-                            <option value="Robert">Robert</option>
-                            <option value="Stephanie">Stephanie</option>
-                            <option value="James">James</option>
-                            <option value="Natally">Natally</option>
-                            <option value="Adriana">Adriana</option>
-                            <option value="Lina">Lina</option>
-                            <option value="Angela">Angela</option>
-                            <option value="Angela">Carina</option>
-                        </Select>
-                            <label for="notes">Reason 💭 </label>
-                            <input class="animate__animated animate__bounceInLeft input" type="text" name="reason"
-                                placeholder="Enter Reason for Call">
-                            <label for="text">Phone 📞</label>
-                            <input class=" animate__animated animate__bounceInLeft input" type="text" name="cPhone"
-                                placeholder="Phone # ">
-                            <label for="text">Email 📧 </label>
-                            <input class="animate__animated animate__bounceInLeft input" type="text" name="cEmail"
-                                placeholder="Email Address">
-                            <label for="text">Invoice 📇</label>
-                            <input class="animate__animated animate__bounceInLeft input" type="text" name="invoice"
-                                placeholder="Invoice # ">
-                            
-                        </div>
-                        <div>
-                            <label for="text">Name ✍️</label>
-                            <input id="cName" class="input animate__animated animate__bounceInRight" type="text" name="cName"
-                                placeholder="Enter Caller's Name">
-                            <label for="issue">Issue ❌</label>
-                            <textarea class="input animate__animated animate__bounceInRight" name="issue"
-                                rows="3"></textarea>
-                     
-                            <label for="resolution">Resolution or Verbal Agreement 🤝</label>
-                            <textarea class="input animate__animated animate__bounceInRight" name="resolution"
-                                rows="3"></textarea>
-                        </div>
-    
-                    </aside>
-                <hr>
-         
-                <aside>
-                    <!-- <div>
-                        <label for="notes">Call Notes 📋</label>
-                        <textarea class="input animate__animated animate__bounceInLeft" name="notes"
-                            rows="3"></textarea>
-                    </div> -->
-               
+                        <label for="notes">Reason 💭 </label>
+                        <input class="animate__animated animate__bounceInLeft input" type="text" name="reason"
+                            placeholder="Enter Reason for Call">
+                        <label for="text">Phone 📞</label>
+                        <input class=" animate__animated animate__bounceInLeft input" type="text" name="cPhone"
+                            placeholder="Phone # ">
+                        <label for="text">Email 📧 </label>
+                        <input class="animate__animated animate__bounceInLeft input" type="text" name="cEmail"
+                            placeholder="Email Address">
+                        <label for="text">Invoice 📇</label>
+                        <input class="animate__animated animate__bounceInLeft input" type="text" name="invoice"
+                            placeholder="Invoice # ">
+
+                    </div>
+                    <div>
+                        <label for="text">Name ✍️</label>
+                        <input id="cName" class="input animate__animated animate__bounceInRight" type="text"
+                            name="cName" placeholder="Enter Caller's Name">
+                        <label for="issue">Issue ❌</label>
+                        <textarea class="input animate__animated animate__bounceInRight" name="issue"
+                            rows="2"></textarea>
+
+                        <label for="resolution">Resolution or Verbal Agreement 🤝</label>
+                        <textarea class="input animate__animated animate__bounceInRight" name="resolution"
+                            rows="2"></textarea>
+                        <!-- <label for="notes">Call Notes 📋</label>
+                                <textarea class="input animate__animated animate__bounceInLeft" name="notes"
+                                    rows="2"></textarea> -->
+                    </div>
+
+
+
                 </aside>
+                <hr>
             </section>
             <!-- <hr>
             <aside class="evidence animate__animated animate__bounceInLeft">
@@ -102,11 +75,12 @@
                 </div>
             </aside> -->
             <section id="flags" class="animate__animated animate__bounceInLeft">
+
                 <div>
 
                     <select class="input" id="direction" name="direction" value="↘ inbound">
-                        <option value="↘ inbound"> ↘ inbound</option>
-                        <option value="outbound ↗">Outbound ↗ </option>
+                        <option value="↘ inbound"> inbound ↙️</option>
+                        <option value="outbound ↗">Outbound ↗️ </option>
                     </select>
                     <select class="input" id="priority" name="priority" value="low 💁‍♂️">
                         <option value="low 💁‍♂️">Low 💁‍♂️</option>
@@ -115,27 +89,46 @@
                         <option value="Urgent ⚠️❗">Urgent ⚠️❗</option>
                     </select>
                 </div>
-                <!-- //depending on the type of the call the other options may guide to a diffrent resolution  -->
-                <select class="input" id="Type" name="Type">
-                    <option value="">Type of Call</option>
-                    <option value="🔍 suspicious">Suspicious Order Verification Call 🔍</option>
-                    <option value="🚚 delivery">Delivery 🚚</option>
-                    <option value="💸 Sales Purchase">Sales / Purchases 💸</option>
-                    <option value="🛡️ warranty">Warranty 🛡️</option>
-                    <option value="📝 Online Purchase">Online Purchase📝</option>
-                    <option value="🧾 quoteRequest">Quote Request 🧾</option>
-                    <option value="😭 grievance">Grievance😭</option>
-                    <option value="🔄 Order Update">Order Update 🔄</option>
-                    <option value="❌error">Error ❌</option>
-                    <option value="❓ General Questions">General Question ❓</option>
-                    <option value="🏦 Bank Call">Bank Call - Carina 🏦 </option>
-                </select>
+
+<br>
+                <div>
+                   
+                    <Select id="CSA" class="input blackTxt animate__animated animate__bounceInLeft" name="CSA"
+                    type="text">
+                    <option value=""> Agent 🎧</option>
+                    <option value="Simon">Simon</option>
+                    <option value="Robert">Robert</option>
+                    <option value="Stephanie">Stephanie</option>
+                    <option value="James">James</option>
+                    <option value="Natally">Natally</option>
+                    <option value="Adriana">Adriana</option>
+                    <option value="Lina">Lina</option>
+                    <option value="Angela">Angela</option>
+                    <option value="Angela">Carina</option>
+                </Select>
+                    <!-- //depending on the type of the call the other options may guide to a diffrent resolution  -->
+                    <select class="input" id="Type" name="Type">
+                        <option value="">Category 📊 </option>
+                        <option value="🔍 suspicious">Suspicious Order Verification Call 🔍</option>
+                        <option value="🚚 delivery">Delivery 🚚</option>
+                        <option value="💸 Sales Purchase">Sales / Purchases 💸</option>
+                        <option value="🛡️ warranty">Warranty 🛡️</option>
+                        <option value="📝 Online Purchase">Online Purchase📝</option>
+                        <option value="🧾 quoteRequest">Quote Request 🧾</option>
+                        <option value="😭 grievance">Grievance😭</option>
+                        <option value="🔄 Order Update">Order Update 🔄</option>
+                        <option value="❌error">Error ❌</option>
+                        <option value="❓ General Questions">General Question ❓</option>
+                        <option value="🏦 Bank Call">Bank Call - Carina 🏦 </option>
+                    </select>
+                </div>
             </section>
             <hr>
 
 
             <aside class="input bottom animate__animated animate__bounceInLeft">
-                <label class="blackTxt"><input class="assigneeChkBx" type="checkbox" name="assignee" value=""> This call is being assigned to a different agent </label><br>
+                <label class="blackTxt"><input class="assigneeChkBx" type="checkbox" name="assignee" value=""> This call
+                    is being assigned to a different agent </label><br>
                 <div class="hide splitH" id="assigneeContainer">
 
                     <Select class="input  animate__animated animate__bounceInRight" name="assignee" type="text">
@@ -156,21 +149,21 @@
             </aside>
 
             <br>
-            <!-- <aside class="input bottom animate__animated animate__bounceInLeft">
-                <label class="blackTxt"><input class="emailTempChkBx" type="checkbox" name="emailTemplate" value=""> Send Email to Customer </label><br>
-                <div class="hide splitH" id="emailTemplateContainer">
+            <aside id="templateHider" class="hide input ">
+                <label class="blackTxt"><input class="template" type="checkbox" name="template" value=""> Send Email to
+                    Customer </label><br>
+                <div class="hide splitH" id="templateContainer">
 
-                    <Select class="input  animate__animated animate__bounceInRight" name="assignee" type="text">
-                        <option value="">Email Templates</option>
-                        <option value="1st Warranty Contact">1st Contact : Re Images for Warranty Purposes</option>
+                    <Select class="input  animate__animated animate__bounceInRight" name="template" type="text">
+                        <option value="Update ">Follow Up / Update send This when </option>
                     </Select>
 
 
                 </div>
-            </aside> -->
+            </aside>
 
             <div class="btnContainer">
-               
+
                 <hr>
                 <button id="wrapUpCall" class="btn" type="submit"> Wrap Up Call </button>
             </div>
@@ -181,7 +174,10 @@
         </footer>
 
     </section>
-    <script src="./assets/script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+    <script type="module" src="./assets/script.js"></script>
 </body>
 
 </html>
