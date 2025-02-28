@@ -1,6 +1,9 @@
-var call_form_ = document.querySelector("#formContainer form");
-var call_formData = new FormData(call_form_);
-var call_params = "",
+//variables
+var call_form_ = document.querySelector("#formContainer form"),
+  call_formData = new FormData(call_form_),
+  call_params = "",
+  currentTemplate,
+  templateChosen,
   emailObject = {
     "Assigned to Stephanie": "customercare@cevimed.com",
     "Assigned to Robert": "robert@cevimed.com",
@@ -12,34 +15,159 @@ var call_params = "",
     "Assigned to Angela": "angela@cevimed.com",
     "Assigned to Carina": "accounting@cevimed.com",
   },
+
   templateObject = {
-    warranty: "customercare@cevimed.com",
-    seller: "robert@cevimed.com",
-    buyer: {
-      
-    },
-    robert: {
-      followUp: [
-        "I hope you're having a great start to your day! 😊",
-        `Best regards
-    🎧**Robert Arundel** 
-    📞 **833-238-4633 Ext 102** 
-    📩 **Robert@cevimed.com** 
-    🌐 [www.cevimed.com](http://www.cevimed.com)`,
-      ],
-    },
-    James: {
-      followUp: [
-        "I hope you're having a great start to your day! 😊",
-        `Best regards
-🎧**James Chaves** 
-📞 **833-238-4633 Ext 107** 
-📩 **Tech@cevimed.com** 
-🌐 [www.cevimed.com](http://www.cevimed.com)`,
-      ],
-    },
+    //done
+    "🛡️ warranty": [
+      {
+        "information Request": `In order for us to start a warranty case we need the following information
+        🖊️ Customers Name: 
+        📜 Invoice #: 
+        💭 Brief Description of the problem: 
+        📷 Clear Pictures: 
+        🎥 Video to have a visual of the problem and determine the solution: if the video is too big, please attach a google drive link, youtube link, wetransfer etc. 
+        📞 Best call back phone number to FaceTime: It can be android or iPhone:`,
+      },
+      {
+        "Out Of Warranty": `We are sorry to inform you that you are out of warranty
+        However this does not mean we won't help you, 
+        we need the following information in order help you find solutions
+
+        🖊️ Customers Name: 
+        📜 Invoice #: 
+        💭 Brief Description of the problem: 
+        📷 Clear Pictures: 
+        🎥 Video to have a visual fo the problem and determine the solution: if the video is too big, please attach a google drive link, youtube link, wetransfer etc. 
+        📞 Best call back phone number to FaceTime: It can be android or iPhone:`,
+      },
+    ],
+    // "💸 Sales Purchase": [
+    //   {
+    //     "Request Offer Details": `In order to make sure we get the equipment you want to sell 💸 in front of the right eyes 👀 
+    //       Please provide us with the follwoing information : 
+          
+    //       🖋️ Seller Name :
+    //       💸 List of Equipment you Want to Sell (include asking price) : 
+    //       📋 Inlude a Description of Conditions, Use and Antiguity : 
+    //       📷 Images of Equipment : 
+    //       🎥 Videos of Equipment :
+    //       `,
+    //   },
+    //   {
+    //     "Send W9":
+    //       "wants good quote on product and shipping, give us address and CM numbers",
+    //   },
+    // ],
+    // "🔍 suspicious": [
+    //   {
+    //     "Request for Identification":
+    //       "A request regarding suspicious activities, potentially fraudulent or unusual orders that need verification.",
+    //   },
+    //   {
+    //     "Follow Up After Clearing Order":
+    //       "A query about orders that seem irregular or potentially deceptive.",
+    //   },
+    // ],
+    // "🚚 delivery": [
+    //   {
+    //     "Request for Call Back Submitted":
+    //       "An inquiry related to the status or issues regarding the delivery of products or services.",
+    //   },
+    // ],
+    //WIP
+  //   "📝 Online Purchase": [
+  //     {
+  //       "Resend Back Order Email":
+  //         "Information or issues concerning online purchases made through a website or platform.",
+  //     },
+  // //list of vendors
+  //     {
+  //       "Contacted vendor":
+  //         "Information about changes or updates to an order’s status, including shipping or arrival.",
+  //     },
+  //   ],
+    //done
+    "🧾 quoteRequest": [
+      {
+        "Quote Request": `
+        
+        Thanks for reaching out! ✨🛍️
+
+        We’d love to assist with your new order request 🛒. 
+        To provide the most accurate pricing and options, We would like to collect a few details : 
+          
+          🔹 Best Call Back number
+          🔹 Product(s) or service needed
+          🔹 Quantity
+          🔹 Any special requirements or customizations
+          🔹 Delivery Address(residential or business)
+        
+        We’re looping in Robert to ensure you get the best options available. Looking forward to your reply so we can get started! 
+        
+        `,
+      },
+      // {
+      //   "Small Quote Request":
+      //     `Thanks for reaching out!✨🛍️
+      //     We’re happy to assist with your order request 🛒. 
+      //     To provide the best pricing and availability, could you share a few details : 
+
+      // 🔹 Best Call Back number
+      // 🔹 Item(s) needed
+      // 🔹 Quantity
+      // 🔹 Any special requests or preferences
+      // 🔹 Shipping/location details (if applicable)
+
+      // We’re tagging in Robert to assist and get you the best options available!😊`,
+      // },
+    ],
+    //done
+    "😭 grievance": [
+      {
+        "General Grievance Response": `On Behalf of CeviMed we Extend a heartfelt apology 🥺💖
+          
+          We’re really sorry to hear about your recent inconviniences😔. 
+          Your experience matters to us ✨, and we want to help mitigate and resolve this issue ASAP.
+          Could you please share a few more details? (Invoice #,What happened? When? Any specifics?) 
+
+          This will help us get the right team on it 👀 as well as ensure it dosen't happen again ✋🏻
+          
+          Thank you for your time and patience`,
+      },
+      {
+        "Case Escalated / Extended Apology Email": `On behalf of CeviMed, we extend a sincere apology for this situation 🥺💔. 
+           We take this very seriously and want to act fast to help resolve it ASAP.
+           This is case is being escalated and we would like to collect all the details in writting
+           Please share with us : (Invoice #, What happened? When? Any specifics?)
+
+           Our team is already looking into this matter, and we’ll do everything possible to assist you 💪
+           
+           Your patience means the world to us 💕. 
+           
+           We’re here to help, and we won’t stop until this is resolved!`,
+      },
+    ],
+    //dynamic
+    // "🔄 Order Update": [
+    //   {
+    //     "Update Re cap":
+    //       "An update regarding the status or progress of an order, such as shipping or delivery delays.",
+    //   },
+    // ],
+    //dynamic
+    // "❓ General Questions": [
+    //   {
+    //     "Answer in Writting":
+    //       "General inquiries not related to a specific category, often seeking clarifications or additional information.",
+    //   },
+    //   {
+    //     "Gathering More information for Answer":
+    //       "General inquiries not related to a specific category, often seeking clarifications or additional information.",
+    //   },
+    // ],
   };
 
+//dependendies
 toastr.options = {
   closeButton: true,
   debug: false,
@@ -58,12 +186,11 @@ toastr.options = {
   hideMethod: "slideUp",
   closeMethod: "slideUp",
 };
-
-toastr.info("Please excuse interface changes :)");
 toastr.success(
-  `Thank you for calling CeviMed this is ---------, May I Please have your name? `
+  `Thank you for calling CeviMed this is --------, May I Please have your name? `
 );
 
+//functions
 let call_trigger = async (url, data) => {
   const response = await fetch(url, {
     method: "POST",
@@ -78,6 +205,7 @@ let call_trigger = async (url, data) => {
   return response; // parses JSON response into native JavaScript objects
 };
 
+//Events
 document.getElementById("CSA").addEventListener("change", ({ target }) => {
   toastr.success(
     `Thank you for calling CeviMed this is ${document
@@ -86,18 +214,33 @@ document.getElementById("CSA").addEventListener("change", ({ target }) => {
   );
 });
 
-// document.getElementById("Type").addEventListener("change", ({ target }) => {
-//   toastr.info(`pick a protocol from the List of emails`);
-//   document.querySelector("#templateHider").classList.remove("hide");
-// });
+document.getElementById("Type").addEventListener("change", ({ target }) => {
+  document.getElementById("template").innerHTML = "";
+  if (templateObject[`${target.value}`] !== undefined) {
+    toastr.info(`Protocol Email Templates Available for ${target.value}`);
+    currentTemplate = templateObject[`${target.value}`];
+    document.querySelector("#templateHider").classList.remove("hide");
+    document.getElementById("template").innerHTML =
+      '<option value="">Choose an Email Template</option>';
+    templateObject[`${target.value}`].forEach((template) => {
+      document.getElementById("template").innerHTML += `<option value="${
+        Object.keys(template)[0]
+      }">${Object.keys(template)[0]} ${target.value.split(" ")[0]}</option>`;
+    });
+  } else {
+    toastr.warning(`No Protocols for the ${target.value} Category`);
+    document.querySelector("#templateHider").classList.add("hide");
+    return;
+  }
+});
 
-// document.getElementById("Type").addEventListener("change", ({ target }) => {
-//   toastr.info(
-//     `Thank you for calling CeviMed this is ${document
-//       .querySelector("#CSA")
-//       .value.toUpperCase()}</b> , May I Please have your name? `
-//   );
-// });
+document.getElementById("template").addEventListener("change", ({ target }) => {
+  templateChosen = Object.values(currentTemplate).filter(
+    (temp) => Object.keys(temp)[0] === target.value
+  );
+  call_formData.append(`template`, `${Object.values(templateChosen[0])[0]}`);
+  console.log(call_formData);
+});
 
 document.getElementById("cName").addEventListener("focusout", (e) => {
   toastr.success(
@@ -106,11 +249,11 @@ document.getElementById("cName").addEventListener("focusout", (e) => {
 });
 
 document.querySelectorAll("input[type=checkbox]").forEach((checkBox) => {
-  console.log(checkBox, checkBox.value, checkBox.name);
   checkBox.checked &&
     call_formData.append(`${checkBox.name}`, `${checkBox.value}`);
 });
 
+//assignee emails
 document
   .querySelector(".assigneeChkBx")
   .addEventListener("click", ({ target }) => {
@@ -127,29 +270,27 @@ document
       });
   });
 
+//Shows/Hides Email Elements
 document.querySelector(".template").addEventListener("click", ({ target }) => {
   document.getElementById("templateContainer").classList.toggle("hide");
-  document
-    .querySelector("#templateContainer select")
-    .addEventListener("change", () => {
-      call_params += `template=${
-        emailObject[document.querySelector("#templateContainer select").value]
-      }&`;
-    });
 });
 
+//submit event handler
 call_form_.addEventListener("submit", (e) => {
   e.preventDefault();
   for (var [key, value] of call_formData.entries()) {
-    console.log(key, " = ", value);
     if (key === "assignee") {
       call_params += `${key}=${
         document.querySelector("#assigneeContainer select").value
       }&`;
     }
+    if (key === "template") {
+      call_params += `${key}=${Object.values(templateChosen[0])[0]}&`;
+    }
     call_params += `${key}=${
       document.querySelector("*[name=" + key + "] ").value
     }&`;
+    console.log(key, " = ", value);
   }
 
   call_trigger(
