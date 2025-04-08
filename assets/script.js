@@ -15,7 +15,6 @@ var call_form_ = document.querySelector("#formContainer form"),
     "Assigned to Angela": "angela@cevimed.com",
     "Assigned to Carina": "accounting@cevimed.com",
   },
-
   templateObject = {
     //done
     "🛡️ warranty": [
@@ -37,19 +36,19 @@ var call_form_ = document.querySelector("#formContainer form"),
         📜 Invoice #: 
         💭 Brief Description of the problem: 
         📷 Clear Pictures: 
-        🎥 Video to have a visual fo the problem and determine the solution: if the video is too big, please attach a google drive link, youtube link, wetransfer etc. 
+        🎥 Video to have a visual of the problem and determine the solution: if the video is too big, please attach a google drive link, youtube link, wetransfer etc. 
         📞 Best call back phone number to FaceTime: It can be android or iPhone:`,
       },
     ],
     // "💸 Sales Purchase": [
     //   {
-    //     "Request Offer Details": `In order to make sure we get the equipment you want to sell 💸 in front of the right eyes 👀 
-    //       Please provide us with the follwoing information : 
-          
+    //     "Request Offer Details": `In order to make sure we get the equipment you want to sell 💸 in front of the right eyes 👀
+    //       Please provide us with the follwoing information :
+
     //       🖋️ Seller Name :
-    //       💸 List of Equipment you Want to Sell (include asking price) : 
-    //       📋 Inlude a Description of Conditions, Use and Antiguity : 
-    //       📷 Images of Equipment : 
+    //       💸 List of Equipment you Want to Sell (include asking price) :
+    //       📋 Inlude a Description of Conditions, Use and Antiguity :
+    //       📷 Images of Equipment :
     //       🎥 Videos of Equipment :
     //       `,
     //   },
@@ -68,24 +67,25 @@ var call_form_ = document.querySelector("#formContainer form"),
     //       "A query about orders that seem irregular or potentially deceptive.",
     //   },
     // ],
-    // "🚚 delivery": [
-    //   {
-    //     "Request for Call Back Submitted":
-    //       "An inquiry related to the status or issues regarding the delivery of products or services.",
-    //   },
-    // ],
-    //WIP
-  //   "📝 Online Purchase": [
-  //     {
-  //       "Resend Back Order Email":
-  //         "Information or issues concerning online purchases made through a website or platform.",
-  //     },
-  // //list of vendors
-  //     {
-  //       "Contacted vendor":
-  //         "Information about changes or updates to an order’s status, including shipping or arrival.",
-  //     },
-  //   ],
+
+    //dynamic
+    "🚚 delivery": [
+      {
+        "Written Confirmation Date,Time & Address of Delivery":
+          "An inquiry related to the status or issues regarding the delivery of products or services.",
+      },
+    ],
+    //   "📝 Online Purchase": [
+    //     {
+    //       "Resend Back Order Email":
+    //         "Information or issues concerning online purchases made through a website or platform.",
+    //     },
+    // //list of vendors
+    //     {
+    //       "Contacted vendor":
+    //         "Information about changes or updates to an order’s status, including shipping or arrival.",
+    //     },
+    //   ],
     //done
     "🧾 quoteRequest": [
       {
@@ -109,8 +109,8 @@ var call_form_ = document.querySelector("#formContainer form"),
       // {
       //   "Small Quote Request":
       //     `Thanks for reaching out!✨🛍️
-      //     We’re happy to assist with your order request 🛒. 
-      //     To provide the best pricing and availability, could you share a few details : 
+      //     We’re happy to assist with your order request 🛒.
+      //     To provide the best pricing and availability, could you share a few details :
 
       // 🔹 Best Call Back number
       // 🔹 Item(s) needed
@@ -147,24 +147,22 @@ var call_form_ = document.querySelector("#formContainer form"),
            We’re here to help, and we won’t stop until this is resolved!`,
       },
     ],
-    //dynamic
-    // "🔄 Order Update": [
-    //   {
-    //     "Update Re cap":
-    //       "An update regarding the status or progress of an order, such as shipping or delivery delays.",
-    //   },
-    // ],
-    //dynamic
-    // "❓ General Questions": [
-    //   {
-    //     "Answer in Writting":
-    //       "General inquiries not related to a specific category, often seeking clarifications or additional information.",
-    //   },
-    //   {
-    //     "Gathering More information for Answer":
-    //       "General inquiries not related to a specific category, often seeking clarifications or additional information.",
-    //   },
-    // ],
+    "🔄 Order Update": [
+      {
+        "Update Re cap":
+          "",
+      },
+    ],
+    "❓ General Questions": [
+      {
+        "Answer in Writting":
+          "General inquiries not related to a specific category, often seeking clarifications or additional information.",
+      },
+      {
+        "Gathering More information for Answer":
+          "General inquiries not related to a specific category, often seeking clarifications or additional information.",
+      },
+    ],
   };
 
 //dependendies
@@ -216,22 +214,33 @@ document.getElementById("CSA").addEventListener("change", ({ target }) => {
 
 document.getElementById("Type").addEventListener("change", ({ target }) => {
   document.getElementById("template").innerHTML = "";
-  if (templateObject[`${target.value}`] !== undefined) {
-    toastr.info(`Protocol Email Templates Available for ${target.value}`);
-    currentTemplate = templateObject[`${target.value}`];
-    document.querySelector("#templateHider").classList.remove("hide");
-    document.getElementById("template").innerHTML =
-      '<option value="">Choose an Email Template</option>';
-    templateObject[`${target.value}`].forEach((template) => {
-      document.getElementById("template").innerHTML += `<option value="${
-        Object.keys(template)[0]
-      }">${Object.keys(template)[0]} ${target.value.split(" ")[0]}</option>`;
-    });
-  } else {
-    toastr.warning(`No Protocols for the ${target.value} Category`);
-    document.querySelector("#templateHider").classList.add("hide");
-    return;
-  }
+  // if (templateObject[`${target.value}`] !== undefined) {
+  //   toastr.info(`Protocol Email Templates Available for ${target.value}`);    
+  //   currentTemplate = templateObject[`${target.value}`];    
+  //   document.querySelector("#templateHider").classList.remove("hide");    
+  //   document.getElementById("template").innerHTML = '<option value="">Choose an Email Template</option>';    
+
+  //   const regex = new RegExp(["🔄 ", "❓"].join("|"), "gi");
+  //     const matches = target.value.match(regex);
+  //     if (matches) {
+  //       console.log("Found words:", matches); // Output: ["questions or orders"]
+  //     } else {
+  //       // Output: ["category is not dynamic"]
+  //       console.log("No matches found");
+  //     }
+
+  //   templateObject[`${target.value}`].forEach((template) => { 
+  //     console.log(templateObject[`${target.value}`], target.value),
+  //     (document.getElementById("template").innerHTML += `<option value="${Object.keys(template)[0]}">${Object.keys(template)[0]} ${target.value.split(" ")[0]}</option>`);
+  //     // if(target.value.includes("")) {
+  //     //   document.getElementById("template").innerHTML += `<option value="${Object.keys(template)[0]}">${Object.keys(template)[0]} ${target.value.split(" ")[0]}</option>`;
+  //     // }
+  //   });
+  // } else {
+  //   toastr.warning(`No Protocols for the ${target.value} Category`);
+  //   document.querySelector("#templateHider").classList.add("hide");
+  //   return;
+  // }
 });
 
 document.getElementById("template").addEventListener("change", ({ target }) => {
