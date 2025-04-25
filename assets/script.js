@@ -14,6 +14,8 @@ var call_form_ = document.querySelector("#formContainer form"),
     "Assigned to Adriana": "order@cevimed.com",
     "Assigned to Angela": "angela@cevimed.com",
     "Assigned to Carina": "accounting@cevimed.com",
+    "Assigned to Jacob": "jacob@cevimed.com",
+    "Assigned to Mateo": "mateo@cevimed.com",
   },
   templateObject = {
     //done
