@@ -1,11 +1,43 @@
-//variables
+let invoiceRecords;
+let callLogRecords;
+let tripRecords;
+
+const token = "patlOy6mCe8iEKTXq.012eceeb21e105f50cff87b375914fd36f42a8d9b5942b7ed5890dd9955dd2f8";
+const baseId = "app7xwRPHHOaWI4pJ";
+const invoiceID = 'tblVIYcm2gfJxeTeC';
+const callLogID = 'tblOYndDLB5SimvFX';
+const TripsID = 'tbldFA01p4ji5gosG';
+
+const url = `https://api.airtable.com/v0/${baseId}/${(invoiceID)}`;
+
+const headers = {
+  Authorization: `Bearer ${token}`,
+  'Content-Type': 'application/json'
+};
+
+fetch(url, { headers })
+  .then(res => res.json())
+  .then(data => {
+    data.records.forEach(record => {
+
+      console.log('ID:', record.id);
+      console.log('Name:', record.fields.Name); // Replace with your field key
+      console.log('fields', record.fields);
+    });
+  })
+  .catch(err => {
+    console.error('Error fetching from Airtable:', err);
+  });
+
+
 var call_form_ = document.querySelector("#formContainer form"),
   call_formData = new FormData(call_form_),
   call_params = "",
   currentTemplate,
   templateChosen,
   emailObject = {
-    "Assigned to Stephanie": "customercare@cevimed.com",
+    "Assigned to Bryan": "customercare@cevimed.com",
+    "Assigned to Diana": "design@cevimed.com",
     "Assigned to Robert": "robert@cevimed.com",
     "Assigned to Natally": "natalia@cevimed.com",
     "Assigned to Simon": "sales@cevimed.com",
@@ -15,7 +47,7 @@ var call_form_ = document.querySelector("#formContainer form"),
     "Assigned to Angela": "angela@cevimed.com",
     "Assigned to Carina": "accounting@cevimed.com",
     "Assigned to Jacob": "jacob@cevimed.com",
-    "Assigned to Mateo": "mateo@cevimed.com",
+    "Assigned to Mateo": "mateo@cevimed.com"
   },
   templateObject = {
     //done
@@ -42,33 +74,33 @@ var call_form_ = document.querySelector("#formContainer form"),
         📞 Best call back phone number to FaceTime: It can be android or iPhone:`,
       },
     ],
-    // "💸 Sales Purchase": [
-    //   {
-    //     "Request Offer Details": `In order to make sure we get the equipment you want to sell 💸 in front of the right eyes 👀
-    //       Please provide us with the follwoing information :
+    "💸 Sales Purchase": [
+      {
+        "Request Offer Details": `In order to make sure we get the equipment you want to sell 💸 in front of the right eyes 👀
+          Please provide us with the follwoing information :
 
-    //       🖋️ Seller Name :
-    //       💸 List of Equipment you Want to Sell (include asking price) :
-    //       📋 Inlude a Description of Conditions, Use and Antiguity :
-    //       📷 Images of Equipment :
-    //       🎥 Videos of Equipment :
-    //       `,
-    //   },
-    //   {
-    //     "Send W9":
-    //       "wants good quote on product and shipping, give us address and CM numbers",
-    //   },
-    // ],
-    // "🔍 suspicious": [
-    //   {
-    //     "Request for Identification":
-    //       "A request regarding suspicious activities, potentially fraudulent or unusual orders that need verification.",
-    //   },
-    //   {
-    //     "Follow Up After Clearing Order":
-    //       "A query about orders that seem irregular or potentially deceptive.",
-    //   },
-    // ],
+          🖋️ Seller Name :
+          💸 List of Equipment you Want to Sell (include asking price) :
+          📋 Inlude a Description of Conditions, Use and Antiguity :
+          📷 Images of Equipment :
+          🎥 Videos of Equipment :
+          `,
+      },
+      {
+        "Send W9":
+          "wants good quote on product and shipping, give us address and CM numbers",
+      },
+    ],
+    "🔍 suspicious": [
+      {
+        "Request for Identification":
+          "A request regarding suspicious activities, potentially fraudulent or unusual orders that need verification.",
+      },
+      {
+        "Follow Up After Clearing Order":
+          "A query about orders that seem irregular or potentially deceptive.",
+      },
+    ],
 
     //dynamic
     "🚚 delivery": [
@@ -77,21 +109,20 @@ var call_form_ = document.querySelector("#formContainer form"),
           "An inquiry related to the status or issues regarding the delivery of products or services.",
       },
     ],
-    //   "📝 Online Purchase": [
-    //     {
-    //       "Resend Back Order Email":
-    //         "Information or issues concerning online purchases made through a website or platform.",
-    //     },
-    // //list of vendors
-    //     {
-    //       "Contacted vendor":
-    //         "Information about changes or updates to an order’s status, including shipping or arrival.",
-    //     },
-    //   ],
-    //done
+      "📝 Online Purchase": [
+        {
+          "Resend Back Order Email":
+            "Information or issues concerning online purchases made through a website or platform.",
+        },
+    //list of vendors
+        {
+          "Contact vendor on behalf of customer":
+            "Request information on behalf of customer from vendor such as ETA / TKN / Status etc.",
+        },
+      ],
     "🧾 quoteRequest": [
       {
-        "Quote Request": `
+        "Quote Request / Business": `
         
         Thanks for reaching out! ✨🛍️
 
@@ -108,20 +139,19 @@ var call_form_ = document.querySelector("#formContainer form"),
         
         `,
       },
-      // {
-      //   "Small Quote Request":
-      //     `Thanks for reaching out!✨🛍️
-      //     We’re happy to assist with your order request 🛒.
-      //     To provide the best pricing and availability, could you share a few details :
+      {
+        "Quote Request / Resident":
+          `Thanks for reaching out!✨🛍️
+          We’re happy to assist with your order request 🛒.
+          To provide the best pricing and availability, could you share a few details :
 
-      // 🔹 Best Call Back number
-      // 🔹 Item(s) needed
-      // 🔹 Quantity
-      // 🔹 Any special requests or preferences
-      // 🔹 Shipping/location details (if applicable)
+      🔹 Best Call Back number
+      🔹 Item(s) and Quantity
+      🔹 Shipping/location Address and Delivery instructions
+      🔹 Pictures on Entrance 
 
-      // We’re tagging in Robert to assist and get you the best options available!😊`,
-      // },
+      We’re tagging in Robert to assist and get you the best options available!😊`,
+      },
     ],
     //done
     "😭 grievance": [
@@ -216,33 +246,33 @@ document.getElementById("CSA").addEventListener("change", ({ target }) => {
 
 document.getElementById("Type").addEventListener("change", ({ target }) => {
   document.getElementById("template").innerHTML = "";
-  // if (templateObject[`${target.value}`] !== undefined) {
-  //   toastr.info(`Protocol Email Templates Available for ${target.value}`);    
-  //   currentTemplate = templateObject[`${target.value}`];    
-  //   document.querySelector("#templateHider").classList.remove("hide");    
-  //   document.getElementById("template").innerHTML = '<option value="">Choose an Email Template</option>';    
+  if (templateObject[`${target.value}`] !== undefined) {
+    toastr.info(`Protocol Email Templates Available for ${target.value}`);    
+    currentTemplate = templateObject[`${target.value}`];    
+    document.querySelector("#templateHider").classList.remove("hide");    
+    document.getElementById("template").innerHTML = '<option value="">Choose an Email Template</option>';    
 
-  //   const regex = new RegExp(["🔄 ", "❓"].join("|"), "gi");
-  //     const matches = target.value.match(regex);
-  //     if (matches) {
-  //       console.log("Found words:", matches); // Output: ["questions or orders"]
-  //     } else {
-  //       // Output: ["category is not dynamic"]
-  //       console.log("No matches found");
-  //     }
+    const regex = new RegExp(["🔄 ", "❓"].join("|"), "gi");
+      const matches = target.value.match(regex);
+      if (matches) {
+        console.log("Found words:", matches); // Output: ["questions or orders"]
+      } else {
+        // Output: ["category is not dynamic"]
+        console.log("No matches found");
+      }
 
-  //   templateObject[`${target.value}`].forEach((template) => { 
-  //     console.log(templateObject[`${target.value}`], target.value),
-  //     (document.getElementById("template").innerHTML += `<option value="${Object.keys(template)[0]}">${Object.keys(template)[0]} ${target.value.split(" ")[0]}</option>`);
-  //     // if(target.value.includes("")) {
-  //     //   document.getElementById("template").innerHTML += `<option value="${Object.keys(template)[0]}">${Object.keys(template)[0]} ${target.value.split(" ")[0]}</option>`;
-  //     // }
-  //   });
-  // } else {
-  //   toastr.warning(`No Protocols for the ${target.value} Category`);
-  //   document.querySelector("#templateHider").classList.add("hide");
-  //   return;
-  // }
+    templateObject[`${target.value}`].forEach((template) => { 
+      console.log(templateObject[`${target.value}`], target.value),
+      (document.getElementById("template").innerHTML += `<option value="${Object.keys(template)[0]}">${Object.keys(template)[0]} ${target.value.split(" ")[0]}</option>`);
+      // if(target.value.includes("")) {
+      //   document.getElementById("template").innerHTML += `<option value="${Object.keys(template)[0]}">${Object.keys(template)[0]} ${target.value.split(" ")[0]}</option>`;
+      // }
+    });
+  } else {
+    toastr.warning(`No Protocols for the ${target.value} Category`);
+    document.querySelector("#templateHider").classList.add("hide");
+    return;
+  }
 });
 
 document.getElementById("template").addEventListener("change", ({ target }) => {
