@@ -1,35 +1,3 @@
-let invoiceRecords;
-let callLogRecords;
-let tripRecords;
-
-const token = "patlOy6mCe8iEKTXq.012eceeb21e105f50cff87b375914fd36f42a8d9b5942b7ed5890dd9955dd2f8";
-const baseId = "app7xwRPHHOaWI4pJ";
-const invoiceID = 'tblVIYcm2gfJxeTeC';
-const callLogID = 'tblOYndDLB5SimvFX';
-const TripsID = 'tbldFA01p4ji5gosG';
-
-const url = `https://api.airtable.com/v0/${baseId}/${(invoiceID)}`;
-
-const headers = {
-  Authorization: `Bearer ${token}`,
-  'Content-Type': 'application/json'
-};
-
-fetch(url, { headers })
-  .then(res => res.json())
-  .then(data => {
-    data.records.forEach(record => {
-
-      console.log('ID:', record.id);
-      console.log('Name:', record.fields.Name); // Replace with your field key
-      console.log('fields', record.fields);
-    });
-  })
-  .catch(err => {
-    console.error('Error fetching from Airtable:', err);
-  });
-
-
 var call_form_ = document.querySelector("#formContainer form"),
   call_formData = new FormData(call_form_),
   call_params = "",
