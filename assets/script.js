@@ -62,17 +62,11 @@ var call_form_ = document.querySelector("#formContainer form"),
     "🔍 Suspicious Order Verification": [
       {
         "Re-Send Request for Identification":
-          `Thank you for shopping at Cevimed. Your order was successfully received
-
-          We are in contact with you, because we need a picture of your license, medical card and office address, in order to process the shipment of your order.
-
+`Thank you for shopping at Cevimed. Your order was successfully received
+We are in contact with you, because we need a picture of your license, medical card and office address, in order to process the shipment of your order.
 If you have any questions or need to make any changes to your order, please let us know.
-
 You can contact me directly at order@cevimed.com or you can call our customer service by phone at (833) 238-4633.
-
-Thank you very much,
-
-Cevi Med`,
+Thank you very much`,
       },
     ],
     "🚚 Delivery": [
