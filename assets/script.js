@@ -263,9 +263,9 @@ document.getElementById("CSA").addEventListener("change", ({ target }) => {
 document.getElementById("Type").addEventListener("change", ({ target }) => {
   document.getElementById("template").innerHTML = "";
   console.log(target.value)
-  document.querySelector('[name="cName"]').value = fillerObject[`${target.value}`][0]
-  document.querySelector('[name="reason"]').value = fillerObject[`${target.value}`][1]
-  document.querySelector('[name="issue"]').value = fillerObject[`${target.value}`][2]
+  document.querySelector('[name="cName"]').value += fillerObject[`${target.value}`][0]
+  document.querySelector('[name="reason"]').value += fillerObject[`${target.value}`][1]
+  document.querySelector('[name="issue"]').value += fillerObject[`${target.value}`][2]
   document.querySelector('[name="resolution"]').value = fillerObject[`${target.value}`][3]
   if (templateObject[`${target.value}`] !== undefined) {
     toastr.info(`Protocol Email Templates Available for ${target.value}`);
