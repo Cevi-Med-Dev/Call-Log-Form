@@ -5,6 +5,7 @@ var call_form_ = document.querySelector("#formContainer form"),
   templateChosen,
   emailObject = {
     "Assigned to Bryan": "customercare@cevimed.com",
+    "Assigned to Hector": "Hector@cevimed.com",
     "Assigned to Diana": "design@cevimed.com",
     "Assigned to Robert": "robert@cevimed.com",
     "Assigned to Natally": "natalia@cevimed.com",
@@ -18,8 +19,7 @@ var call_form_ = document.querySelector("#formContainer form"),
     "Assigned to Mateo": "mateo@cevimed.com"
   },
   templateObject = {
-    //done
-    "🛡️ warranty": [
+    "🛡️ Warranty": [
       {
         "information Request": `In order for us to start a warranty case we need the following information
         🖊️ Customers Name: 
@@ -42,7 +42,7 @@ var call_form_ = document.querySelector("#formContainer form"),
         📞 Best call back phone number to FaceTime: It can be android or iPhone:`,
       },
     ],
-    "💸 Sales Purchase": [
+    "💸 Sales": [
       {
         "Request Offer Details": `In order to make sure we get the equipment you want to sell 💸 in front of the right eyes 👀
           Please provide us with the follwoing information :
@@ -59,35 +59,49 @@ var call_form_ = document.querySelector("#formContainer form"),
           "wants good quote on product and shipping, give us address and CM numbers",
       },
     ],
-    "🔍 suspicious": [
+    "🔍 Suspicious Order Verification": [
       {
-        "Request for Identification":
-          "A request regarding suspicious activities, potentially fraudulent or unusual orders that need verification.",
-      },
-      {
-        "Follow Up After Clearing Order":
-          "A query about orders that seem irregular or potentially deceptive.",
+        "Re-Send Request for Identification":
+          `Thank you for shopping at Cevimed. Your order No. 27590 was successfully received
+
+          We are in contact with you, because we need a picture of your license, medical card and office address, in order to process the shipment of your order.
+
+If you have any questions or need to make any changes to your order, please let us know.
+
+You can contact me directly at order@cevimed.com or you can call our customer service by phone at (833) 238-4633.
+
+Thank you very much,
+
+Cevi Med`,
       },
     ],
-
-    //dynamic
-    "🚚 delivery": [
+    "🚚 Delivery": [
       {
         "Written Confirmation Date,Time & Address of Delivery":
-          "An inquiry related to the status or issues regarding the delivery of products or services.",
+          `Following up on our recent phone conversation, we would like to confirm the details we discussed for your reference:
+
+            📅 Date: 
+            ⏰ Time: 
+
+            This email serves as a written confirmation of our conversation, ensuring everything is clear and aligned.
+
+            We appreciate your trust in CeviMed and look forward to serving you.`,
+      },
+      {
+
+      }
+    ],
+    "📝 Online Purchase": [
+      {
+        "Resend Back Order Email":
+          "Information or issues concerning online purchases made through a website or platform.",
+      },
+      //list of vendors
+      {
+        "Contact vendor on behalf of customer":
+          "Request information on behalf of customer from vendor such as ETA / TKN / Status etc.",
       },
     ],
-      "📝 Online Purchase": [
-        {
-          "Resend Back Order Email":
-            "Information or issues concerning online purchases made through a website or platform.",
-        },
-    //list of vendors
-        {
-          "Contact vendor on behalf of customer":
-            "Request information on behalf of customer from vendor such as ETA / TKN / Status etc.",
-        },
-      ],
     "🧾 quoteRequest": [
       {
         "Quote Request / Business": `
@@ -163,8 +177,42 @@ var call_form_ = document.querySelector("#formContainer form"),
           "General inquiries not related to a specific category, often seeking clarifications or additional information.",
       },
     ],
-  };
 
+  },
+
+  fillerObject = {
+    "🔍 Suspicious Order Verification": ["", "Manual verification required", "Customer must respond to email and this number is give for clarifty", `Copy of email : "Thank you for shopping at Cevimed. Your order No. 27590 was successfully received
+
+          We are in contact with you, because we need a picture of your license, medical card and office address, in order to process the shipment of your order.
+
+If you have any questions or need to make any changes to your order, please let us know.
+
+You can contact me directly at order@cevimed.com or you can call our customer service by phone at (833) 238-4633.
+
+Thank you very much,
+
+Cevi Med" `],
+    "🚚 Delivery":["","","",""],
+    "🏥 Insurance Coverage Inquiry": ["", "Insurance Payment?", "Unfortunately we are not currently set up to recieve insurance payment for a presciption a customer may have", "Best way to guaranteed prescribed durable medical equipment aka DME is covered is to call the insurancxe directly and request a list of in network providers of DME"],
+    "🐛 Scammers": ["Scammer Name : ", "Scamming / Spamming", "Scam Call", "Block and Report"],
+    "🏷️ Solicitors": ["Solicitor / Company name : ", "Soliciting a Service", "Calling to Solicit", "Instruct to Send Email instead",],
+    "💸 Sales":["","","",""],
+    "🛡️ Warranty":["","","",""],
+    "📝 Online Purchase":["","","",""],
+    "🧾 quoteRequest" : ["","Needs Quote",`Product :
+Qty:
+Amount :
+Location / Address :`,"Log for Robert"],
+"💰 Phone Purchase" : ["","Purchasing via phone",`Product :
+  Qty:
+  Amount :
+  Order Confirmation # :`,"Take Payment"],
+  "😭 grievance" :["","","","Extend apology and log details"],
+  "🔄 Order Update":["","","","Give customer updates"],
+  "❌ Error / Silent Call": ["No Name", "Silent Call / Bad Connection", "Error durng call", "logged for reference"],
+  "❓ General Questions":["","Asking Questions","Question :","Answer : "],
+  "🏦 Accouting / Carina":["","","","Log For Kary in Accounting"],
+  }
 //dependendies
 toastr.options = {
   closeButton: true,
@@ -214,25 +262,29 @@ document.getElementById("CSA").addEventListener("change", ({ target }) => {
 
 document.getElementById("Type").addEventListener("change", ({ target }) => {
   document.getElementById("template").innerHTML = "";
+  console.log(target.value)
+  document.querySelector('[name="cName"]').value = fillerObject[`${target.value}`][0]
+  document.querySelector('[name="reason"]').value = fillerObject[`${target.value}`][1]
+  document.querySelector('[name="issue"]').value = fillerObject[`${target.value}`][2]
+  document.querySelector('[name="resolution"]').value = fillerObject[`${target.value}`][3]
   if (templateObject[`${target.value}`] !== undefined) {
-    toastr.info(`Protocol Email Templates Available for ${target.value}`);    
-    currentTemplate = templateObject[`${target.value}`];    
-    document.querySelector("#templateHider").classList.remove("hide");    
-    document.getElementById("template").innerHTML = '<option value="">Choose an Email Template</option>';    
-
+    toastr.info(`Protocol Email Templates Available for ${target.value}`);
+    currentTemplate = templateObject[`${target.value}`];
+    document.querySelector("#templateHider").classList.remove("hide");
+    document.getElementById("template").innerHTML = '<option value="">Choose an Email Template</option>';
     const regex = new RegExp(["🔄 ", "❓"].join("|"), "gi");
-      const matches = target.value.match(regex);
-      if (matches) {
-        console.log("Found words:", matches); // Output: ["questions or orders"]
-      } else {
-        // Output: ["category is not dynamic"]
-        console.log("No matches found");
-      }
+    const matches = target.value.match(regex);
+    if (matches) {
+      console.log("Found words:", matches); // Output: ["questions or orders"]
+    } else {
+      // Output: ["category is not dynamic"]
+      console.log("No matches found");
+    }
 
-    templateObject[`${target.value}`].forEach((template) => { 
+    templateObject[`${target.value}`].forEach((template) => {
       console.log(templateObject[`${target.value}`], target.value),
-      (document.getElementById("template").innerHTML += `<option value="${Object.keys(template)[0]}">${Object.keys(template)[0]} ${target.value.split(" ")[0]}</option>`);
-      // if(target.value.includes("")) {
+        (document.getElementById("template").innerHTML += `<option value="${Object.keys(template)[0]}">${Object.keys(template)[0]} ${target.value.split(" ")[0]}</option>`);
+      // if (target.value.includes("")) {
       //   document.getElementById("template").innerHTML += `<option value="${Object.keys(template)[0]}">${Object.keys(template)[0]} ${target.value.split(" ")[0]}</option>`;
       // }
     });
@@ -273,9 +325,8 @@ document
         toastr.info(
           `${document.querySelector("#assigneeContainer select").value}`
         );
-        call_params += `assigneeEmail=${
-          emailObject[document.querySelector("#assigneeContainer select").value]
-        }&`;
+        call_params += `assigneeEmail=${emailObject[document.querySelector("#assigneeContainer select").value]
+          }&`;
       });
   });
 
@@ -289,16 +340,14 @@ call_form_.addEventListener("submit", (e) => {
   e.preventDefault();
   for (var [key, value] of call_formData.entries()) {
     if (key === "assignee") {
-      call_params += `${key}=${
-        document.querySelector("#assigneeContainer select").value
-      }&`;
+      call_params += `${key}=${document.querySelector("#assigneeContainer select").value
+        }&`;
     }
     if (key === "template") {
       call_params += `${key}=${Object.values(templateChosen[0])[0]}&`;
     }
-    call_params += `${key}=${
-      document.querySelector("*[name=" + key + "] ").value
-    }&`;
+    call_params += `${key}=${document.querySelector("*[name=" + key + "] ").value
+      }&`;
     console.log(key, " = ", value);
   }
 

@@ -9,11 +9,7 @@
     <link rel="icon" type="image/x-icon" href="./assets/img/icon.svg
     ">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
-
-
-
     <title>CeviMed Customer Service Form</title>
-
 </head>
 
 <body>
@@ -26,6 +22,62 @@
             action="https://hooks.airtable.com/workflows/v1/genericWebhook/app7xwRPHHOaWI4pJ/wflyLNHGL2T8dEnQs/wtrlCTYJiBKLmDcAZ"
             method="post" onkeydown="(event.keyCode === 13) && false">
             <section id="fields">
+                <section id="flags" class="animate__animated animate__bounceInLeft">
+
+                    <div>
+
+                        <select class="input" id="direction" name="direction" value="↘ inbound">
+                            <option value="↘ inbound"> inbound ↙️</option>
+                            <option value="outbound ↗">Outbound ↗️ </option>
+                        </select>
+                        <select class="input" id="priority" name="priority" value="low 💁‍♂️">
+                            <option value="low 💁‍♂️">Low 💁‍♂️</option>
+                            <option value="medium 🤙">Medium 🤙</option>
+                            <option value="High❗">High ❗</option>
+                            <option value="Urgent ⚠️❗">Urgent ⚠️❗</option>
+                        </select>
+                    </div>
+
+                    <br>
+                    <div>
+
+                        <Select id="CSA" class="input blackTxt animate__animated animate__bounceInLeft" name="CSA"
+                            type="text">
+                            <option value=""> Agent 🎧</option>
+                            <option value="Jacob">Jacob</option>
+                            <option value="Mateo">Mateo</option>
+                            <option value="Simon">Simon</option>
+                            <option value="Robert">Robert</option>
+                            <option value="Bryan">Bryan</option>
+                            <option value="Diana">Diana</option>
+                            <option value="James">James</option>
+                            <option value="Natally">Natally</option>
+                            <option value="Adriana">Adriana</option>
+                            <option value="Lina">Lina</option>
+                            <option value="Angela">Angela</option>
+                            <option value="Carina">Carina</option>
+                        </Select>
+                        <!-- //depending on the type of the call the other options may guide to a diffrent resolution  -->
+                        <select class="input" id="Type" name="Type">
+                            <option value="">Category 📊 </option>
+                            <option value="🔍 Suspicious Order Verification">Suspicious Order Verification 🔍</option>
+                            <option value="🚚 Delivery">Delivery 🚚</option>
+                            <option value="🏥 Insurance Coverage Inquiry">Insurance Coverage Inquiry 🏥</option>
+                            <option value="🐛 Scammers">Scammers 🐛</option>
+                            <option value="🏷️ Solicitors">Solicitors 🏷️</option>
+                            <option value="💸 Sales">Sales 💸</option>
+                            <option value="🛡️ Warranty">Warranty 🛡️</option>
+                            <option value="💰 Phone Purchase">Phone Purchase 💰</option>
+                            <option value="📝 Online Purchase">Online Purchase📝</option>
+                            <option value="🧾 quoteRequest">Quote Request 🧾</option>
+                            <option value="😭 grievance">Grievance😭</option>
+                            <option value="🔄 Order Update">Order Update 🔄</option>
+                            <option value="❌ Error / Silent Call">Error / Silent Call ❌</option>
+                            <option value="❓ General Questions">General Question ❓</option>
+                            <option value="🏦 Accouting / Carina">Accouting / Carina 🏦 </option>
+                        </select>
+                    </div>
+                </section>
                 <aside>
                     <div>
                         <label for="notes">Reason 💭 </label>
@@ -71,61 +123,8 @@
                     <input type="file" id="file" name="file">
                 </div>
             </aside> -->
-            <section id="flags" class="animate__animated animate__bounceInLeft">
 
-                <div>
 
-                    <select class="input" id="direction" name="direction" value="↘ inbound">
-                        <option value="↘ inbound"> inbound ↙️</option>
-                        <option value="outbound ↗">Outbound ↗️ </option>
-                    </select>
-                    <select class="input" id="priority" name="priority" value="low 💁‍♂️">
-                        <option value="low 💁‍♂️">Low 💁‍♂️</option>
-                        <option value="medium 🤙">Medium 🤙</option>
-                        <option value="High❗">High ❗</option>
-                        <option value="Urgent ⚠️❗">Urgent ⚠️❗</option>
-                    </select>
-                </div>
-
-<br>
-                <div>
-                   
-                    <Select id="CSA" class="input blackTxt animate__animated animate__bounceInLeft" name="CSA"
-                    type="text">
-                    <option value=""> Agent 🎧</option>
-                    <option value="Jacob">Jacob</option>
-                    <option value="Mateo">Mateo</option>
-                    <option value="Simon">Simon</option>
-                    <option value="Robert">Robert</option>
-                    <option value="Bryan">Bryan</option>
-                    <option value="Diana">Diana</option>
-                    <option value="James">James</option>
-                    <option value="Natally">Natally</option>
-                    <option value="Adriana">Adriana</option>
-                    <option value="Lina">Lina</option>
-                    <option value="Angela">Angela</option>
-                    <option value="Carina">Carina</option>
-                </Select>
-                    <!-- //depending on the type of the call the other options may guide to a diffrent resolution  -->
-                    <select class="input" id="Type" name="Type">
-                        <option value="">Category 📊 </option>
-                        <option value="🔍 Suspicious Order Verification">Suspicious Order Verification 🔍</option>
-                        <option value="🚚 delivery">Delivery 🚚</option>
-                        <option value="🐛 Scammers">Scammers 🐛</option>
-                        <option value="🏷️ Solicitors">Solicitors 🏷️</option>
-                        <option value="💸 Sales Purchase">Sales / Purchases 💸</option>
-                        <option value="🛡️ warranty">Warranty 🛡️</option>
-                        <option value="📝 Online Purchase">Online Purchase📝</option>
-                        <option value="🧾 quoteRequest">Quote Request 🧾</option>
-                        <option value="😭 grievance">Grievance😭</option>
-                        <option value="🔄 Order Update">Order Update 🔄</option>
-                        <option value="❌ Error">Error ❌</option>
-                        <option value="❓ General Questions">General Question ❓</option>
-                        <option value="🏦 Bank Call">Accouting - Carina 🏦 </option>
-                    </select>
-                </div>
-            </section>
- 
             <aside class="input bottom animate__animated animate__bounceInLeft">
                 <label class="blackTxt"><input class="assigneeChkBx" type="checkbox" name="assignee" value=""> This call
                     is being assigned to a different agent </label><br>
@@ -133,6 +132,7 @@
 
                     <Select class="input  animate__animated animate__bounceInRight" name="assignee" type="text">
                         <option value="">Agent Assigned to This Issue</option>
+                        <option value="Assigned to Hector">Assigned to Hector</option>
                         <option value="Assigned to Jacob">Assigned to Jacob</option>
                         <option value="Assigned to Mateo">Assigned to Mateo</option>
                         <option value="Assigned to Robert">Assigned to Robert</option>
@@ -156,7 +156,8 @@
                     Customer </label><br>
                 <div class="hide splitH" id="templateContainer">
 
-                    <Select id="template" name="template" class="input  animate__animated animate__bounceInRight" name="template" type="text">
+                    <Select id="template" name="template" class="input  animate__animated animate__bounceInRight"
+                        name="template" type="text">
                     </Select>
 
 
