@@ -62,7 +62,7 @@ var call_form_ = document.querySelector("#formContainer form"),
     "🔍 Suspicious Order Verification": [
       {
         "Re-Send Request for Identification":
-          `Thank you for shopping at Cevimed. Your order No. 27590 was successfully received
+          `Thank you for shopping at Cevimed. Your order was successfully received
 
           We are in contact with you, because we need a picture of your license, medical card and office address, in order to process the shipment of your order.
 
@@ -266,7 +266,7 @@ document.getElementById("Type").addEventListener("change", ({ target }) => {
   document.querySelector('[name="cName"]').value += fillerObject[`${target.value}`][0]
   document.querySelector('[name="reason"]').value += fillerObject[`${target.value}`][1]
   document.querySelector('[name="issue"]').value += fillerObject[`${target.value}`][2]
-  document.querySelector('[name="resolution"]').value = fillerObject[`${target.value}`][3]
+  document.querySelector('[name="resolution"]').value += fillerObject[`${target.value}`][3]
   if (templateObject[`${target.value}`] !== undefined) {
     toastr.info(`Protocol Email Templates Available for ${target.value}`);
     currentTemplate = templateObject[`${target.value}`];
