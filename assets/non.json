@@ -1,0 +1,98 @@
+{
+  "name": "QuickBooks → Airtable Invoice Sync",
+  "nodes": [
+    {
+      "id": "1",
+      "name": "QuickBooks Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [250, 300],
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "quickbooks-invoice",
+        "responseMode": "onReceived",
+        "options": {
+          "responseCode": 200,
+          "responseData": "={{ {\"success\": true} }}"
+        }
+      }
+    },
+    {
+      "id": "2",
+      "name": "QuickBooks API - Get Invoice",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [550, 300],
+      "parameters": {
+        "authentication": "oAuth2",
+        "url": "https://quickbooks.api.intuit.com/v3/company/{{ $json.companyId }}/invoice/{{ $json.eventNotifications[0].dataChangeEvent.entities[0].id }}",
+        "method": "GET",
+        "responseFormat": "json"
+      },
+      "credentials": {
+        "oAuth2Api": "QuickBooks OAuth2"
+      }
+    },
+    {
+      "id": "3",
+      "name": "Format Invoice Data",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [850, 300],
+      "parameters": {
+        "functionCode": "return [{\n  fields: {\n    InvoiceID: $json.Invoice.Id,\n    CustomerName: $json.Invoice.CustomerRef.name,\n    CustomerId: $json.Invoice.CustomerRef.value,\n    InvoiceDate: $json.Invoice.TxnDate,\n    DueDate: $json.Invoice.DueDate,\n    TotalAmount: $json.Invoice.TotalAmt,\n    Balance: $json.Invoice.Balance,\n    Status: $json.Invoice.Balance > 0 ? 'Open' : 'Paid'\n  }\n}];"
+      }
+    },
+    {
+      "id": "4",
+      "name": "Send to Airtable",
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2,
+      "position": [1150, 300],
+      "parameters": {
+        "operation": "create",
+        "application": "appXXXXXXXXXXXXXX",
+        "table": "Invoices",
+        "options": {}
+      },
+      "credentials": {
+        "airtableApi": "Airtable Account"
+      }
+    }
+  ],
+  "connections": {
+    "QuickBooks Webhook": {
+      "main": [
+        [
+          {
+            "node": "QuickBooks API - Get Invoice",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "QuickBooks API - Get Invoice": {
+      "main": [
+        [
+          {
+            "node": "Format Invoice Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Invoice Data": {
+      "main": [
+        [
+          {
+            "node": "Send to Airtable",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

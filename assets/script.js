@@ -1,4 +1,7 @@
 var call_form_ = document.querySelector("#formContainer form"),
+
+
+
   call_formData = new FormData(call_form_),
   call_params = "",
   currentTemplate,
@@ -16,7 +19,8 @@ var call_form_ = document.querySelector("#formContainer form"),
     "Assigned to Angela": "angela@cevimed.com",
     "Assigned to Carina": "accounting@cevimed.com",
     "Assigned to Jacob": "jacob@cevimed.com",
-    "Assigned to Mateo": "mateo@cevimed.com"
+    "Assigned to Mateo": "mateo@cevimed.com",
+     "Assigned to Nicky": "warehouse@cevimed.com",
   },
   templateObject = {
     "🛡️ Warranty": [
@@ -257,10 +261,10 @@ document.getElementById("CSA").addEventListener("change", ({ target }) => {
 document.getElementById("Type").addEventListener("change", ({ target }) => {
   document.getElementById("template").innerHTML = "";
   console.log(target.value)
-  document.querySelector('[name="cName"]').value += fillerObject[`${target.value}`][0]
-  document.querySelector('[name="reason"]').value += fillerObject[`${target.value}`][1]
-  document.querySelector('[name="issue"]').value += fillerObject[`${target.value}`][2]
-  document.querySelector('[name="resolution"]').value += fillerObject[`${target.value}`][3]
+  document.querySelector('[name="cName"]').value = fillerObject[`${target.value}`][0]
+  document.querySelector('[name="reason"]').value = fillerObject[`${target.value}`][1]
+  document.querySelector('[name="issue"]').value = fillerObject[`${target.value}`][2]
+  document.querySelector('[name="resolution"]').value = fillerObject[`${target.value}`][3]
   if (templateObject[`${target.value}`] !== undefined) {
     toastr.info(`Protocol Email Templates Available for ${target.value}`);
     currentTemplate = templateObject[`${target.value}`];
