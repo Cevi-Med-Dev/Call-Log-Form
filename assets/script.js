@@ -261,10 +261,10 @@ document.getElementById("CSA").addEventListener("change", ({ target }) => {
 document.getElementById("Type").addEventListener("change", ({ target }) => {
   document.getElementById("template").innerHTML = "";
   console.log(target.value)
-  document.querySelector('[name="cName"]').value = fillerObject[`${target.value}`][0]
-  document.querySelector('[name="reason"]').value = fillerObject[`${target.value}`][1]
-  document.querySelector('[name="issue"]').value = fillerObject[`${target.value}`][2]
-  document.querySelector('[name="resolution"]').value = fillerObject[`${target.value}`][3]
+  document.querySelector('[name="cName"]').value += fillerObject[`${target.value}`][0]
+  document.querySelector('[name="reason"]').value += fillerObject[`${target.value}`][1]
+  document.querySelector('[name="issue"]').value += fillerObject[`${target.value}`][2]
+  document.querySelector('[name="resolution"]').value += fillerObject[`${target.value}`][3]
   if (templateObject[`${target.value}`] !== undefined) {
     toastr.info(`Protocol Email Templates Available for ${target.value}`);
     currentTemplate = templateObject[`${target.value}`];
@@ -272,7 +272,7 @@ document.getElementById("Type").addEventListener("change", ({ target }) => {
     document.getElementById("template").innerHTML = '<option value="">Choose an Email Template</option>';
     const regex = new RegExp(["🔄 ", "❓"].join("|"), "gi");
     const matches = target.value.match(regex);
-    if (matches) {
+    if (matches) {categ
       console.log("Found words:", matches); // Output: ["questions or orders"]
     } else {
       // Output: ["category is not dynamic"]
