@@ -190,13 +190,13 @@ You can contact me directly at order@cevimed.com or you can call our customer se
 Thank you very much,
 
 Cevi Med" `],
-    "🚚 Delivery":["","","",""],
+    "🚚 Delivery":["","Delivery Inquiry","",""],
     "🏥 Insurance Coverage Inquiry": ["", "Insurance Payment?", "Unfortunately we are not currently set up to recieve insurance payment for a presciption a customer may have", "Best way to guaranteed prescribed durable medical equipment aka DME is covered is to call the insurancxe directly and request a list of in network providers of DME"],
     "🐛 Scammers": ["Scammer Name : ", "Scamming / Spamming", "Scam Call", "Block and Report"],
     "🏷️ Solicitors": ["Solicitor / Company name : ", "Soliciting a Service", "Calling to Solicit", "Instruct to Send Email instead",],
-    "💸 Sales":["","","",""],
-    "🛡️ Warranty":["","","",""],
-    "📝 Online Purchase":["","","",""],
+    "💸 Sales":["","Sales","",""],
+    "🛡️ Warranty":["","Warranty","",""],
+    "📝 Online Purchase":["","Online order","",""],
     "🧾 quoteRequest" : ["","Needs Quote",`Product :
 Qty:
 Amount :
@@ -205,7 +205,7 @@ Location / Address :`,"Log for Robert"],
   Qty:
   Amount :
   Order Confirmation # :`,"Take Payment"],
-  "😭 grievance" :["","","","Extend apology and log details"],
+  "😭 grievance" :["","Grievance / Complaint","","Extend apology and log details"],
   "🔄 Order Update":["","","","Give customer updates"],
   "❌ Error / Silent Call": ["No Name", "Silent Call / Bad Connection", "Error durng call", "logged for reference"],
   "❓ General Questions":["","Asking Questions","Question :","Answer : "],
@@ -262,9 +262,9 @@ document.getElementById("Type").addEventListener("change", ({ target }) => {
   document.getElementById("template").innerHTML = "";
   console.log(target.value)
   document.querySelector('[name="cName"]').value += `${fillerObject[`${target.value}`][0]}`
-  document.querySelector('[name="reason"]').value += `/ ${fillerObject[`${target.value}`][1]}`
-  document.querySelector('[name="issue"]').value += `    / ...${fillerObject[`${target.value}`][2]}`
-  document.querySelector('[name="resolution"]').value += `   /  ...${fillerObject[`${target.value}`][3]}`
+  document.querySelector('[name="reason"]').value += `${fillerObject[`${target.value}`][1]}`
+  document.querySelector('[name="issue"]').value += `    /...${fillerObject[`${target.value}`][2]}`
+  document.querySelector('[name="resolution"]').value += `   /...${fillerObject[`${target.value}`][3]}`
   if (templateObject[`${target.value}`] !== undefined) {
     toastr.info(`Protocol Email Templates Available for ${target.value}`);
     currentTemplate = templateObject[`${target.value}`];
