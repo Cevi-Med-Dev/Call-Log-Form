@@ -227,9 +227,7 @@ toastr.options = {
   hideMethod: "slideUp",
   closeMethod: "slideUp",
 };
-toastr.success(
-  `Thank you for calling CeviMed this is --------, May I Please have your name? `
-);
+
 
 //functions
 let call_trigger = async (url, data) => {
@@ -298,61 +296,58 @@ document.getElementById("template").addEventListener("change", ({ target }) => {
   console.log(call_formData);
 });
 
-document.getElementById("cName").addEventListener("focusout", (e) => {
-  toastr.success(
-    `Suggestion : Say "Hi ${e.target.value.toUpperCase()}, How Can I Assist You Today?`
-  );
-});
+document.querySelector('[name="invoice"]').addEventListener("focusout", ({target}) => {
+  console.log(target.value,document.getElementById("invoiceNumber"))
+  document.getElementById("invoiceNumber").value = target.value
+  toastr.success("Click the Retrieve Data Button!");
+  //   call_trigger(
+  //   "https://n8n.cevispace.com/webhook-test/d8b9bced-6334-4911-92b3-176f7cc7072d",
+  //   `invoice=${document.querySelector('[name="invoice"]').value }&`
+  // ).then((data) => {
+  //   toastr.success("Click the Retrieve Data Button!");
+  //       function displayData(data) {
+  //           // Handle array response (n8n sends array of items)
+  //           const responseData = Array.isArray(data) ? data[0] : data;
 
-document.querySelector('[name="invoice"]').addEventListener("focusout", (e) => {
-    call_trigger(
-    "https://n8n.cevispace.com/webhook-test/d8b9bced-6334-4911-92b3-176f7cc7072d",
-    `invoice=${document.querySelector('[name="invoice"]').value }&`
-  ).then((data) => {
-    toastr.success("Click the Retrieve Data Button!");
-        function displayData(data) {
-            // Handle array response (n8n sends array of items)
-            const responseData = Array.isArray(data) ? data[0] : data;
+  //           // Display metadata
+  //           if (responseData.metadata) {
+  //               const meta = responseData.metadata;
+  //               document.getElementById('metadata').innerHTML = `
+  //                   <strong>📊 Query Metadata:</strong><br>
+  //                   Invoice: ${meta.invoiceNumber} | 
+  //                   Total Records: ${meta.totalRecords} | 
+  //                   Retrieved: ${new Date(meta.retrievedAt).toLocaleString()}
+  //               `;
+  //           }
 
-            // Display metadata
-            if (responseData.metadata) {
-                const meta = responseData.metadata;
-                document.getElementById('metadata').innerHTML = `
-                    <strong>📊 Query Metadata:</strong><br>
-                    Invoice: ${meta.invoiceNumber} | 
-                    Total Records: ${meta.totalRecords} | 
-                    Retrieved: ${new Date(meta.retrievedAt).toLocaleString()}
-                `;
-            }
+  //           // Display invoices
+  //           displaySection(
+  //               responseData.invoices || [],
+  //               'invoicesContent',
+  //               'invoiceBadge',
+  //               'No invoices found for this invoice number.'
+  //           );
 
-            // Display invoices
-            displaySection(
-                responseData.invoices || [],
-                'invoicesContent',
-                'invoiceBadge',
-                'No invoices found for this invoice number.'
-            );
+  //           // Display trips
+  //           displaySection(
+  //               responseData.trips || [],
+  //               'tripsContent',
+  //               'tripsBadge',
+  //               'No trips found for this invoice number.'
+  //           );
 
-            // Display trips
-            displaySection(
-                responseData.trips || [],
-                'tripsContent',
-                'tripsBadge',
-                'No trips found for this invoice number.'
-            );
+  //           // Display call logs
+  //           displaySection(
+  //               responseData.callLogs || [],
+  //               'callLogsContent',
+  //               'callLogsBadge',
+  //               'No call logs found for this invoice number.'
+  //           );
 
-            // Display call logs
-            displaySection(
-                responseData.callLogs || [],
-                'callLogsContent',
-                'callLogsBadge',
-                'No call logs found for this invoice number.'
-            );
-
-            // Show results
-            results.classList.add('active');
-        }
-  });
+  //           // Show results
+  //           results.classList.add('active');
+  //       }
+  // });
 });
 
 document.querySelectorAll("input[type=checkbox]").forEach((checkBox) => {
