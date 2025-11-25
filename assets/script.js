@@ -84,9 +84,6 @@ Thank you very much`,
             This email serves as a written confirmation of our conversation, ensuring everything is clear and aligned.
 
             We appreciate your trust in CeviMed and look forward to serving you.`,
-      },
-      {
-
       }
     ],
     "📝 Online Purchase": [
@@ -282,9 +279,9 @@ document.getElementById("Type").addEventListener("change", ({ target }) => {
     templateObject[`${target.value}`].forEach((template) => {
       console.log(templateObject[`${target.value}`], target.value),
         (document.getElementById("template").innerHTML += `<option value="${Object.keys(template)[0]}">${Object.keys(template)[0]} ${target.value.split(" ")[0]}</option>`);
-     if (target.value.includes("")) {
-        document.getElementById("template").innerHTML += `<option value="${Object.keys(template)[0]}">${Object.keys(template)[0]} ${target.value.split(" ")[0]}</option>`;
-       }
+    //  if (target.value.includes("")) {
+    //     document.getElementById("template").innerHTML += `<option value="${Object.keys(template)[0]}">${Object.keys(template)[0]} ${target.value.split(" ")[0]}</option>`;
+    //    }
     });
   } else {
     toastr.warning(`No Protocols for the ${target.value} Category`);
@@ -312,7 +309,7 @@ document.querySelector('[name="invoice"]').addEventListener("focusout", (e) => {
     "https://n8n.cevispace.com/webhook-test/d8b9bced-6334-4911-92b3-176f7cc7072d",
     `invoice=${document.querySelector('[name="invoice"]').value }&`
   ).then((data) => {
-    toastr.success("Retrieving Invoice , Trip and Call Data");
+    toastr.success("Click the Retrieve Data Button!");
         function displayData(data) {
             // Handle array response (n8n sends array of items)
             const responseData = Array.isArray(data) ? data[0] : data;
