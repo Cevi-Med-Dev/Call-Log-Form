@@ -18,7 +18,7 @@
     </section>
     <section id="formContainer">
         <img id="logo" src="./assets/img/logo.png" alt="">
-        <form target="_blank" 
+        <form target="_blank"
             action="https://hooks.airtable.com/workflows/v1/genericWebhook/app7xwRPHHOaWI4pJ/wflyLNHGL2T8dEnQs/wtrlCTYJiBKLmDcAZ"
             method="post" onkeydown="(event.keyCode === 13) && false">
             <section id="fields">
@@ -148,7 +148,7 @@
                         <option value="Assigned to Angela">Assigned to Angela</option>
                         <option value="Assigned to Carina">Assigned to Carina</option>
                         <option value="Assigned to Nicky">Assigned to Nicky</option>
-                        
+
                     </Select>
 
 
@@ -175,14 +175,250 @@
             </div>
 
         </form>
+
+
+    </section>
+    <section class="rightColumn">
+
+        <div class="container">
+            <div class="form-card">
+                <h1>📞 Retrieve Customer Data Using Invoice</h1>
+                <p class="subtitle">Enter an invoice number to retrieve associated invoices, trips, and call logs from
+                    n8n</p>
+
+                <form id="dataForm">
+                    <div class="form-group">
+                        <label for="invoiceNumber">Invoice Number</label>
+                        <input type="text" id="invoiceNumber" name="invoiceNumber" placeholder="e.g., INV-2025-001"
+                            required>
+                    </div>
+
+                    <button type="submit" class="btn" id="submitBtn">
+                        🔍 Retrieve Data
+                    </button>
+                </form>
+
+                <div class="loading" id="loading">
+                    <div class="spinner"></div>
+                    <p>Fetching data from n8n...</p>
+                </div>
+
+                <div class="error" id="error"></div>
+            </div>
+
+            <div class="results" id="results">
+              
+
+                <div class="data-section">
+                    <div class="section-header">
+                        <h2 class="section-title">📄 Invoices</h2>
+                        <span class="badge" id="invoicesBadge">0</span>
+                    </div>
+                    <div id="invoicesContent"></div>
+                </div>
+
+                <div class="data-section">
+                    <div class="section-header">
+                        <h2 class="section-title">🚚 Trips</h2>
+                        <span class="badge" id="tripsBadge">0</span>
+                    </div>
+                    <div id="tripsContent"></div>
+                </div>
+
+                <div class="data-section">
+                    <div class="section-header">
+                        <h2 class="section-title">📞 Call Logs</h2>
+                        <span class="badge" id="callsBadge">0</span>
+                    </div>
+                    <div id="callsContent"></div>
+                </div>
+            </div>
+        </div>
         <footer>
             <small>Please provide Feedback @ Tech@cevimed.com</small>
         </footer>
-
     </section>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script>
+        // ⚠️ IMPORTANT: Replace this with your actual n8n webhook URL
+        const WEBHOOK_URL = 'https://n8n.cevispace.com/webhook/d8b9bced-6334-4911-92b3-176f7cc7072d';
+        const form = document.getElementById('dataForm');
+        const loading = document.getElementById('loading');
+        const results = document.getElementById('results');
+        const error = document.getElementById('error');
+        const submitBtn = document.getElementById('submitBtn');
 
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const invoiceNumber = document.getElementById('invoiceNumber').value.trim();
+
+            // Reset UI
+            error.classList.remove('active');
+            results.classList.remove('active');
+            loading.classList.add('active');
+            submitBtn.disabled = true;
+
+            try {
+                // Make POST request to n8n webhook
+                const response = await fetch(WEBHOOK_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        invoice: invoiceNumber
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const data = await response.json();
+
+
+                // Display the data
+                displayData(data);
+
+            } catch (err) {
+                console.error('Error:', err);
+                error.textContent = `Error: ${err.message}. Please check the webhook URL and try again.`;
+                error.classList.add('active');
+            } finally {
+                loading.classList.remove('active');
+                submitBtn.disabled = false;
+            }
+        });
+
+        function displayData(data) {
+            //Order : invoice , trips, calls
+            let dataArray = Object.values(data[0])
+            let fullArray = Object.entries(data[0]).map(l => [Object.keys(l), Object.values(l)].flat())
+
+        
+
+            fullArray.forEach(l => {
+                console.log(l)
+
+                displaySection(Object.values(l[3]), `${l[2]}Content`, `${l[2]}Badge`, `No ${l[2]} Registered yet`)
+            })
+            // Show results
+            results.classList.add('active');
+        }
+
+        function displaySection(items, contentId, badgeId, emptyMessage) {
+
+            const content = document.getElementById(contentId);
+            const badge = document.getElementById(badgeId);
+            // Update badge
+            badge.textContent = items.length;
+            badge.classList.toggle('empty', items.length === 0);
+
+            // Display items
+            if (items.length === 0) {
+                content.innerHTML = `<div class="no-data">${emptyMessage}</div>`;
+                return;
+            }
+
+            content.innerHTML = items.map((item, index) => {
+                console.log(Object.values(item))
+                const renderOrderCard = (order) => `
+<div class="orderCard-container">
+  <div class="orderCard-card">
+
+    <h2 class="orderCard-title">Order #${order["Order #"] || order.Name}</h2>
+
+    <div class="orderCard-section">
+      <h3>Customer Info</h3>
+      <div class="orderCard-grid">
+        <div><strong>Name:</strong> ${order.Customer}</div>
+        <div><strong>Email:</strong> ${order.Email}</div>
+        <div><strong>Phone:</strong> ${order.Phone}</div>
+      </div>
+    </div>
+
+    <div class="orderCard-section">
+      <h3>Order Details</h3>
+      <div class="orderCard-grid">
+        <div><strong>Item:</strong> ${order.Item?.split("Choose Color")[0]}</div>
+        <div><strong>Color:</strong> ${order.Item?.match(/Choose Color:(.*)/)?.[1] || "—"}</div>
+        <div><strong>Qty:</strong> ${order.QTY}</div>
+        <div><strong>EA Price:</strong> $${order["EA Price"]}</div>
+        <div><strong>Shipping:</strong> $${order.Shipping}</div>
+        <div><strong>Total Amount:</strong> $${order["Total Amount"]}</div>
+        <div><strong>Profit:</strong> $${order.Profit}</div>
+        <div><strong>Category:</strong> ${order.Category?.join(", ")}</div>
+        <div><strong>Type:</strong> ${order["Type of Product"]}</div>
+      </div>
+
+      <p class="orderCard-multiline"><strong>Item Notes:</strong><br>
+        ${order.Item?.replace(/\n/g, "<br>")}
+      </p>
+    </div>
+
+    <div class="orderCard-section">
+      <h3>Shipping Address</h3>
+      <p class="orderCard-multiline">
+        ${order["Address "]?.replace(/\n/g, "<br>")}
+      </p>
+    </div>
+
+    ${order.Attachment?.length
+                        ? `
+        <div class="orderCard-section">
+          <h3>Attachments</h3>
+          <div class="orderCard-images">
+            ${order.Attachment.map(a => `
+              <img src="${a.url}" alt="${a.filename}" />
+            `).join("")}
+          </div>
+        </div>
+      `
+                        : ""}
+
+    ${order.POD?.length
+                        ? `
+        <div class="orderCard-section">
+          <h3>POD Images</h3>
+          <div class="orderCard-images">
+            ${order.POD.map(a => `
+              <img src="${a.url}" alt="${a.filename}" />
+            `).join("")}
+          </div>
+        </div>
+      `
+                        : ""}
+
+  </div>
+</div>
+`;
+
+                const rows = Object.values(item)
+             
+
+                return `
+                    <div class="data-item">
+                        <strong style="color: #667eea; margin-bottom: 10px; display: block;">
+                            Record ${index}
+                        </strong>
+                        ${rows.map(item => renderOrderCard(item))}
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function formatFieldName(name) {
+            // Convert camelCase or snake_case to Title Case
+            return name
+                .replace(/([A-Z])/g, ' $1')
+                .replace(/_/g, ' ')
+                .replace(/\b\w/g, l => l.toUpperCase())
+                .trim();
+        }
+    </script>
     <script type="module" src="./assets/script.js"></script>
 </body>
 

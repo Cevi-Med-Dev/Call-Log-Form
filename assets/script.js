@@ -282,9 +282,9 @@ document.getElementById("Type").addEventListener("change", ({ target }) => {
     templateObject[`${target.value}`].forEach((template) => {
       console.log(templateObject[`${target.value}`], target.value),
         (document.getElementById("template").innerHTML += `<option value="${Object.keys(template)[0]}">${Object.keys(template)[0]} ${target.value.split(" ")[0]}</option>`);
-      // if (target.value.includes("")) {
-      //   document.getElementById("template").innerHTML += `<option value="${Object.keys(template)[0]}">${Object.keys(template)[0]} ${target.value.split(" ")[0]}</option>`;
-      // }
+     if (target.value.includes("")) {
+        document.getElementById("template").innerHTML += `<option value="${Object.keys(template)[0]}">${Object.keys(template)[0]} ${target.value.split(" ")[0]}</option>`;
+       }
     });
   } else {
     toastr.warning(`No Protocols for the ${target.value} Category`);
@@ -305,6 +305,57 @@ document.getElementById("cName").addEventListener("focusout", (e) => {
   toastr.success(
     `Suggestion : Say "Hi ${e.target.value.toUpperCase()}, How Can I Assist You Today?`
   );
+});
+
+document.querySelector('[name="invoice"]').addEventListener("focusout", (e) => {
+    call_trigger(
+    "https://n8n.cevispace.com/webhook-test/d8b9bced-6334-4911-92b3-176f7cc7072d",
+    `invoice=${document.querySelector('[name="invoice"]').value }&`
+  ).then((data) => {
+    toastr.success("Retrieving Invoice , Trip and Call Data");
+        function displayData(data) {
+            // Handle array response (n8n sends array of items)
+            const responseData = Array.isArray(data) ? data[0] : data;
+
+            // Display metadata
+            if (responseData.metadata) {
+                const meta = responseData.metadata;
+                document.getElementById('metadata').innerHTML = `
+                    <strong>📊 Query Metadata:</strong><br>
+                    Invoice: ${meta.invoiceNumber} | 
+                    Total Records: ${meta.totalRecords} | 
+                    Retrieved: ${new Date(meta.retrievedAt).toLocaleString()}
+                `;
+            }
+
+            // Display invoices
+            displaySection(
+                responseData.invoices || [],
+                'invoicesContent',
+                'invoiceBadge',
+                'No invoices found for this invoice number.'
+            );
+
+            // Display trips
+            displaySection(
+                responseData.trips || [],
+                'tripsContent',
+                'tripsBadge',
+                'No trips found for this invoice number.'
+            );
+
+            // Display call logs
+            displaySection(
+                responseData.callLogs || [],
+                'callLogsContent',
+                'callLogsBadge',
+                'No call logs found for this invoice number.'
+            );
+
+            // Show results
+            results.classList.add('active');
+        }
+  });
 });
 
 document.querySelectorAll("input[type=checkbox]").forEach((checkBox) => {
