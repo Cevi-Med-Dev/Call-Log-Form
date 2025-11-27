@@ -1,7 +1,4 @@
 var call_form_ = document.querySelector("#formContainer form"),
-
-
-
   call_formData = new FormData(call_form_),
   call_params = "",
   currentTemplate,
@@ -20,7 +17,7 @@ var call_form_ = document.querySelector("#formContainer form"),
     "Assigned to Carina": "accounting@cevimed.com",
     "Assigned to Jacob": "jacob@cevimed.com",
     "Assigned to Mateo": "mateo@cevimed.com",
-     "Assigned to Nicky": "warehouse@cevimed.com",
+    "Assigned to Nicky": "warehouse@cevimed.com",
   },
   templateObject = {
     "🛡️ Warranty": [
@@ -66,7 +63,7 @@ var call_form_ = document.querySelector("#formContainer form"),
     "🔍 Suspicious Order Verification": [
       {
         "Re-Send Request for Identification":
-`Thank you for shopping at Cevimed. Your order was successfully received
+          `Thank you for shopping at Cevimed. Your order was successfully received
 We are in contact with you, because we need a picture of your license, medical card and office address, in order to process the shipment of your order.
 If you have any questions or need to make any changes to your order, please let us know.
 You can contact me directly at order@cevimed.com or you can call our customer service by phone at (833) 238-4633.
@@ -187,26 +184,26 @@ You can contact me directly at order@cevimed.com or you can call our customer se
 Thank you very much,
 
 Cevi Med" `],
-    "🚚 Delivery":["","Delivery Inquiry","",""],
+    "🚚 Delivery": ["", "Delivery Inquiry", "", ""],
     "🏥 Insurance Coverage Inquiry": ["", "Insurance Payment?", "Unfortunately we are not currently set up to recieve insurance payment for a presciption a customer may have", "Best way to guaranteed prescribed durable medical equipment aka DME is covered is to call the insurancxe directly and request a list of in network providers of DME"],
     "🐛 Scammers": ["Scammer Name : ", "Scamming / Spamming", "Scam Call", "Block and Report"],
     "🏷️ Solicitors": ["Solicitor / Company name : ", "Soliciting a Service", "Calling to Solicit", "Instruct to Send Email instead",],
-    "💸 Sales":["","Sales","",""],
-    "🛡️ Warranty":["","Warranty","",""],
-    "📝 Online Purchase":["","Online order","",""],
-    "🧾 quoteRequest" : ["","Needs Quote",`Product :
+    "💸 Sales": ["", "Sales", "", ""],
+    "🛡️ Warranty": ["", "Warranty", "", ""],
+    "📝 Online Purchase": ["", "Online order", "", ""],
+    "🧾 quoteRequest": ["", "Needs Quote", `Product :
 Qty:
 Amount :
-Location / Address :`,"Log for Robert"],
-"💰 Phone Purchase" : ["","Purchasing via phone",`Product :
+Location / Address :`, "Log for Robert"],
+    "💰 Phone Purchase": ["", "Purchasing via phone", `Product :
   Qty:
   Amount :
-  Order Confirmation # :`,"Take Payment"],
-  "😭 grievance" :["","Grievance / Complaint","","Extend apology and log details"],
-  "🔄 Order Update":["","","","Give customer updates"],
-  "❌ Error / Silent Call": ["No Name", "Silent Call / Bad Connection", "Error durng call", "logged for reference"],
-  "❓ General Questions":["","Asking Questions","Question :","Answer : "],
-  "🏦 Accouting / Carina":["","","","Log For Kary in Accounting"],
+  Order Confirmation # :`, "Take Payment"],
+    "😭 grievance": ["", "Grievance / Complaint", "", "Extend apology and log details"],
+    "🔄 Order Update": ["", "", "", "Give customer updates"],
+    "❌ Error / Silent Call": ["No Name", "Silent Call / Bad Connection", "Error durng call", "logged for reference"],
+    "❓ General Questions": ["", "Asking Questions", "Question :", "Answer : "],
+    "🏦 Accouting / Carina": ["", "", "", "Log For Kary in Accounting"],
   }
 //dependendies
 toastr.options = {
@@ -267,7 +264,8 @@ document.getElementById("Type").addEventListener("change", ({ target }) => {
     document.getElementById("template").innerHTML = '<option value="">Choose an Email Template</option>';
     const regex = new RegExp(["🔄 ", "❓"].join("|"), "gi");
     const matches = target.value.match(regex);
-    if (matches) {categ
+    if (matches) {
+      categ
       console.log("Found words:", matches); // Output: ["questions or orders"]
     } else {
       // Output: ["category is not dynamic"]
@@ -277,9 +275,9 @@ document.getElementById("Type").addEventListener("change", ({ target }) => {
     templateObject[`${target.value}`].forEach((template) => {
       console.log(templateObject[`${target.value}`], target.value),
         (document.getElementById("template").innerHTML += `<option value="${Object.keys(template)[0]}">${Object.keys(template)[0]} ${target.value.split(" ")[0]}</option>`);
-    //  if (target.value.includes("")) {
-    //     document.getElementById("template").innerHTML += `<option value="${Object.keys(template)[0]}">${Object.keys(template)[0]} ${target.value.split(" ")[0]}</option>`;
-    //    }
+      //  if (target.value.includes("")) {
+      //     document.getElementById("template").innerHTML += `<option value="${Object.keys(template)[0]}">${Object.keys(template)[0]} ${target.value.split(" ")[0]}</option>`;
+      //    }
     });
   } else {
     toastr.warning(`No Protocols for the ${target.value} Category`);
@@ -295,9 +293,19 @@ document.getElementById("template").addEventListener("change", ({ target }) => {
   call_formData.append(`template`, `${Object.values(templateChosen[0])[0]}`);
   console.log(call_formData);
 });
-
-document.querySelector('[name="invoice"]').addEventListener("focusout", ({target}) => {
-  console.log(target.value,document.getElementById("invoiceNumber"))
+document.addEventListener("click", e => {
+  document.querySelectorAll(".section-header").forEach(header => {
+    header.addEventListener("click", ({ target }) => {
+      // console.log("target", target, "parent", target.parentNode.parentNode, "data to hide : ", Array.from(target.parentNode.parentNode.querySelectorAll(".orderCard-container")))
+      Array.from(target.parentNode.parentNode.querySelectorAll(".orderCard-container")).forEach(el => {
+        el.classList.toggle("open")
+        console.log("attemoted to hide")
+      })
+    })
+  })
+});
+document.querySelector('[name="invoice"]').addEventListener("focusout", ({ target }) => {
+  console.log(target.value, document.getElementById("invoiceNumber"))
   document.getElementById("invoiceNumber").value = target.value
   toastr.success("Click the Retrieve Data Button!");
   //   call_trigger(

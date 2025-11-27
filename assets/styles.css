@@ -17,7 +17,8 @@ body {
 }
 
 #formContainer {
-    margin: 15px 0 0 15px;
+    position: relative;
+    left: 25px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -25,10 +26,18 @@ body {
     width: 35%;
     z-index: 1;
 }
+#formContainer form{
+    margin-left:20px;
+}
 
 .container {
     min-width: 400px;
     padding-right: 25px;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: baseline;
+    align-items: self-end;
 }
 
 #flags {
@@ -146,7 +155,14 @@ label.blackTxt {
     width: 100%;
     text-align: center;
 }
-
+.orderCard-container {
+  max-height: 20px;
+  overflow-y: scroll;
+  transition: max-height 0.25s ease;
+}
+.orderCard-container.open {
+  max-height: 500px; /* big enough for any content */
+}
 aside {
     text-align: center;
     margin: 5px 0;
@@ -163,7 +179,7 @@ section#flags div {
     top: 0;
     background-color: #ad5d5f;
     height: 100vh;
-    width: 40vw;
+    width: 45vw;
 }
 
 .leftColumn img {
@@ -201,7 +217,8 @@ img#logo {
 }
 
 .btn:hover {
-    background: linear-gradient(135deg, #c40b11 0%, #ffffff 50%);;
+    background: linear-gradient(135deg, #c40b11 0%, #ffffff 50%);
+    ;
     border: 1px solid #C40C11;
     color: #C40C11;
     font-weight: bolder;
@@ -244,6 +261,7 @@ footer {
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
     margin: 70px 5px 0px 5px;
     text-align: center;
+    width: 80%;
 }
 
 h1 {
@@ -259,7 +277,10 @@ h1 {
 }
 
 .form-group {
-    margin-bottom: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
 }
 
 label {
@@ -271,7 +292,7 @@ label {
 }
 
 input[type="text"] {
-    width: 100%;
+
     padding: 12px 15px;
     border: 2px solid #e0e0e0;
     border-radius: 8px;
@@ -281,7 +302,7 @@ input[type="text"] {
 
 input[type="text"]:focus {
     outline: none;
-    border-color: #667eea;
+    border-color: #c40b11;
     box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
 }
 
@@ -317,7 +338,7 @@ input[type="text"]:focus {
     display: none;
     text-align: center;
     padding: 20px;
-    color: #667eea;
+    color: #c40b11;
     font-weight: 600;
 }
 
@@ -327,7 +348,7 @@ input[type="text"]:focus {
 
 .spinner {
     border: 3px solid #f3f3f3;
-    border-top: 3px solid #667eea;
+    border-top: 3px solid #c40b11;
     border-radius: 50%;
     width: 40px;
     height: 40px;
@@ -351,9 +372,9 @@ input[type="text"]:focus {
 }
 
 .results.active {
-    display: block;
-
-
+    display: flex;
+    flex-direction: column;
+    align-items: self-end;
 }
 
 .data-section {
@@ -361,16 +382,18 @@ input[type="text"]:focus {
     border-radius: 12px;
     margin-bottom: 10px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    width: 100%;
+    width: 80%;
 }
 
 .section-header {
     display: flex;
-    justify-content: space-between;
+    justify-content:center;
     align-items: center;
     margin-bottom: 20px;
     padding-bottom: 15px;
     border-bottom: 2px solid #f0f0f0;
+    cursor: pointer;
+    z-index: 10;
 }
 
 .section-title {
@@ -380,11 +403,11 @@ input[type="text"]:focus {
 }
 
 .badge {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #c40b11 40%, #8a7d7d 100%);
     color: white;
     padding: 6px 14px;
     border-radius: 20px;
-    font-size: 14px;
+    font-size: 20px;
     font-weight: 600;
 }
 
@@ -399,13 +422,21 @@ input[type="text"]:focus {
 
 }
 
+h2 {
+    text-align: center;
+    width: 100%;
+}
+
 .data-item {
     background: #f8f9fa;
-    border-left: 4px solid #667eea;
+    border-left: 4px solid #c40b11;
     padding: 15px;
     margin-left: 25px;
     border-radius: 6px;
-    text-align: right;
+    display: flex;
+    flex-direction: column;
+    align-items: self-end;
+    overflow-y: scroll;
 }
 
 .data-row {
@@ -464,7 +495,7 @@ input[type="text"]:focus {
 }
 
 .orderCard-card {
-    width: 100%;
+    height: max-content;
     max-width: 850px;
     background: #ffffff;
     border-radius: 16px;
@@ -507,8 +538,9 @@ input[type="text"]:focus {
 
 .orderCard-images {
     display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
+    justify-content: flex-end;
+    flex-wrap: wrap-reverse;
+    align-items: self-end;
 }
 
 .orderCard-images img {
@@ -520,21 +552,41 @@ input[type="text"]:focus {
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
-
-@media (max-width: 768px) {
-    .data-row {
-        grid-template-columns: 1fr;
-        gap: 5px;
-    }
-
-    h1 {
-        font-size: 24px;
-    }
-
-    .section-title {
-        font-size: 18px;
-    }
+/* === Universal Record Card Styles (shared) === */
+.record-card {
+    align-items: self-end;
+    padding: 18px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    backdrop-filter: blur(4px);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+    max-width: 600px;
+    font-size: 18px !important;
 }
+
+.record-title {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 700;
+    border-bottom: 1px solid #e1e1e1;
+    padding-bottom: 6px;
+}
+
+.record-field {
+    display: flex;
+    gap: 6px;
+    font-size: 14px;
+}
+
+.record-field .label {
+    font-weight: 600;
+    color: #333;
+}
+
+/* === Call Card Custom Namespace === */
 
 
 @media (max-width: 1000px) {
@@ -562,7 +614,7 @@ input[type="text"]:focus {
         width: 100%;
     }
 
-   
+
 
     #form {
         display: flex;
@@ -572,20 +624,27 @@ input[type="text"]:focus {
     .rightColumn {
         text-align: center;
         z-index: 100;
-  
+        max-width: 500px;
+        height: 100vh;
+       
     }
 
     .form-card {
         padding: 5px 15px;
-        margin: 50px 5px 10px 5px;
+        margin: 70px 5px 10px 5px;
         text-align: center;
         width: max-content;
         height: auto;
-        width: 100%;
+        width: 80%;
     }
 
     */ button.btn {
         width: 50%;
         text-align: center;
+    }
+
+    footer {
+        color: white;
+        font-size: 20px;
     }
 }
