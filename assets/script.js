@@ -171,7 +171,6 @@ Thank you very much`,
     ],
 
   },
-
   fillerObject = {
     "🔍 Suspicious Order Verification": ["", "Manual verification required", "Customer must respond to email and this number is give for clarifty", `Copy of email : "Thank you for shopping at Cevimed. Your order No. 27590 was successfully received
 
@@ -205,6 +204,356 @@ Location / Address :`, "Log for Robert"],
     "❓ General Questions": ["", "Asking Questions", "Question :", "Answer : "],
     "🏦 Accouting / Carina": ["", "", "", "Log For Kary in Accounting"],
   }
+    const WEBHOOK_URL = 'https://n8n.cevispace.com/webhook/d8b9bced-6334-4911-92b3-176f7cc7072d';
+    const form = document.getElementById('dataForm');
+    const loading = document.getElementById('loading');
+    const results = document.getElementById('results');
+    const error = document.getElementById('error');
+    const submitBtn = document.getElementById('submitBtn');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const invoiceNumber = document.getElementById('invoiceNumber').value.trim();
+
+      // Reset UI
+      error.classList.remove('active');
+      results.classList.remove('active');
+      loading.classList.add('active');
+      submitBtn.disabled = true;
+
+      try {
+        // Make POST request to n8n webhook
+        const response = await fetch(WEBHOOK_URL, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            invoice: invoiceNumber
+          })
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+
+
+
+        // Display the data
+        displayData(data);
+
+      } catch (err) {
+        console.error('Error:', err);
+        error.textContent = `Error: ${err.message}. Please check the webhook URL and try again.`;
+        error.classList.add('active');
+      } finally {
+        loading.classList.remove('active');
+        submitBtn.disabled = false;
+      }
+    });
+
+    function displayData(data) {
+      //Order : invoice , trips, calls
+      let dataArray = Object.values(data[0])
+      let fullArray = Object.entries(data[0]).map(l => [Object.keys(l), Object.values(l)].flat())
+
+
+      fullArray.forEach(l => {
+        console.log(l)
+
+        displaySection(Object.values(l[3]), `${l[2]}Content`, `${l[2]}Badge`, `No ${l[2]} Registered yet`, `${l[3]["records"].length}`, `${l[2]}`)
+      })
+      // Show results
+      results.classList.add('active');
+    }
+
+    function displaySection(items, contentId, badgeId, emptyMessage, totalItems, type) {
+      const content = document.getElementById(contentId);
+      const badge = document.getElementById(badgeId);
+      // Update badge
+      badge.textContent = totalItems;
+      badge.classList.toggle('empty', items.length === 0);
+
+      // Display items
+      if (items.length === 0) {
+        content.innerHTML = `<div class="no-data">${emptyMessage}</div>`;
+        return;
+      }
+
+      content.innerHTML = items.map((item, index) => {
+        console.log(Object.entries(item))
+        const formatDate = s => {
+  // Extract MM/DD/YYYY safely
+  const [m, dNum, y] = s.split("/").map(Number);
+
+  // FIX: create date without timezone shift
+  const d = new Date(y, m - 1, dNum);
+
+  const day = d.getDate();
+  const suf = (n =>
+    (n % 10 == 1 && n != 11 ? "st" :
+     n % 10 == 2 && n != 12 ? "nd" :
+     n % 10 == 3 && n != 13 ? "rd" : "th")
+  )(day);
+
+  return d
+    .toLocaleDateString("en-US", {
+      weekday: "long",
+      month: "long",
+      day: "numeric",
+      year: "numeric"
+    })
+    .replace(",", "")
+    .replace(day, day + suf);
+};
+
+        const renderOrderCard = (order, i) => `
+<div class="orderCard-container">
+  <div class="orderCard-card">
+
+    <h2 class="orderCard-title">Order #${order["Order #"] || order.Name}</h2>
+
+    <div class="orderCard-section">
+      <h3>Customer Info</h3>
+      <div class="orderCard-grid">
+        <div><strong>Name:</strong> ${order.Customer}</div>
+        <div><strong>Email:</strong> ${order.Email}</div>
+        <div><strong>Phone:</strong> ${order.Phone}</div>
+      </div>
+    </div>
+
+    <div class="orderCard-section">
+      <h3>Order Details</h3>
+      <div class="orderCard-grid">
+        <div><strong>Item:</strong> ${order.Item?.split("Choose Color")[0]}</div>
+        <div><strong>Color:</strong> ${order.Item?.match(/Choose Color:(.*)/)?.[1] || "—"}</div>
+        <div><strong>Qty:</strong> ${order.QTY}</div>
+        <div><strong>EA Price:</strong> $${order["EA Price"]}</div>
+        <div><strong>Shipping:</strong> $${order.Shipping}</div>
+        <div><strong>Total Amount:</strong> $${order["Total Amount"]}</div>
+        <div><strong>Profit:</strong> $${order.Profit}</div>
+        <div><strong>Category:</strong> ${order.Category?.join(", ")}</div>
+        <div><strong>Type:</strong> ${order["Type of Product"]}</div>
+      </div>
+
+      <p class="orderCard-multiline"><strong>Item Notes:</strong><br>
+        ${order.Item?.replace(/\n/g, "<br>")}
+      </p>
+    </div>
+
+    <div class="orderCard-section">
+      <h3>Shipping Address</h3>
+      <p class="orderCard-multiline">
+        ${order["Address "]?.replace(/\n/g, "<br>")}
+      </p>
+    </div>
+
+    ${order.Attachment?.length
+            ? `
+        <div class="orderCard-section">
+          <h3>Attachments</h3>
+          <div class="orderCard-images">
+            ${order.Attachment.map(a => `
+              <img src="${a.url}" alt="${a.filename}" />
+            `).join("")}
+          </div>
+        </div>
+      `
+            : ""}
+
+    ${order.POD?.length
+            ? `
+        <div class="orderCard-section">
+          <h3>POD Images</h3>
+          <div class="orderCard-images">
+            ${order.POD.map(a => `
+              <img src="${a.url}" alt="${a.filename}" />
+            `).join("")}
+          </div>
+        </div>
+      `
+            : ""}
+
+  </div>
+</div>
+`;
+        const renderTripsCard = (trip) => `
+<div class="orderCard-container">
+  <div class="orderCard-card">
+
+    <h2 class="orderCard-title">Trip – ${trip.Trips || trip.Name}</h2>
+
+    <!-- CUSTOMER / CONTACT INFO -->
+    <div class="orderCard-section">
+      <h3>Customer Info</h3>
+      <div class="orderCard-grid">
+        <div><strong>Name:</strong> ${trip.Name}</div>
+        <div><strong>Email:</strong> ${trip.email}</div>
+        <div><strong>Phone:</strong> ${trip.Phone}</div>
+        <div><strong>Address:</strong> ${trip.Address}</div>
+        <div><strong>State:</strong> ${trip.State}</div>
+      </div>
+    </div>
+
+    <!-- TRIP DETAILS -->
+    <div class="orderCard-section">
+      <h3>Trip Details</h3>
+      <div class="orderCard-grid">
+        <div><strong>Route:</strong> ${trip.Route}</div>
+        <div><strong>Driver:</strong> ${trip["Driver Name"]?.join(", ")}</div>
+        <div><strong>Position #:</strong> ${trip["Position #"]}</div>
+        <div><strong>Position Truck:</strong> ${trip["Position Truck"]?.join(", ")}</div>
+        <div><strong>Stops:</strong> ${trip["Stop actual"]} / ${trip["Total of stops"]}</div>
+        <div><strong>Date of Trip:</strong> ${trip["Date of Trip"]}</div>
+        <div><strong>Invoice Date:</strong> ${trip["Invoice Date"]}</div>
+        <div><strong>Invoice Lookup:</strong> ${trip["Invoice Lookup"]}</div>
+        <div><strong>Days Since Invoice:</strong> ${trip["Days of Invoice"]}</div>
+        <div><strong>Status:</strong> ${trip.Status}</div>
+        <div><strong>Payment Status:</strong> ${trip["Payment Status"]?.join(", ")}</div>
+        <div><strong>Category:</strong> ${trip.Category?.join(", ")}</div>
+        <div><strong>Type of Product:</strong> ${trip["Type of Product"]}</div>
+      </div>
+
+      <p class="orderCard-multiline">
+        <strong>Description:</strong><br>
+        ${trip.Description?.replace(/\n/g, "<br>")}
+      </p>
+    </div>
+
+    <!-- SAMSARA LINKS -->
+    <div class="orderCard-section">
+      <h3>Samsara</h3>
+      <div class="orderCard-grid">
+        <div><strong>Samsara Link:</strong> 
+          <a href="${trip["Samsara Link"]}" target="_blank">Open Link</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- MAPPING -->
+    ${trip["Samsura Map"]?.length ? `
+      <div class="orderCard-section">
+        <h3>Samsara Map</h3>
+        <div class="orderCard-images">
+          ${trip["Samsura Map"].map(m => `
+            <img src="${m.url}" alt="${m.filename}" />
+          `).join("")}
+        </div>
+      </div>
+    ` : ""}
+
+    <!-- ATTACHMENTS -->
+    ${trip.Attachments?.length ? `
+      <div class="orderCard-section">
+        <h3>Attachments</h3>
+        <div class="orderCard-images">
+          ${trip.Attachments.map(a => `
+            <img src="${a.url}" alt="${a.filename}" />
+          `).join("")}
+        </div>
+      </div>
+    ` : ""}
+
+  </div>
+</div>
+`;
+        function renderCallCard(call) {
+          console.log(type)
+          const priorityColor = {
+            "low 💁‍♂️": 'rgba(245, 251, 85, 0.2)',        // transparent yellow
+            "medium 🤙": 'rgba(255, 159, 41,0.2)',       // transparent orange
+            "high❗": 'rgba(255, 95, 32,0.2)',           // transparent red
+            "urgent ⚠️❗": 'rgba(230, 39, 39,0.25)'          // darker red
+          };
+
+          const bgColor = priorityColor[call.priority?.toLowerCase()] || 'rgba(0,0,0,0.05)';
+          console.log(call.priority.toLowerCase(), bgColor)
+          return `
+          <div class="orderCard-container">
+            <div style="background:${bgColor};" class="orderCard-card">
+
+              <h2 class="orderCard-title">Call by ${call["Caller Name"]} on  ${formatDate(new Date(call.createdTime).toLocaleString().split(",")[0])}</h2>
+
+              <!-- CUSTOMER / CALL INFO -->
+              <div class="orderCard-section">
+                <h3>Call Info</h3>
+                <div class="orderCard-grid">
+                  <div><strong>CS Agent:</strong> ${call["CS Agent"]}</div>
+                  <div><strong>Call Direction:</strong> ${call["Call Direction"]}</div>
+                  <div><strong>Caller Name:</strong> ${call["Caller Name"]}</div>
+                  <div><strong>Phone #:</strong> ${call["Phone #"]}</div>
+                  <div><strong>Type of Call:</strong> ${call["Type of Call "]}</div>
+                  <div><strong>Priority:</strong> ${call.priority}</div>
+                  <div><strong>Timestamp:</strong> ${call["time stamp"]}</div>
+                </div>
+              </div>
+
+              <!-- INVOICE INFO -->
+              <div class="orderCard-section">
+                <h3>Invoice Details</h3>
+                <div class="orderCard-grid">
+                  <div><strong>Invoice Lookup:</strong> ${call["Invoice Lookup "]}</div>
+                  <div><strong>Invoices:</strong> ${call.Invoices?.join(", ")}</div>
+                  <div><strong>Name (from Invoices):</strong> ${call["Name (from Invoices)"]?.join(", ")}</div>
+                  <div><strong>Invoice #:</strong> ${call["invoice #"]}</div>
+                </div>
+              </div>
+
+              <!-- ISSUE -->
+              <div class="orderCard-section">
+                <h3>Issue Reported</h3>
+                <p class="orderCard-multiline">
+                  <strong>Issue:</strong><br>
+                  ${call.Issue}
+                </p>
+              </div>
+
+            </div>
+          </div>
+
+  `;
+        } const executeCard = (type) => {
+
+          switch (type) {
+            case "calls":
+              return rows.map(item => renderCallCard(item, index))
+              break;
+
+            case "trips":
+              return rows.map(item => renderTripsCard(item, index))
+              break;
+
+            case "invoices":
+              return rows.map(item => renderOrderCard(item, index))
+              break;
+
+            default:
+              console.warn("Unknown type:", type);
+          }
+        }
+        const rows = Object.values(item)
+
+
+        return `
+                    <div class="data-item">
+                        ${executeCard(type)}
+                    </div>
+                `;
+      }).join('');
+    }
+
+    function formatFieldName(name) {
+      // Convert camelCase or snake_case to Title Case
+      return name
+        .replace(/([A-Z])/g, ' $1')
+        .replace(/_/g, ' ')
+        .replace(/\b\w/g, l => l.toUpperCase())
+        .trim();
+    }
+
 //dependendies
 toastr.options = {
   closeButton: true,
@@ -224,7 +573,6 @@ toastr.options = {
   hideMethod: "slideUp",
   closeMethod: "slideUp",
 };
-
 
 //functions
 let call_trigger = async (url, data) => {
@@ -308,54 +656,6 @@ document.querySelector('[name="invoice"]').addEventListener("focusout", ({ targe
   console.log(target.value, document.getElementById("invoiceNumber"))
   document.getElementById("invoiceNumber").value = target.value
   toastr.success("Click the Retrieve Data Button!");
-  //   call_trigger(
-  //   "https://n8n.cevispace.com/webhook-test/d8b9bced-6334-4911-92b3-176f7cc7072d",
-  //   `invoice=${document.querySelector('[name="invoice"]').value }&`
-  // ).then((data) => {
-  //   toastr.success("Click the Retrieve Data Button!");
-  //       function displayData(data) {
-  //           // Handle array response (n8n sends array of items)
-  //           const responseData = Array.isArray(data) ? data[0] : data;
-
-  //           // Display metadata
-  //           if (responseData.metadata) {
-  //               const meta = responseData.metadata;
-  //               document.getElementById('metadata').innerHTML = `
-  //                   <strong>📊 Query Metadata:</strong><br>
-  //                   Invoice: ${meta.invoiceNumber} | 
-  //                   Total Records: ${meta.totalRecords} | 
-  //                   Retrieved: ${new Date(meta.retrievedAt).toLocaleString()}
-  //               `;
-  //           }
-
-  //           // Display invoices
-  //           displaySection(
-  //               responseData.invoices || [],
-  //               'invoicesContent',
-  //               'invoiceBadge',
-  //               'No invoices found for this invoice number.'
-  //           );
-
-  //           // Display trips
-  //           displaySection(
-  //               responseData.trips || [],
-  //               'tripsContent',
-  //               'tripsBadge',
-  //               'No trips found for this invoice number.'
-  //           );
-
-  //           // Display call logs
-  //           displaySection(
-  //               responseData.callLogs || [],
-  //               'callLogsContent',
-  //               'callLogsBadge',
-  //               'No call logs found for this invoice number.'
-  //           );
-
-  //           // Show results
-  //           results.classList.add('active');
-  //       }
-  // });
 });
 
 document.querySelectorAll("input[type=checkbox]").forEach((checkBox) => {
