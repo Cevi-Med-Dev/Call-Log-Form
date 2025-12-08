@@ -1,104 +1,243 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
-  <title>Redirecting...</title>
-
-  <!-- Auto Redirect -->
-  <meta http-equiv="refresh" content="0.7; URL='https://cmc.cevispace.com/'" />
-
-  <style>
-    :root {
-      --primary: #c40c11;
-      --primary-dark: #c40c11;
-      --background: #f5fff2;
-      --text-dark: #1a1a1a;
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: "Inter", Arial, sans-serif;
-    }
-
-    body {
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: var(--background);
-    }
-
-    .card {
-      background: white;
-      padding: 40px 55px;
-      border-radius: 22px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-      text-align: center;
-      animation: fadeIn 0.8s ease-out;
-    }
-
-    h1 {
-      font-size: 28px;
-      font-weight: 700;
-      color: var(--primary-dark);
-      margin-bottom: 12px;
-    }
-
-    p {
-      font-size: 16px;
-      color: #333;
-      margin-bottom: 25px;
-    }
-
-    a {
-      color: var(--primary-dark);
-      font-weight: 600;
-      text-decoration: none;
-    }
-
-    /* Loader */
-    .loader {
-      width: 50px;
-      height: 50px;
-      border: 5px solid #e8fbe5;
-      border-top-color: var(--primary);
-      border-radius: 50%;
-      animation: spin 1s linear infinite;
-      margin: 0 auto 20px;
-    }
-
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-  </style>
-
-  <script>
-    // JS Fallback
-    setTimeout(() => {
-      window.location.href = "https://cmc.cevispace.com/";
-    }, 1200);
-  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./assets/styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+  <link rel="icon" type="image/x-icon" href="./assets/img/icon.svg
+    ">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
+  <title>CeviMed Customer Service Form</title>
 </head>
 
 <body>
-  <div class="card">
-    <div class="loader"></div>
-    <h1>Redirecting to New Log</h1>
-    <p>You’re being sent to the updated call log dashboard.</p>
+  <section class="leftColumn">
+    <img src="./assets/img/column.jpg" alt="">
+  </section>
+  <section id="formContainer">
+    <img id="logo" src="./assets/img/logo.png" alt="">
+    <form target="_blank"
+      action="https://hooks.airtable.com/workflows/v1/genericWebhook/app7xwRPHHOaWI4pJ/wflHraW1RQjayg1Fb/wtrNXfOtmQN8cwtgb"
+      method="post" onkeydown="(event.keyCode === 13) && false">
+      <section id="fields">
+        <section id="flags" class="animate__animated animate__bounceInLeft">
 
-    <p>
-      If you’re not redirected,
-      <a href="https://cmc.cevispace.com/">click here</a>.
-    </p>
-  </div>
+          <div>
+
+            <select class="input" id="direction" name="direction" value="↘ inbound">
+              <option value="↘ inbound"> inbound ↙️</option>
+              <option value="outbound ↗">Outbound ↗️ </option>
+            </select>
+            <select class="input" id="priority" name="priority" value="low 💁‍♂️">
+              <option value="low 💁‍♂️">Low 💁‍♂️</option>
+              <option value="medium 🤙">Medium 🤙</option>
+              <option value="High❗">High ❗</option>
+              <option value="Urgent ⚠️❗">Urgent ⚠️❗</option>
+            </select>
+          </div>
+
+          <br>
+          <div>
+
+            <Select id="CSA" class="input blackTxt animate__animated animate__bounceInLeft" name="CSA" type="text">
+              <option value=""> Agent 🎧</option>
+              <option value="Jacob">Jacob</option>
+              <option value="Nicky">Nicky</option>
+              <option value="Mateo">Mateo</option>
+              <option value="Simon">Simon</option>
+              <option value="Robert">Robert</option>
+              <option value="Bryan">Bryan</option>
+              <option value="Diana">Diana</option>
+              <option value="James">James</option>
+              <option value="Natally">Natally</option>
+              <option value="Adriana">Adriana</option>
+              <option value="Lina">Lina</option>
+              <option value="Angela">Angela</option>
+              <option value="Carina">Carina</option>
+
+            </Select>
+            <!-- //depending on the type of the call the other options may guide to a diffrent resolution  -->
+            <select class="input" id="Type" name="Type">
+              <option value="">Category 📊 </option>
+              <option value="🔍 Suspicious Order Verification">Suspicious Order Verification 🔍</option>
+              <option value="🚚 Delivery">Delivery 🚚</option>
+              <option value="🏥 Insurance Coverage Inquiry">Insurance Coverage Inquiry 🏥</option>
+              <option value="🐛 Scammers">Scammers 🐛</option>
+              <option value="🏷️ Solicitors">Solicitors 🏷️</option>
+              <option value="💸 Sales">Sales 💸</option>
+              <option value="🛡️ Warranty">Warranty 🛡️</option>
+              <option value="💰 Phone Purchase">Phone Purchase 💰</option>
+              <option value="📝 Online Purchase">Online Purchase📝</option>
+              <option value="🧾 quoteRequest">Quote Request 🧾</option>
+              <option value="😭 grievance">Grievance😭</option>
+              <option value="🔄 Order Update">Order Update 🔄</option>
+              <option value="❌ Error / Silent Call">Error / Silent Call ❌</option>
+              <option value="❓ General Questions">General Question ❓</option>
+              <option value="🏦 Accouting / Carina">Accouting / Carina 🏦 </option>
+            </select>
+          </div>
+        </section>
+        <aside>
+          <div>
+            <label for="notes">Reason 💭 </label>
+            <input class="animate__animated animate__bounceInLeft input" type="text" name="reason"
+              placeholder="Enter Reason for Call">
+            <label for="text">Phone 📞</label>
+            <input class=" animate__animated animate__bounceInLeft input" type="text" name="cPhone"
+              placeholder="Phone # ">
+            <label for="text">Email 📧 </label>
+            <input class="animate__animated animate__bounceInLeft input" type="text" name="cEmail"
+              placeholder="Email Address">
+            <label for="text">Invoice 📇</label>
+            <input class="animate__animated animate__bounceInLeft input" type="text" name="invoice"
+              placeholder="Invoice # ">
+
+          </div>
+          <div>
+            <label for="text">Name ✍️</label>
+            <input id="cName" class="input animate__animated animate__bounceInRight" type="text" name="cName"
+              placeholder="Enter Caller's Name">
+            <label for="issue">Issue ❌</label>
+            <textarea class="input animate__animated animate__bounceInRight" name="issue" rows="2"></textarea>
+
+            <label for="resolution">Resolution or Verbal Agreement 🤝</label>
+            <textarea class="input animate__animated animate__bounceInRight" name="resolution" rows="2"></textarea>
+            <!-- <label for="notes">Call Notes 📋</label>
+                                <textarea class="input animate__animated animate__bounceInLeft" name="notes"
+                                    rows="2"></textarea> -->
+          </div>
+
+
+
+        </aside>
+        <hr>
+      </section>
+      <!-- <hr>
+            <aside class="evidence animate__animated animate__bounceInLeft">
+                <div>
+                    <label class="evidenceBtn" for="file">Upload and
+                        Evidence</label>
+                    <input type="file" id="file" name="file">
+                </div>
+            </aside> -->
+
+
+      <aside class="input bottom animate__animated animate__bounceInLeft">
+        <label class="blackTxt"><input class="assigneeChkBx" type="checkbox" name="assignee" value=""> This call
+          is being assigned to a different agent </label><br>
+        <div class="hide splitH" id="assigneeContainer">
+
+          <Select class="input  animate__animated animate__bounceInRight" name="assignee" type="text">
+            <option value="">Agent Assigned to This Issue</option>
+            <option value="Assigned to Hector">Assigned to Hector</option>
+            <option value="Assigned to Jacob">Assigned to Jacob</option>
+            <option value="Assigned to Mateo">Assigned to Mateo</option>
+            <option value="Assigned to Robert">Assigned to Robert</option>
+            <option value="Assigned to Bryan">Assigned to Bryan</option>
+            <option value="Assigned to Diana">Assigned to Diana</option>
+            <option value="Assigned to James">Assigned to James </option>
+            <option value="Assigned to Simon">Assigned to Simon</option>
+            <option value="Assigned to Natally">Assigned to Natally</option>
+            <option value="Assigned to Adriana">Assigned to Adriana</option>
+            <option value="Assigned to Lina">Assigned to Lina</option>
+            <option value="Assigned to Angela">Assigned to Angela</option>
+            <option value="Assigned to Carina">Assigned to Carina</option>
+            <option value="Assigned to Nicky">Assigned to Nicky</option>
+
+          </Select>
+
+
+        </div>
+      </aside>
+
+      <aside id="templateHider" class="hide input ">
+        <label class="blackTxt"><input class="template" type="checkbox" name="template" value=""> Send Email to
+          Customer </label><br>
+        <div class="hide splitH" id="templateContainer">
+
+          <Select id="template" name="template" class="input  animate__animated animate__bounceInRight" name="template"
+            type="text">
+          </Select>
+
+
+        </div>
+      </aside>
+
+      <div class="btnContainer">
+
+        <hr>
+        <button id="wrapUpCall" class="btn" type="submit"> Wrap Up Call </button>
+      </div>
+
+    </form>
+
+
+  </section>
+  <section class="rightColumn">
+
+    <div class="container">
+      <div class="form-card">
+        <h1>📞 Retrieve Customer Data Using Invoice</h1>
+        <p class="subtitle">Enter an invoice number to retrieve associated invoices, trips, and call logs from
+          n8n</p>
+
+        <form id="dataForm">
+          <div class="form-group">
+            <label for="invoiceNumber">Invoice Number</label>
+            <input type="text" id="invoiceNumber" name="invoiceNumber" placeholder="e.g., INV-2025-001" required>
+          </div>
+
+          <button type="submit" class="btn" id="submitBtn">
+            🔍 Retrieve Data
+          </button>
+        </form>
+
+        <div class="loading" id="loading">
+          <div class="spinner"></div>
+          <p>Fetching data from n8n...</p>
+        </div>
+
+        <div class="error" id="error"></div>
+      </div>
+
+      <div class="results" id="results">
+
+
+        <div class="data-section">
+          <div class="section-header">
+            <h2 class="section-title">📄 Invoice Items</h2>
+            <span class="badge" id="invoicesBadge">0</span>
+          </div>
+          <div id="invoicesContent"></div>
+        </div>
+
+        <div class="data-section">
+          <div class="section-header">
+            <h2 class="section-title">🚚 Trips Scheduled </h2>
+            <span class="badge" id="tripsBadge">0</span>
+          </div>
+          <div id="tripsContent"></div>
+        </div>
+
+        <div class="data-section">
+          <div class="section-header">
+            <h2 class="section-title">☎️ Call Logged </h2>
+            <span class="badge" id="callsBadge">0</span>
+          </div>
+          <div id="callsContent"></div>
+        </div>
+      </div>
+    </div>
+    <footer>
+      <small>Please provide Feedback @ Tech@cevimed.com</small>
+    </footer>
+  </section>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+  <script type="module" src="./assets/script.js"></script>
 </body>
+
 </html>
-
-
