@@ -205,7 +205,7 @@ Location / Address :`, "Log for Robert"],
     "🏦 Accouting / Carina": ["", "", "", "Log For Kary in Accounting"],
   }
   //https://n8n.cevispace.com/webhook/d8b9bced-6334-4911-92b3-176f7cc7072d
-    const WEBHOOK_URL = 'https://hooks.airtable.com/workflows/v1/genericWebhook/app7xwRPHHOaWI4pJ/wflHraW1RQjayg1Fb/wtrNXfOtmQN8cwtgb';
+    const WEBHOOK_URL = 'https://n8n.cevispace.com/webhook/b82024da-0682-4550-a13b-b4f97536295f';
     const form = document.getElementById('dataForm');
     const loading = document.getElementById('loading');
     const results = document.getElementById('results');
