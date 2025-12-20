@@ -202,7 +202,7 @@ Location / Address :`, "Log for Robert"],
     "🔄 Order Update": ["", "", "", "Give customer updates"],
     "❌ Error / Silent Call": ["No Name", "Silent Call / Bad Connection", "Error durng call", "logged for reference"],
     "❓ General Questions": ["", "Asking Questions", "Question :", "Answer : "],
-    "🏦 Accouting / Carina": ["", "", "", "Log For Kary in Accounting"],
+    "🏦 Accouting / Carina": ["", "", "", "Log For Cari Ballesteros in Accounting"],
   }
   //https://n8n.cevispace.com/webhook/d8b9bced-6334-4911-92b3-176f7cc7072d
     const WEBHOOK_URL = 'https://n8n.cevispace.com/webhook/b82024da-0682-4550-a13b-b4f97536295f';
