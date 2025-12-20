@@ -702,7 +702,7 @@ call_form_.addEventListener("submit", (e) => {
   }
 
   call_trigger(
-    "https://hooks.airtable.com/workflows/v1/genericWebhook/app7xwRPHHOaWI4pJ/wflHraW1RQjayg1Fb/wtrNXfOtmQN8cwtgb",
+    "https://hooks.airtable.com/workflows/v1/genericWebhook/appRYN3OZse3DG7dk/wflyLNHGL2T8dEnQs/wtrlCTYJiBKLmDcAZ",
     call_params
   ).then((data) => {
     toastr.success("You have successfully registered this call");
