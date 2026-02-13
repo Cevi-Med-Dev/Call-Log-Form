@@ -428,15 +428,15 @@ h2 {
 }
 
 .data-item {
-    background: #f8f9fa;
+    background: #e8ebee;
     border-left: 4px solid #c40b11;
     padding: 15px;
     margin-left: 25px;
     border-radius: 6px;
     display: flex;
     flex-direction: column;
-    align-items: self-end;
-    overflow-y: scroll;
+    align-items: center;
+    overflow-y: visible;
 }
 
 .data-row {
@@ -488,15 +488,14 @@ h2 {
 /* ORDER CARD STYLES – NAMESPACE: orderCard- */
 
 .orderCard-container {
-    display: flex;
-    justify-content: center;
+  
     padding: 20px;
+    width: 100%;
     font-family: system-ui, sans-serif;
 }
 
 .orderCard-card {
     height: max-content;
-    max-width: 850px;
     background: #ffffff;
     border-radius: 16px;
     padding: 25px;

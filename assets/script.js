@@ -4,7 +4,7 @@ var call_form_ = document.querySelector("#formContainer form"),
   currentTemplate,
   templateChosen,
   emailObject = {
-    "Bryan": "customercare@cevimed.com",
+    "Bryan": "bryan@cevimed.com",
     "Hector": "Hector@cevimed.com",
     "Diana": "design@cevimed.com",
     "Robert": "robert@cevimed.com",
@@ -18,6 +18,7 @@ var call_form_ = document.querySelector("#formContainer form"),
     "Jacob": "jacob@cevimed.com",
     "Mateo": "mateo@cevimed.com",
     "Nicky": "warehouse@cevimed.com",
+    "Customer-Care": "customercare@cevimed.com",
   },
   templateObject = {
     "🛡️ Warranty": [
@@ -204,118 +205,116 @@ Location / Address :`, "Log for Robert"],
     "❓ General Questions": ["", "Asking Questions", "Question :", "Answer : "],
     "🏦 Accouting / Carina": ["", "", "", "Log For Cari Ballesteros in Accounting"],
   }
-  //https://n8n.cevispace.com/webhook/d8b9bced-6334-4911-92b3-176f7cc7072d
-    const WEBHOOK_URL = 'https://n8n.cevispace.com/webhook/b82024da-0682-4550-a13b-b4f97536295f';
-    const form = document.getElementById('dataForm');
-    const loading = document.getElementById('loading');
-    const results = document.getElementById('results');
-    const error = document.getElementById('error');
-    const submitBtn = document.getElementById('submitBtn');
+//https://n8n.cevispace.com/webhook/d8b9bced-6334-4911-92b3-176f7cc7072d
+const WEBHOOK_URL = 'https://n8n.cevispace.com/webhook/b82024da-0682-4550-a13b-b4f97536295f';
+const form = document.getElementById('dataForm');
+const loading = document.getElementById('loading');
+const results = document.getElementById('results');
+const error = document.getElementById('error');
+const submitBtn = document.getElementById('submitBtn');
 
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
 
-      const invoiceNumber = document.getElementById('invoiceNumber').value.trim();
+  const invoiceNumber = document.getElementById('invoiceNumber').value.trim();
 
-      // Reset UI
-      error.classList.remove('active');
-      results.classList.remove('active');
-      loading.classList.add('active');
-      submitBtn.disabled = true;
+  // Reset UI
+  error.classList.remove('active');
+  results.classList.remove('active');
+  loading.classList.add('active');
+  submitBtn.disabled = true;
 
-      try {
-        // Make POST request to n8n webhook
-        const response = await fetch(WEBHOOK_URL, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            invoice: invoiceNumber
-          })
-        });
-
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        const data = await response.json();
-
-
-
-        // Display the data
-        displayData(data);
-
-      } catch (err) {
-        console.error('Error:', err);
-        error.textContent = `Error: ${err.message}. Please check the webhook URL and try again.`;
-        error.classList.add('active');
-      } finally {
-        loading.classList.remove('active');
-        submitBtn.disabled = false;
-      }
+  try {
+    // Make POST request to n8n webhook and waits for respond to webhook node from n8n
+    const response = await fetch(WEBHOOK_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        invoice: invoiceNumber
+      })
     });
 
-    function displayData(data) {
-      //Order : invoice , trips, calls
-      let dataArray = Object.values(data[0])
-      let fullArray = Object.entries(data[0]).map(l => [Object.keys(l), Object.values(l)].flat())
-
-
-      fullArray.forEach(l => {
-        console.log(l)
-
-        displaySection(Object.values(l[3]), `${l[2]}Content`, `${l[2]}Badge`, `No ${l[2]} Registered yet`, `${l[3]["records"].length}`, `${l[2]}`)
-      })
-      // Show results
-      results.classList.add('active');
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
     }
 
-    function displaySection(items, contentId, badgeId, emptyMessage, totalItems, type) {
-      const content = document.getElementById(contentId);
-      const badge = document.getElementById(badgeId);
-      // Update badge
-      badge.textContent = totalItems;
-      badge.classList.toggle('empty', items.length === 0);
+    const data = await response.json();
 
-      // Display items
-      if (items.length === 0) {
-        content.innerHTML = `<div class="no-data">${emptyMessage}</div>`;
-        return;
-      }
 
-      content.innerHTML = items.map((item, index) => {
-        console.log(Object.entries(item))
-        const formatDate = s => {
-  // Extract MM/DD/YYYY safely
-  const [m, dNum, y] = s.split("/").map(Number);
 
-  // FIX: create date without timezone shift
-  const d = new Date(y, m - 1, dNum);
+    // Display the data
+    displayData(data);
 
-  const day = d.getDate();
-  const suf = (n =>
-    (n % 10 == 1 && n != 11 ? "st" :
-     n % 10 == 2 && n != 12 ? "nd" :
-     n % 10 == 3 && n != 13 ? "rd" : "th")
-  )(day);
+  } catch (err) {
+    console.error('Error:', err);
+    error.textContent = `Error: ${err.message}. Please check the webhook URL and try again.`;
+    error.classList.add('active');
+  } finally {
+    loading.classList.remove('active');
+    submitBtn.disabled = false;
+  }
+});
 
-  return d
-    .toLocaleDateString("en-US", {
-      weekday: "long",
-      month: "long",
-      day: "numeric",
-      year: "numeric"
-    })
-    .replace(",", "")
-    .replace(day, day + suf);
-};
+function displayData(data) {
+  //Order : invoice , trips, calls
+  let fullArray = Object.entries(data[0]).map(l => [Object.keys(l), Object.values(l)].flat())
 
-        const renderOrderCard = (order, i) => `
+
+  fullArray.forEach(l => {
+    displaySection(Object.values(l[3]), `${l[2]}Content`, `${l[2]}Badge`, `No ${l[2]} Registered yet`, `${l[3]["records"].length}`, `${l[2]}`)
+  })
+  // Show results
+  results.classList.add('active');
+}
+
+function displaySection(items, contentId, badgeId, emptyMessage, totalItems, type) {
+  const content = document.getElementById(contentId);
+  const badge = document.getElementById(badgeId);
+  // Update badge
+  console.log(totalItems)
+  badge.textContent = totalItems;
+  badge.classList.toggle('empty', items.length === 0);
+
+  // Display items
+  if (items.length === 0) {
+    content.innerHTML = `<div class="no-data">${emptyMessage}</div>`;
+    return;
+  }
+
+  content.innerHTML = items.map((item, index) => {
+    
+    const formatDate = s => {
+      // Extract MM/DD/YYYY safely
+      const [m, dNum, y] = s.split("/").map(Number);
+
+      // FIX: create date without timezone shift
+      const d = new Date(y, m - 1, dNum);
+
+      const day = d.getDate();
+      const suf = (n =>
+      (n % 10 == 1 && n != 11 ? "st" :
+        n % 10 == 2 && n != 12 ? "nd" :
+          n % 10 == 3 && n != 13 ? "rd" : "th")
+      )(day);
+
+      return d
+        .toLocaleDateString("en-US", {
+          weekday: "long",
+          month: "long",
+          day: "numeric",
+          year: "numeric"
+        })
+        .replace(",", "")
+        .replace(day, day + suf);
+    };
+
+    const renderOrderCard = (order, i) => `
 <div class="orderCard-container">
   <div class="orderCard-card">
 
-    <h2 class="orderCard-title">Order #${order["Order #"] || order.Name}</h2>
+    <h2 class="orderCard-title">Item in Order ${order["Order #"] || order.Name}</h2>
 
     <div class="orderCard-section">
       <h3>Customer Info</h3>
@@ -353,7 +352,7 @@ Location / Address :`, "Log for Robert"],
     </div>
 
     ${order.Attachment?.length
-            ? `
+        ? `
         <div class="orderCard-section">
           <h3>Attachments</h3>
           <div class="orderCard-images">
@@ -363,10 +362,10 @@ Location / Address :`, "Log for Robert"],
           </div>
         </div>
       `
-            : ""}
+        : ""}
 
     ${order.POD?.length
-            ? `
+        ? `
         <div class="orderCard-section">
           <h3>POD Images</h3>
           <div class="orderCard-images">
@@ -376,12 +375,12 @@ Location / Address :`, "Log for Robert"],
           </div>
         </div>
       `
-            : ""}
+        : ""}
 
   </div>
 </div>
 `;
-        const renderTripsCard = (trip) => `
+    const renderTripsCard = (trip) => `
 <div class="orderCard-container">
   <div class="orderCard-card">
 
@@ -461,18 +460,48 @@ Location / Address :`, "Log for Robert"],
   </div>
 </div>
 `;
-        function renderCallCard(call) {
-          console.log(type)
-          const priorityColor = {
-            "low 💁‍♂️": 'rgba(245, 251, 85, 0.2)',        // transparent yellow
-            "medium 🤙": 'rgba(255, 159, 41,0.2)',       // transparent orange
-            "high❗": 'rgba(255, 95, 32,0.2)',           // transparent red
-            "urgent ⚠️❗": 'rgba(230, 39, 39,0.25)'          // darker red
-          };
+    const renderCommentsCard = (comments = []) => {
+      console.log(comments,Object.values(item))
+      return `
+  <div class="orderCard-container">
+    <div class="orderCard-card">
+      <h2 class="orderCard-title">Invoice Comments</h2>
 
-          const bgColor = priorityColor[call.priority?.toLowerCase()] || 'rgba(0,0,0,0.05)';
-          console.log(call.priority.toLowerCase(), bgColor)
-          return `
+      <div class="orderCard-section">
+        ${[comments].map(comment => `
+          <div class="orderCard-comment">
+            <div class="orderCard-commentHeader">
+              <strong>${comment.createdBy?.name || "Unknown User"}</strong>
+              <span class="orderCard-commentDate">
+                ${new Date(comment.createdTime).toLocaleString()}
+              </span>
+            </div>
+
+            <p class="orderCard-multiline">
+              ${comment.text
+          ? comment.text.replace(/\n/g, "<br>")
+          : ""}
+            </p>
+          </div>
+        `).join("")}
+      </div>
+
+    </div>
+  </div>
+  `;
+    };
+    function renderCallCard(call) {
+      console.log(type)
+      const priorityColor = {
+        "low 💁‍♂️": 'rgba(245, 251, 85, 0.2)',        // transparent yellow
+        "medium 🤙": 'rgba(255, 159, 41,0.2)',       // transparent orange
+        "high❗": 'rgba(255, 95, 32,0.2)',           // transparent red
+        "urgent ⚠️❗": 'rgba(230, 39, 39,0.25)'          // darker red
+      };
+
+      const bgColor = priorityColor[call.priority?.toLowerCase()] || 'rgba(0,0,0,0.05)';
+      console.log(call.priority.toLowerCase(), bgColor)
+      return `
           <div class="orderCard-container">
             <div style="background:${bgColor};" class="orderCard-card">
 
@@ -516,44 +545,55 @@ Location / Address :`, "Log for Robert"],
           </div>
 
   `;
-        } const executeCard = (type) => {
+    } 
+    const rows = Object.values(item);
 
-          switch (type) {
-            case "calls":
-              return rows.map(item => renderCallCard(item, index))
-              break;
+const executeCard = (type) => {
 
-            case "trips":
-              return rows.map(item => renderTripsCard(item, index))
-              break;
+  switch (type) {
 
-            case "invoices":
-              return rows.map(item => renderOrderCard(item, index))
-              break;
+    case "calls":
+      return rows.map((item, index) => renderCallCard(item, index)).join('');
 
-            default:
-              console.warn("Unknown type:", type);
-          }
-        }
-        const rows = Object.values(item)
+    case "trips":
+      return rows.map((item, index) => renderTripsCard(item, index)).join('');
+
+    case "invoices":
+      return rows.map((item, index) => renderOrderCard(item, index)).join('');
+
+    case "comments":
+      console.log(rows);
+      return rows.map((item, index) => renderCommentsCard(item, index)).join('');
+
+    default:
+      console.warn("Unknown type:", type);
+      return '';
+  }
+}
+
+return `
+  <div class="data-item">
+    ${executeCard(type)}
+  </div>
+`;
 
 
-        return `
+    return `
                     <div class="data-item">
                         ${executeCard(type)}
                     </div>
                 `;
-      }).join('');
-    }
+  }).join('')
+}
 
-    function formatFieldName(name) {
-      // Convert camelCase or snake_case to Title Case
-      return name
-        .replace(/([A-Z])/g, ' $1')
-        .replace(/_/g, ' ')
-        .replace(/\b\w/g, l => l.toUpperCase())
-        .trim();
-    }
+function formatFieldName(name) {
+  // Convert camelCase or snake_case to Title Case
+  return name
+    .replace(/([A-Z])/g, ' $1')
+    .replace(/_/g, ' ')
+    .replace(/\b\w/g, l => l.toUpperCase())
+    .trim();
+}
 
 //dependendies
 toastr.options = {
