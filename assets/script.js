@@ -465,13 +465,13 @@ function displaySection(items, contentId, badgeId, emptyMessage, totalItems, typ
       return `
   <div class="orderCard-container">
     <div class="orderCard-card">
-      <h2 class="orderCard-title">Invoice Comments</h2>
+      <h2 class="orderCard-title">Invoice Comment</h2>
 
       <div class="orderCard-section">
         ${[comments].map(comment => `
           <div class="orderCard-comment">
             <div class="orderCard-commentHeader">
-              <strong>${comment.createdBy?.name || "Unknown User"}</strong>
+              <strong>${comment.createdBy || "Unknown User"}  </strong> Commented on
               <span class="orderCard-commentDate">
                 ${new Date(comment.createdTime).toLocaleString()}
               </span>
