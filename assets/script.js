@@ -755,6 +755,24 @@ document.getElementById("wrapUpCall").addEventListener("click", () => {
   }, 2000);
 });
 
+document.querySelectorAll(".toggle-btn").forEach(btn => {
+  const section = document
+    .getElementById(btn.dataset.toggle + "Content")
+    .closest(".data-section");
+
+  // Default: hide all except comments
+  if (btn.dataset.toggle !== "comments") {
+    section.style.display = "none";
+  }
+
+  btn.addEventListener("click", () => {
+    btn.classList.toggle("active");
+
+    const visible = section.style.display !== "none";
+    section.style.display = visible ? "none" : "block";
+  });
+});
+
 // Example usage: Display a success message
 
 //  // Example usage: Display an error message

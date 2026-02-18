@@ -426,6 +426,42 @@ h2 {
     text-align: center;
     width: 100%;
 }
+.toggle-bar {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.toggle-btn {
+  padding: 8px 16px;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+  background-color: #f2f2f2;
+  color: #555;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+/* Hover */
+.toggle-btn:hover {
+  border-color: #c40b11;
+  color: #c40b11;
+}
+
+/* Active State */
+.toggle-btn.active {
+  background-color: #c40b11;
+  border-color: #c40b11;
+  color: white;
+}
+
+/* Optional subtle press effect */
+.toggle-btn:active {
+  transform: scale(0.97);
+}
 
 .data-item {
     background: #e8ebee;
