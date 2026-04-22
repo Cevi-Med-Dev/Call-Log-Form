@@ -680,8 +680,8 @@ document.getElementById("template").addEventListener("change", ({ target }) => {
   templateChosen = Object.values(currentTemplate).filter(
     (temp) => Object.keys(temp)[0] === target.value
   );
-  call_formData.append(`template`, `${Object.values(templateChosen[0])[0]}`);
-  console.log(call_formData);
+  call_formData.template = `${Object.values(templateChosen[0])[0]}`
+  console.log("call_formData" ,call_formData, "template" , (`template`, `${Object.values(templateChosen[0])[0]}`),call_formData.template);
 });
 document.addEventListener("click", e => {
   document.querySelectorAll(".section-header").forEach(header => {
@@ -704,7 +704,7 @@ document.querySelectorAll("input[type=checkbox]").forEach((checkBox) => {
   checkBox.checked &&
     call_formData.append(`${checkBox.name}`, `${checkBox.value}`);
 });
-
+console.log(document.querySelectorAll("input[type=checkbox]"))
 //assignee emails
 document
   .querySelector(".assigneeChkBx")
