@@ -151,9 +151,42 @@ label.blackTxt {
     color: black !important;
 }
 
-#assigneeContainer select {
+.assigneeNotifyGroup {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(135px, 1fr));
+    gap: 8px;
     width: 100%;
-    text-align: center;
+    margin: 8px 0 0;
+    padding: 10px;
+    text-align: left;
+    border: 1px solid rgba(0, 0, 0, 0.18);
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.72);
+}
+
+.assigneeNotifyGroup legend {
+    padding: 0 6px;
+    color: black;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.assigneeNotifyGroup label {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    margin: 0;
+    padding: 7px 8px;
+    color: black;
+    font-size: 14px;
+    line-height: 1.2;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    border-radius: 5px;
+    background: white;
+}
+
+.assigneeNotifyGroup input {
+    margin: 0;
 }
 .orderCard-container {
   max-height: 20px;

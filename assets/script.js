@@ -3,6 +3,7 @@ var call_form_ = document.querySelector("#formContainer form"),
   call_params = "",
   currentTemplate,
   templateChosen,
+  selectedTemplateBody,
   emailObject = {
     "Bryan": "bryan@cevimed.com",
     "Hector": "Hector@cevimed.com",
@@ -274,7 +275,6 @@ function displaySection(items, contentId, badgeId, emptyMessage, totalItems, typ
   const content = document.getElementById(contentId);
   const badge = document.getElementById(badgeId);
   // Update badge
-  console.log(totalItems)
   badge.textContent = totalItems;
   badge.classList.toggle('empty', items.length === 0);
 
@@ -462,7 +462,6 @@ function displaySection(items, contentId, badgeId, emptyMessage, totalItems, typ
 </div>
 `;
     const renderCommentsCard = (comments = []) => {
-      console.log(comments,Object.values(item))
       return `
   <div class="orderCard-container">
     <div class="orderCard-card">
@@ -492,7 +491,6 @@ function displaySection(items, contentId, badgeId, emptyMessage, totalItems, typ
   `;
     };
     function renderCallCard(call) {
-      console.log(type)
       const priorityColor = {
         "low 💁‍♂️": 'rgba(245, 251, 85, 0.2)',        // transparent yellow
         "medium 🤙": 'rgba(255, 159, 41,0.2)',       // transparent orange
@@ -501,7 +499,6 @@ function displaySection(items, contentId, badgeId, emptyMessage, totalItems, typ
       };
 
       const bgColor = priorityColor[call.priority?.toLowerCase()] || 'rgba(0,0,0,0.05)';
-      console.log(call.priority.toLowerCase(), bgColor)
       return `
           <div class="orderCard-container">
             <div style="background:${bgColor};" class="orderCard-card">
@@ -563,7 +560,6 @@ const executeCard = (type) => {
       return rows.map((item, index) => renderOrderCard(item, index)).join('');
 
     case "comments":
-      console.log(rows);
       return rows.map((item, index) => renderCommentsCard(item, index)).join('');
 
     default:
@@ -594,6 +590,108 @@ function formatFieldName(name) {
     .replace(/_/g, ' ')
     .replace(/\b\w/g, l => l.toUpperCase())
     .trim();
+}
+
+function getSelectedAssignees() {
+  return Array.from(
+    document.querySelectorAll('#assigneeContainer input[name="assignee"]:checked')
+  )
+    .map((input) => input.value)
+    .filter(Boolean);
+}
+
+function getSelectedAssigneeEmails() {
+  return getSelectedAssignees()
+    .map((assignee) => emailObject[assignee])
+    .filter(Boolean);
+}
+
+const assigneeNotificationOptions = [
+  { value: "Hector", label: "Hector" },
+  { value: "Jacob", label: "Jacob" },
+  { value: "Mateo", label: "Mateo" },
+  { value: "Robert", label: "Robert" },
+  { value: "Bryan", label: "Bryan" },
+  { value: "Diana", label: "Diana" },
+  { value: "James", label: "James" },
+  { value: "Simon", label: "Simon" },
+  { value: "Natally", label: "Natally" },
+  { value: "Adriana", label: "Adriana" },
+  { value: "Lina", label: "Lina" },
+  { value: "Angela", label: "Angela" },
+  { value: "Carina", label: "Carina" },
+  { value: "Niki", label: "Niki" },
+  { value: "Meaghan", label: "Meaghan" },
+  { value: "Customer-Care", label: "Customer Care" },
+];
+
+function renderAssigneeChecklist() {
+  const container = document.getElementById("assigneeContainer");
+
+  if (!container) {
+    return;
+  }
+
+  if (!document.getElementById("assigneeChecklistStyles")) {
+    const style = document.createElement("style");
+    style.id = "assigneeChecklistStyles";
+    style.textContent = `
+      #assigneeContainer .assigneeNotifyGroup {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(135px, 1fr));
+        gap: 8px;
+        width: 100%;
+        margin: 8px 0 0;
+        padding: 10px;
+        text-align: left;
+        border: 1px solid rgba(0, 0, 0, 0.18);
+        border-radius: 6px;
+        background: rgba(255, 255, 255, 0.9);
+      }
+
+      #assigneeContainer .assigneeNotifyGroup legend {
+        padding: 0 6px;
+        color: black;
+        font-size: 13px;
+        font-weight: 700;
+      }
+
+      #assigneeContainer .assigneeNotifyGroup label {
+        display: flex !important;
+        align-items: center;
+        gap: 7px;
+        max-width: none !important;
+        margin: 0;
+        padding: 7px 8px;
+        color: black !important;
+        font-size: 14px;
+        line-height: 1.2;
+        text-align: left;
+        white-space: nowrap;
+        border: 1px solid rgba(0, 0, 0, 0.12);
+        border-radius: 5px;
+        background: white;
+      }
+
+      #assigneeContainer .assigneeNotifyGroup input {
+        flex: 0 0 auto;
+        margin: 0;
+      }
+    `;
+    document.head.appendChild(style);
+  }
+
+  container.innerHTML = `
+    <fieldset class="assigneeNotifyGroup animate__animated animate__bounceInRight">
+      <legend>Notify these people</legend>
+      ${assigneeNotificationOptions
+        .map(
+          ({ value, label }) =>
+            `<label><input type="checkbox" name="assignee" value="${value}"><span>${label}</span></label>`
+        )
+        .join("")}
+    </fieldset>
+  `;
 }
 
 //dependendies
@@ -631,123 +729,150 @@ let call_trigger = async (url, data) => {
   return response; // parses JSON response into native JavaScript objects
 };
 
-//Events
-document.getElementById("CSA").addEventListener("change", ({ target }) => {
+// Events
+const csaSelect = document.getElementById("CSA");
+const typeSelect = document.getElementById("Type");
+const templateSelect = document.getElementById("template");
+const templateHider = document.querySelector("#templateHider");
+const templateContainer = document.getElementById("templateContainer");
+const assigneeCheckbox = document.querySelector(".assigneeChkBx");
+const assigneeContainer = document.getElementById("assigneeContainer");
+const invoiceField = document.querySelector('[name="invoice"]');
+const invoiceLookupField = document.getElementById("invoiceNumber");
+
+renderAssigneeChecklist();
+
+const assigneeInputs = document.querySelectorAll('#assigneeContainer input[name="assignee"]');
+
+csaSelect.addEventListener("change", () => {
+  const csaName = csaSelect.value.toUpperCase();
+
   toastr.success(
-    `Thank you for calling CeviMed this is ${document
-      .querySelector("#CSA")
-      .value.toUpperCase()}</b> , May I Please have your name? `
+    `Thank you for calling CeviMed this is ${csaName}</b> , May I Please have your name? `
   );
 });
 
-document.getElementById("Type").addEventListener("change", ({ target }) => {
-  document.getElementById("template").innerHTML = "";
-  console.log(target.value)
-  document.querySelector('[name="cName"]').value += `${fillerObject[`${target.value}`][0]}`
-  document.querySelector('[name="reason"]').value += `${fillerObject[`${target.value}`][1]}`
-  document.querySelector('[name="issue"]').value += `    /...${fillerObject[`${target.value}`][2]}`
-  document.querySelector('[name="resolution"]').value += `   /...${fillerObject[`${target.value}`][3]}`
-  if (templateObject[`${target.value}`] !== undefined) {
-    toastr.info(`Protocol Email Templates Available for ${target.value}`);
-    currentTemplate = templateObject[`${target.value}`];
-    document.querySelector("#templateHider").classList.remove("hide");
-    document.getElementById("template").innerHTML = '<option value="">Choose an Email Template</option>';
-    const regex = new RegExp(["🔄 ", "❓"].join("|"), "gi");
-    const matches = target.value.match(regex);
-    if (matches) {
+typeSelect.addEventListener("change", ({ target }) => {
+  const selectedType = target.value;
+  const fillerValues = fillerObject[selectedType];
+  const templates = templateObject[selectedType];
 
-      console.log("Found words:", matches); // Output: ["questions or orders"]
-    } else {
-      // Output: ["category is not dynamic"]
-      console.log("No matches found");
-    }
+  templateSelect.innerHTML = "";
 
-    templateObject[`${target.value}`].forEach((template) => {
-      console.log(templateObject[`${target.value}`], target.value),
-        (document.getElementById("template").innerHTML += `<option value="${Object.keys(template)[0]}">${Object.keys(template)[0]} ${target.value.split(" ")[0]}</option>`);
-      //  if (target.value.includes("")) {
-      //     document.getElementById("template").innerHTML += `<option value="${Object.keys(template)[0]}">${Object.keys(template)[0]} ${target.value.split(" ")[0]}</option>`;
-      //    }
-    });
-  } else {
-    toastr.warning(`No Protocols for the ${target.value} Category`);
-    document.querySelector("#templateHider").classList.add("hide");
+  if (fillerValues) {
+    document.querySelector('[name="cName"]').value += `${fillerValues[0]}`;
+    document.querySelector('[name="reason"]').value += `${fillerValues[1]}`;
+    document.querySelector('[name="issue"]').value += `    /...${fillerValues[2]}`;
+    document.querySelector('[name="resolution"]').value += `   /...${fillerValues[3]}`;
+  }
+
+  if (templates === undefined) {
+    toastr.warning(`No Protocols for the ${selectedType} Category`);
+    templateHider.classList.add("hide");
     return;
   }
+
+  toastr.info(`Protocol Email Templates Available for ${selectedType}`);
+  currentTemplate = templates;
+  templateHider.classList.remove("hide");
+  templateSelect.innerHTML = '<option value="">Choose an Email Template</option>';
+
+  templates.forEach((template) => {
+    const templateName = Object.keys(template)[0];
+    templateSelect.innerHTML += `<option value="${templateName}">${templateName} ${selectedType.split(" ")[0]}</option>`;
+  });
 });
 
-document.getElementById("template").addEventListener("change", ({ target }) => {
-  call_form_ = document.querySelector("#formContainer form"),
+templateSelect.addEventListener("change", ({ target }) => {
+  if (!target.value || !currentTemplate) {
+    selectedTemplateBody = "";
+    return;
+  }
+
   templateChosen = Object.values(currentTemplate).filter(
     (temp) => Object.keys(temp)[0] === target.value
   );
-  call_formData.template = `${Object.values(templateChosen[0])[0]}`
-   call_params += `template=${call_formData.template}&`;
-  console.log("call_formData" ,call_formData, "template" , (`template`, `${Object.values(templateChosen[0])[0]}`),"TEMPLATEVARIABLE : ", call_formData.template);
+
+  selectedTemplateBody = templateChosen[0]
+    ? `${Object.values(templateChosen[0])[0]}`
+    : "";
 });
-document.addEventListener("click", e => {
-  document.querySelectorAll(".section-header").forEach(header => {
-    header.addEventListener("click", ({ target }) => {
-      // console.log("target", target, "parent", target.parentNode.parentNode, "data to hide : ", Array.from(target.parentNode.parentNode.querySelectorAll(".orderCard-container")))
-      Array.from(target.parentNode.parentNode.querySelectorAll(".orderCard-container")).forEach(el => {
-        el.classList.toggle("open")
-        console.log("attemoted to hide")
-      })
-    })
-  })
+
+document.querySelectorAll(".section-header").forEach((header) => {
+  header.addEventListener("click", ({ target }) => {
+    Array.from(target.parentNode.parentNode.querySelectorAll(".orderCard-container")).forEach((el) => {
+      el.classList.toggle("open");
+    });
+  });
 });
-document.querySelector('[name="invoice"]').addEventListener("focusout", ({ target }) => {
-  console.log(target.value, document.getElementById("invoiceNumber"))
-  document.getElementById("invoiceNumber").value = target.value
+
+invoiceField.addEventListener("focusout", ({ target }) => {
+  invoiceLookupField.value = target.value;
   toastr.success("Click the Retrieve Data Button!");
 });
 
 document.querySelectorAll("input[type=checkbox]").forEach((checkBox) => {
-  checkBox.checked &&
+  if (checkBox.checked) {
     call_formData.append(`${checkBox.name}`, `${checkBox.value}`);
+  }
 });
-console.log(document.querySelectorAll("input[type=checkbox]"))
-//assignee emails
-document
-  .querySelector(".assigneeChkBx")
-  .addEventListener("click", ({ target }) => {
-    document.getElementById("assigneeContainer").classList.toggle("hide");
-    document
-      .querySelector("#assigneeContainer select")
-      .addEventListener("change", () => {
-        toastr.info(
-          `${document.querySelector("#assigneeContainer select").value}`
-        );
-        call_params += `assigneeEmail=${emailObject[document.querySelector("#assigneeContainer select").value]
-          }&`;
-      });
+
+// Assignee emails
+assigneeCheckbox.addEventListener("click", () => {
+  assigneeContainer.classList.toggle("hide");
+});
+
+assigneeInputs.forEach((assigneeInput) => {
+  assigneeInput.addEventListener("change", () => {
+    const assignees = getSelectedAssignees();
+
+    if (assignees.length) {
+      toastr.info(`Notifying: ${assignees.join(", ")}`);
+    }
   });
-
-//Shows/Hides Email Elements
-document.querySelector(".template").addEventListener("click", ({ target }) => {
-  document.getElementById("templateContainer").classList.toggle("hide");
 });
 
-//submit event handler
-console.log(call_formData.entries())
+// Shows/hides email elements
+document.querySelector(".template").addEventListener("click", () => {
+  templateContainer.classList.toggle("hide");
+});
+
+// Submit event handler
 call_form_.addEventListener("submit", (e) => {
   e.preventDefault();
-  for (var [key, value] of call_formData.entries()) {
-    console.log(call_params, key)
-    if (key === "assignee") {
-      call_params += `${key}=${document.querySelector("#assigneeContainer select").value
-        }&`;
+
+  call_formData = new FormData(call_form_);
+  const params = new URLSearchParams();
+
+  if (call_formData.has("template")) {
+    call_formData.set("template", selectedTemplateBody || "");
+  }
+
+  call_formData.delete("assignee");
+
+  if (assigneeCheckbox.checked) {
+    const selectedAssignees = getSelectedAssignees();
+    const selectedAssigneeEmails = getSelectedAssigneeEmails();
+
+    if (selectedAssignees.length) {
+      call_formData.set("assignee", selectedAssignees.join(","));
     }
 
-    call_params += `${key}=${document.querySelector("*[name=" + key + "] ").value
-      }&`;
-    console.log(call_params );
+    if (selectedAssigneeEmails.length) {
+      params.append("assigneeEmail", selectedAssigneeEmails.join(","));
+    }
   }
+
+  for (var [key, value] of call_formData.entries()) {
+    params.append(key, value);
+  }
+
+  call_params = params.toString();
 
   call_trigger(
     "https://hooks.airtable.com/workflows/v1/genericWebhook/appRYN3OZse3DG7dk/wflyLNHGL2T8dEnQs/wtrlCTYJiBKLmDcAZ",
     call_params
-  ).then((data) => {
+  ).then(() => {
     toastr.success("You have successfully registered this call");
   });
 });
