@@ -655,7 +655,7 @@ document.getElementById("Type").addEventListener("change", ({ target }) => {
     const regex = new RegExp(["🔄 ", "❓"].join("|"), "gi");
     const matches = target.value.match(regex);
     if (matches) {
-      categ
+
       console.log("Found words:", matches); // Output: ["questions or orders"]
     } else {
       // Output: ["category is not dynamic"]
@@ -677,11 +677,13 @@ document.getElementById("Type").addEventListener("change", ({ target }) => {
 });
 
 document.getElementById("template").addEventListener("change", ({ target }) => {
+  call_form_ = document.querySelector("#formContainer form"),
   templateChosen = Object.values(currentTemplate).filter(
     (temp) => Object.keys(temp)[0] === target.value
   );
   call_formData.template = `${Object.values(templateChosen[0])[0]}`
-  console.log("call_formData" ,call_formData, "template" , (`template`, `${Object.values(templateChosen[0])[0]}`),call_formData.template);
+   call_params += `template=${call_formData.template}&`;
+  console.log("call_formData" ,call_formData, "template" , (`template`, `${Object.values(templateChosen[0])[0]}`),"TEMPLATEVARIABLE : ", call_formData.template);
 });
 document.addEventListener("click", e => {
   document.querySelectorAll(".section-header").forEach(header => {
@@ -727,19 +729,19 @@ document.querySelector(".template").addEventListener("click", ({ target }) => {
 });
 
 //submit event handler
+console.log(call_formData.entries())
 call_form_.addEventListener("submit", (e) => {
   e.preventDefault();
   for (var [key, value] of call_formData.entries()) {
+    console.log(call_params, key)
     if (key === "assignee") {
       call_params += `${key}=${document.querySelector("#assigneeContainer select").value
         }&`;
     }
-    if (key === "template") {
-      call_params += `${key}=${Object.values(templateChosen[0])[0]}&`;
-    }
+
     call_params += `${key}=${document.querySelector("*[name=" + key + "] ").value
       }&`;
-    console.log(key, " = ", value);
+    console.log(call_params );
   }
 
   call_trigger(
