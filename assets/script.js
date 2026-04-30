@@ -3,7 +3,7 @@ var call_form_ = document.querySelector("#formContainer form"),
   call_params = "",
   currentTemplate,
   templateChosen,
-  selectedTemplateBody,
+  selectedTemplateKeyword,
   emailObject = {
     "Bryan": "bryan@cevimed.com",
     "Hector": "Hector@cevimed.com",
@@ -24,153 +24,37 @@ var call_form_ = document.querySelector("#formContainer form"),
   },
   templateObject = {
     "🛡️ Warranty": [
-      {
-        "information Request": `In order for us to start a warranty case we need the following information
-        🖊️ Customers Name: 
-        📜 Invoice #: 
-        💭 Brief Description of the problem: 
-        📷 Clear Pictures: 
-        🎥 Video to have a visual of the problem and determine the solution: if the video is too big, please attach a google drive link, youtube link, wetransfer etc. 
-        📞 Best call back phone number to FaceTime: It can be android or iPhone:`,
-      },
-      {
-        "Out Of Warranty": `We are sorry to inform you that you are out of warranty
-        However this does not mean we won't help you, 
-        we need the following information in order help you find solutions
-
-        🖊️ Customers Name: 
-        📜 Invoice #: 
-        💭 Brief Description of the problem: 
-        📷 Clear Pictures: 
-        🎥 Video to have a visual of the problem and determine the solution: if the video is too big, please attach a google drive link, youtube link, wetransfer etc. 
-        📞 Best call back phone number to FaceTime: It can be android or iPhone:`,
-      },
+      "Information Request",
+      "Out Of Warranty",
     ],
     "💸 Sales": [
-      {
-        "Request Offer Details": `In order to make sure we get the equipment you want to sell 💸 in front of the right eyes 👀
-          Please provide us with the follwoing information :
-
-          🖋️ Seller Name :
-          💸 List of Equipment you Want to Sell (include asking price) :
-          📋 Inlude a Description of Conditions, Use and Antiguity :
-          📷 Images of Equipment :
-          🎥 Videos of Equipment :
-          `,
-      },
-      {
-        "Send W9":
-          "wants good quote on product and shipping, give us address and CM numbers",
-      },
+      "Request Offer Details",
+      "Send W9",
     ],
     "🔍 Suspicious Order Verification": [
-      {
-        "Re-Send Request for Identification":
-          `Thank you for shopping at Cevimed. Your order was successfully received
-We are in contact with you, because we need a picture of your license, medical card and office address, in order to process the shipment of your order.
-If you have any questions or need to make any changes to your order, please let us know.
-You can contact me directly at order@cevimed.com or you can call our customer service by phone at (833) 238-4633.
-Thank you very much`,
-      },
+      "Re-Send Request for Identification",
     ],
     "🚚 Delivery": [
-      {
-        "Written Confirmation Date,Time & Address of Delivery":
-          `Following up on our recent phone conversation, we would like to confirm the details we discussed for your reference:
-
-            📅 Date: 
-            ⏰ Time: 
-
-            This email serves as a written confirmation of our conversation, ensuring everything is clear and aligned.
-
-            We appreciate your trust in CeviMed and look forward to serving you.`,
-      }
+      "Written Confirmation Date,Time & Address of Delivery",
     ],
     "📝 Online Purchase": [
-      {
-        "Resend Back Order Email":
-          "Information or issues concerning online purchases made through a website or platform.",
-      },
-      //list of vendors
-      {
-        "Contact vendor on behalf of customer":
-          "Request information on behalf of customer from vendor such as ETA / TKN / Status etc.",
-      },
+      "Resend Back Order Email",
+      "Contact vendor on behalf of customer",
     ],
     "🧾 quoteRequest": [
-      {
-        "Quote Request / Business": `
-        
-        Thanks for reaching out! ✨🛍️
-
-        We’d love to assist with your new order request 🛒. 
-        To provide the most accurate pricing and options, We would like to collect a few details : 
-          
-          🔹 Best Call Back number
-          🔹 Product(s) or service needed
-          🔹 Quantity
-          🔹 Any special requirements or customizations
-          🔹 Delivery Address(residential or business)
-        
-        We’re looping in Robert to ensure you get the best options available. Looking forward to your reply so we can get started! 
-        
-        `,
-      },
-      {
-        "Quote Request / Resident":
-          `Thanks for reaching out!✨🛍️
-          We’re happy to assist with your order request 🛒.
-          To provide the best pricing and availability, could you share a few details :
-
-      🔹 Best Call Back number
-      🔹 Item(s) and Quantity
-      🔹 Shipping/location Address and Delivery instructions
-      🔹 Pictures on Entrance 
-
-      We’re tagging in Robert to assist and get you the best options available!😊`,
-      },
+      "Quote Request / Business",
+      "Quote Request / Resident",
     ],
-    //done
     "😭 grievance": [
-      {
-        "General Grievance Response": `On Behalf of CeviMed we Extend a heartfelt apology 🥺💖
-          
-          We’re really sorry to hear about your recent inconviniences😔. 
-          Your experience matters to us ✨, and we want to help mitigate and resolve this issue ASAP.
-          Could you please share a few more details? (Invoice #,What happened? When? Any specifics?) 
-
-          This will help us get the right team on it 👀 as well as ensure it dosen't happen again ✋🏻
-          
-          Thank you for your time and patience`,
-      },
-      {
-        "Case Escalated / Extended Apology Email": `On behalf of CeviMed, we extend a sincere apology for this situation 🥺💔. 
-           We take this very seriously and want to act fast to help resolve it ASAP.
-           This is case is being escalated and we would like to collect all the details in writting
-           Please share with us : (Invoice #, What happened? When? Any specifics?)
-
-           Our team is already looking into this matter, and we’ll do everything possible to assist you 💪
-           
-           Your patience means the world to us 💕. 
-           
-           We’re here to help, and we won’t stop until this is resolved!`,
-      },
+      "General Grievance Response",
+      "Case Escalated / Extended Apology Email",
     ],
     "🔄 Order Update": [
-      {
-        "Update Re cap":
-          "",
-      },
+      "Update Re cap",
     ],
     "❓ General Questions": [
-      {
-        "Answer in Writting":
-          "General inquiries not related to a specific category, often seeking clarifications or additional information.",
-      },
-      {
-        "Gathering More information for Answer":
-          "General inquiries not related to a specific category, often seeking clarifications or additional information.",
-      },
+      "Answer in Writting",
+      "Gathering More information for Answer",
     ],
 
   },
@@ -214,6 +98,10 @@ const loading = document.getElementById('loading');
 const results = document.getElementById('results');
 const error = document.getElementById('error');
 const submitBtn = document.getElementById('submitBtn');
+
+function getTemplateKeyword(template) {
+  return typeof template === "string" ? template : Object.keys(template)[0];
+}
 
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
@@ -757,6 +645,7 @@ typeSelect.addEventListener("change", ({ target }) => {
   const fillerValues = fillerObject[selectedType];
   const templates = templateObject[selectedType];
 
+  selectedTemplateKeyword = "";
   templateSelect.innerHTML = "";
 
   if (fillerValues) {
@@ -778,23 +667,23 @@ typeSelect.addEventListener("change", ({ target }) => {
   templateSelect.innerHTML = '<option value="">Choose an Email Template</option>';
 
   templates.forEach((template) => {
-    const templateName = Object.keys(template)[0];
+    const templateName = getTemplateKeyword(template);
     templateSelect.innerHTML += `<option value="${templateName}">${templateName} ${selectedType.split(" ")[0]}</option>`;
   });
 });
 
 templateSelect.addEventListener("change", ({ target }) => {
   if (!target.value || !currentTemplate) {
-    selectedTemplateBody = "";
+    selectedTemplateKeyword = "";
     return;
   }
 
   templateChosen = Object.values(currentTemplate).filter(
-    (temp) => Object.keys(temp)[0] === target.value
+    (temp) => getTemplateKeyword(temp) === target.value
   );
 
-  selectedTemplateBody = templateChosen[0]
-    ? `${Object.values(templateChosen[0])[0]}`
+  selectedTemplateKeyword = templateChosen[0]
+    ? getTemplateKeyword(templateChosen[0])
     : "";
 });
 
@@ -845,7 +734,7 @@ call_form_.addEventListener("submit", (e) => {
   const params = new URLSearchParams();
 
   if (call_formData.has("template")) {
-    call_formData.set("template", selectedTemplateBody || "");
+    call_formData.set("template", selectedTemplateKeyword || "");
   }
 
   call_formData.delete("assignee");
