@@ -434,21 +434,19 @@
 </style>
 
 <script>
+
+ window.location.assign("https://cs.cevispace.com/auth/login");
+
   (function clrp2026RedirectPopup() {
     "use strict";
-
+   
     var overlay = document.getElementById("clrp2026-overlay");
     var continueButton = document.getElementById("clrp2026-continue-button");
     var bypassButton = document.getElementById("clrp2026-bypass-button");
-    var redirectUrl = "https://cs.cevispace.com/auth/login";
 
     if (!overlay || !continueButton || !bypassButton) {
       return;
     }
-
-    continueButton.addEventListener("click", function clrp2026HandleContinue() {
-      window.location.assign(redirectUrl);
-    });
 
     bypassButton.addEventListener("click", function clrp2026HandleBypass() {
       overlay.classList.add("clrp2026-hidden");
